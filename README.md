@@ -2,7 +2,7 @@
 Front-End Plus Project 3(Final):- E-commerce site with AI Chat bot capabilities 
 ## **Site Preview**
 ### Live link
-()
+(https://leebri101.github.io/Style-Sheet/)
 ## Contents-Page:
 1. [**Project-Planning**](#project-planning)
     * [**Target Audiences**](#target-audiences)
