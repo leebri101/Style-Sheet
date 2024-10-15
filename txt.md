@@ -1,0 +1,54 @@
+.gitignore
+eslint.config.js
+index.html
+package.json
+public/
+README.md
+src/
+    App.css
+    App.jsx
+    assets/
+        doc/
+            screenshots/
+            wireframes/
+        images/
+    components/
+        Cart/
+            Cart.jsx
+            CartItem.jsx
+            CartSummary.jsx
+        Checkout/
+            Checkout.jsx
+            PaymentForm.jsx
+            ShippingForm.jsx
+        Layout/
+            Footer.jsx
+            Header.jsx
+            Navbar.jsx
+        Product/
+            Product.jsx
+            ProductList.jsx
+            ProductDetail.jsx
+        User/
+            Login.jsx
+            Register.jsx
+            Profile.jsx
+    context/
+        CartContext.jsx
+        UserContext.jsx
+    hooks/
+        useCart.jsx
+        useUser.jsx
+    services/
+        api.js
+        auth.js
+    styles/
+        variables.css
+        mixins.css
+    utils/
+        formatCurrency.js
+        validateForm.js
+    index.css
+    main.jsx
+TESTING.md
+vite.config.js
