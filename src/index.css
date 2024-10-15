@@ -1,13 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
-  font-family: DM Sans, system-ui, Montserrat, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: DM Sans, system-ui, Montserrat, Helvetica, sans-serif;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -33,7 +30,6 @@ body {
 
 h1 {
   font-size: 3.5em;
-  line-height: 1.5;
 }
 
 button {
