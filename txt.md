@@ -14,17 +14,17 @@ src/
         images/
     components/
         Cart/
-            Cart.jsx
+            <!--Cart.jsx
             CartItem.jsx
-            CartSummary.jsx
+            CartSummary.jsx-->
         Checkout/
-            Checkout.jsx
+            <!--Checkout.jsx
             PaymentForm.jsx
-            ShippingForm.jsx
+            ShippingForm.jsx-->
         Layout/
-            Footer.jsx
+            <!--Footer.jsx
             Header.jsx
-            Navbar.jsx
+            Navbar.jsx-->
         Product/
             Product.jsx
             ProductList.jsx
