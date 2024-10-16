@@ -1,10 +1,8 @@
-
-
 const Home = () => {
     return (
         <div>
-            <h1>Welcome to the Homepage</h1>
-            <p>This is the homepage of our app.</p>
+            <h1>Welcome to Your Custom Style-Sheet</h1>
+            <p>Find all the unique styles that you need right here... </p>
         </div>
     );
 };
