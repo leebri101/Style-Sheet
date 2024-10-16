@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import './components/layout/navbar.jsx'
+import './components/layout/navbar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,8 +10,8 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
       <h1>Style-Sheet</h1>
+        <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
@@ -34,3 +34,5 @@ function App() {
 }
 
 export default App
+
+
