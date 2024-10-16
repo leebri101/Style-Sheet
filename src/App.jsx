@@ -2,13 +2,15 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import './components/layout/navbar'
+import Navbar from './components/layout/navbar'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+
+      <Navbar />
       <div>
       <h1>Style-Sheet</h1>
         <a href="https://vitejs.dev" target="_blank">
