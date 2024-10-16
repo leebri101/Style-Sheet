@@ -1,27 +1,44 @@
 import { useState } from 'react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel, useColorMode } from '@chakra-ui/react'
+import { Tabs, TabList, Tab, extendTheme, ChakraProvider } from '@chakra-ui/react'
+
+const customTheme = extendTheme({
+    colors: {
+        customRed: {
+            50: '#ffe5e5',
+            900: '#660000',
+        },
+        customTeal: {
+            50: '#e6fffa',
+            900: '#004d40',
+        },
+        customBlue: {
+            50: '#e3f2fd',
+            900: '#0d47a1',
+        },
+    },
+})
 
 function Links() {
-    const colors = useColorMode(
-      ['red.50', 'teal.50', 'blue.50'],
-      ['red.900', 'teal.900', 'blue.900'],
-    )
     const [tabIndex, setTabIndex] = useState(0)
-    const bg = colors[tabIndex]
+    const bg = ['customRed.50', 'customTeal.50', 'customBlue.50'][tabIndex]
     return (
       <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
         <TabList>
-          <Tab>Mens</Tab>
-          <Tab>Women</Tab>
-          <Tab>Kids</Tab>
+          <Tab>Products</Tab>
+          <Tab>My Styles(Wishlist)</Tab>
+          <Tab>Basket</Tab>
+          <Tab>Login/Register</Tab>
         </TabList>
-        <TabPanels p='2rem'>
-          <TabPanel>Mens</TabPanel>
-          <TabPanel>Women</TabPanel>
-          <TabPanel>Kids</TabPanel>
-        </TabPanels>
       </Tabs>
     )
-  }
+}
 
-export default Links
+function App() {
+    return (
+        <ChakraProvider theme={customTheme}>
+            <Links />
+        </ChakraProvider>
+    )
+}
+
+export default App
