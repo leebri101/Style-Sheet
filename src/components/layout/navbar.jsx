@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, useColorMode } from '@chakra-ui/react'
 
-function tab() {
-    const colors = useColorModeValue(
+function Links() {
+    const colors = useColorMode(
       ['red.50', 'teal.50', 'blue.50'],
       ['red.900', 'teal.900', 'blue.900'],
     )
@@ -24,4 +24,4 @@ function tab() {
     )
   }
 
-export default tab
+export default Links
