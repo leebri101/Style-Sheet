@@ -9,8 +9,7 @@ function App() {
 
   return (
     <>
-
-      <Navbar />
+    <Navbar />
       <div>
       <h1>Style-Sheet</h1>
         <a href="https://vitejs.dev" target="_blank">
