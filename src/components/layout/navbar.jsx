@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Menu, MenuButton, MenuItem, MenuGroup, MenuList,  Tabs, TabList, Tab, Button, useColorMode } from '@chakra-ui/react'
+import {Tabs, TabList, Tab, useColorMode } from '@chakra-ui/react'
 
 
 function Links() {
@@ -18,17 +18,6 @@ return (
         <Tab style={{ color: '#2a4365' }} mr={5}>Basket</Tab>
       </TabList>
     </Tabs>
-    <Menu>
-      <MenuButton as={Button} colorScheme='pink'>
-        Account
-      </MenuButton>
-      <MenuList>
-        <MenuGroup>
-          <MenuItem>Login</MenuItem>
-          <MenuItem>Register</MenuItem>
-        </MenuGroup>
-      </MenuList>
-    </Menu>
   </div>
 )
   }
