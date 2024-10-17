@@ -1,23 +1,37 @@
 import { useState } from 'react'
-import { Tabs, TabList, Tab,  useColorMode } from '@chakra-ui/react'
+import {Menu, MenuButton, MenuItem, MenuGroup, MenuList,  Tabs, TabList, Tab, Button, useColorMode } from '@chakra-ui/react'
+
 
 function Links() {
     const colors = useColorMode(
-      ['red.50', 'teal.50', 'blue.50'],
-      ['red.900', 'teal.900', 'blue.900'],
+      ['#ffe5e5', '#e6fffa', '#ebf8ff'], // Light mode colors in hex custom colors
+      ['#7f1d1d', '#234e52', '#2a4365'], // Dark mode colors in hex custom colors
     )
     const [tabIndex, setTabIndex] = useState(0)
     const bg = colors[tabIndex]
-    return (
-      <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
-        <TabList>
-          <Tab>Products</Tab>
-          <Tab>My Styles(Wishlist)</Tab>
-          <Tab>Basket</Tab>
-          <Tab>Login/Register</Tab>
-        </TabList>
-      </Tabs>
-    )
+return (
+  <div style={{ position: 'relative' }}>
+    <Tabs Change={(index) => setTabIndex(index)} bg={bg}>
+      <TabList>
+        <Tab style={{ color: '#ff0000' }} mr={5}>Products</Tab>
+        <Tab style={{ color: '#008080' }} mr={5}>My Styles</Tab>
+        <Tab style={{ color: '#2a4365' }} mr={5}>Basket</Tab>
+      </TabList>
+    </Tabs>
+    <Menu>
+      <MenuButton as={Button} colorScheme='pink'>
+        Account
+      </MenuButton>
+      <MenuList>
+        <MenuGroup>
+          <MenuItem>Login</MenuItem>
+          <MenuItem>Register</MenuItem>
+        </MenuGroup>
+      </MenuList>
+    </Menu>
+  </div>
+)
   }
-
 export default Links
+
+
