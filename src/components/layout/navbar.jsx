@@ -11,12 +11,12 @@ function Links() {
   const bg = colors[tabIndex];
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div>
       <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
-        <TabList>
-          <Tab style={{ color: '#ff0000' }} mr={5}>Products</Tab>
-          <Tab style={{ color: '#008080' }} mr={5}>My Styles</Tab>
-          <Tab style={{ color: '#2a4365' }} mr={5}>Basket</Tab>
+        <TabList style={{ position: 'relative' }}>
+          <Tab mr={5}>Products</Tab>
+          <Tab mr={5}>My Styles</Tab>
+          <Tab mr={5}>Basket</Tab>
           <Menu>
             <MenuButton as={Button}>
               Account
