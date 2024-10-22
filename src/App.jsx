@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import './App.css'
-import Navbar from './components/layout/NavBar'
-import Home from './components/homepage/Home';
+import Home from "./components/homepage/Home"
+import NavBar from "./components/layout/NavBar";
+
 
 function App() {
   const [count, setCount] = useState(0);
   return (
     <div>
       <Home />
-      <Navbar />
+      <NavBar />
       <main className="card">
         <br />
         <button onClick={() => setCount(count + 1)}>
