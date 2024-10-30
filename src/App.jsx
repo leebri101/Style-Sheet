@@ -23,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/navbar" element={<NavBar />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
       <main className="card">
@@ -44,7 +45,7 @@ function App() {
               <MenuList>
                 <MenuGroup>
                   <MenuItem>Login</MenuItem>
-                  <MenuItem Route path="/register" element={<Register />}>Register</MenuItem>
+                  <MenuItem onClick={() => window.location.href = '/register'}>Register</MenuItem>
                 </MenuGroup>
               </MenuList>
             </Menu>
