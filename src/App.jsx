@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {Tabs, TabList, Tab, useColorMode,  Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button} from '@chakra-ui/react'
-
 import './App.css'
 import Home from "./components/homepage/Home";
-import NavBar from "./components/layout/NavBar";
 import Register from "./components/user/Register";
 
 
@@ -22,7 +20,6 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/navbar" element={<NavBar />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
