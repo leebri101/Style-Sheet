@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// Register component for user registration
 const Register = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -24,6 +25,7 @@ const Register = () => {
   };
 
   return (
+    // Form for user registration
     <div className="register-form">
       <h2>Create Account</h2>
       <form onSubmit={handleSubmit}>
@@ -34,6 +36,7 @@ const Register = () => {
             name="firstName"
             value={formData.username}
             onChange={handleChange}
+            placeholder='Please enter a First Name'
             required
           />
         </div>
@@ -44,16 +47,18 @@ const Register = () => {
             name="lastName"
             value={formData.username}
             onChange={handleChange}
+            placeholder='Please enter a Last Name'
             required
           />
         </div>
         <div>
-          <label>Email:</label>
+          <label>Email Address:</label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            placeholder='example@email.co.uk'
             required
           />
         </div>
@@ -64,6 +69,8 @@ const Register = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
+            placeholder='Please enter Password'
+            //placeholder='Password must be at least 8 characters' to change to error or prompt message to user
             required
           />
         </div>
@@ -74,6 +81,7 @@ const Register = () => {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
+            placeholder='Please confirm Password'
             required
           />
         </div>
