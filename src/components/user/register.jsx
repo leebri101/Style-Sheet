@@ -27,7 +27,7 @@ const Register = () => {
   return (
     // Form for user registration
     <div className="register-form">
-      <h2>Create Account</h2>
+      <h1>Create Account</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>First Name:</label>
@@ -70,7 +70,7 @@ const Register = () => {
             value={formData.password}
             onChange={handleChange}
             placeholder='Please enter Password'
-            //placeholder='Password must be at least 8 characters' to change to error or prompt message to user
+            //(placeholder='Password must be at least 8 characters') to change to error or prompt message to user
             required
           />
         </div>
