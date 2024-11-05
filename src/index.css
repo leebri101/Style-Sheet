@@ -3,7 +3,7 @@
   font-family: DM Sans, system-ui, Montserrat, Helvetica, sans-serif;
   color-scheme: dark light;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #073B4C;
+  background-color: #333333;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -44,6 +44,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
+  background-color:#118AB2;
   cursor: pointer;
   transition: border-color 0.25s;
   display: inline-block;
