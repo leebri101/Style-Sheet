@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
   font-family: DM Sans, system-ui, Montserrat, Helvetica, sans-serif;
-  font-weight: 400;
-  color-scheme: light dark;
+  color-scheme: dark light;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #073B4C;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -30,7 +29,6 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 }
 
@@ -61,7 +59,7 @@ button:focus-visible {
 
 /* form styling */
 form{
-  display: flex;
+  display:inline-flex;
   flex-direction: column;
   gap: 10px;
   max-width: 500px;
@@ -69,6 +67,15 @@ form{
   padding: 20px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+}
+
+label{
+  font-weight:600;
+  font-size: 1.5em;
+  text-align: left;
+  text-wrap: wrap;
+  font-family: Montserrat, Helvetica, sans-serif;
+  flex-wrap: column;
 }
 
 @media (prefers-color-scheme: light) {
