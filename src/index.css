@@ -26,9 +26,8 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
+  margin:auto;
+  overflow: auto;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -80,6 +79,10 @@ label{
   flex-wrap: column;
 }
 
+
+Menu{
+  display:block;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -87,6 +90,7 @@ label{
   }
   a:hover {
     color: #747bff;
+    font-weight: bold;
   }
   button {
     background-color: #f9f9f9;
