@@ -23,19 +23,19 @@ function App() {
       <div>
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
-            <Tab mr={10}>Products</Tab>
-            <Tab mr={10}>My Styles</Tab>
-            <Tab mr={10}>Basket</Tab>
+            <Tab mr={5}>Products</Tab>
+            <Tab mr={5}>My Styles</Tab>
+            <Tab mr={5}>Basket</Tab>
             <Menu>
               <MenuButton as={Button}>
                 Account
               </MenuButton>
               <MenuList>
                 <MenuGroup>
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Login</MenuItem>
-                  <MenuItem>Logout</MenuItem>
-                  <MenuItem onClick={() => window.location.href = '/register'}>Register</MenuItem>
+                  <MenuItem mb={3.5}>Profile</MenuItem>
+                  <MenuItem mb={3.5}>Login</MenuItem>
+                  <MenuItem mb={3.5}>Logout</MenuItem>
+                  <MenuItem mb={3.5}onClick={() => window.location.href = '/register'}>Register</MenuItem>
                 </MenuGroup>
               </MenuList>
             </Menu>
