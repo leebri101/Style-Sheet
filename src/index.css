@@ -8,14 +8,47 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /*--color-one:*/
-  /*--color-two:*/
-  /*--color-three:*/
-  /*--color-four:*/
-  /*--color-five:*/
-  /*--color-six:*/
+  /* Custom Colors*/
+  /* Coral Red */
+  --color-one: 255,107,107;
+  /* Pastel Yellow */
+  --color-two: 255,209,102;
+  /* Caribbean Green */
+  --color-three: 6,214,160;
+  /* Steel Blue */
+  --color-four: 17,138,178;
+  /* Midnight Teal */
+  --color-five: 7,59,76;
+  /* WHite */
+  --color-six: 255,255,255;
+  /* Dark Grey */
+  --color-seven: 51,51,51;
 }
+
 /* Color classes*/
+.coral-red{
+  color: var(--color-one);
+}
+.pastel-yellow{
+  color: var(--color-two);
+}
+.caribbean-green{
+  color: var(--color-three);
+}
+.steel-blue{
+  color: var(--color-four);
+}
+.midnight-teal{
+  color: var(--color-five);
+}
+.white{
+  color: var(--color-six);
+}
+.dark-grey{
+  color: var(--color-seven);
+}
+
+
 a {
   font-weight: 500;
   color: #646cff;
