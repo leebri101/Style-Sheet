@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import {Tabs, TabList, Tab, useColorMode,  Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button} from '@chakra-ui/react'
 import './App.css';
-import './index.css';
 import Home from "./components/homepage/Home";
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer';
