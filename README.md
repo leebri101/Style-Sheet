@@ -222,4 +222,4 @@ It was a nice refresher for me to comeback and re-learn JavaScript and to see ho
 * Background 
 Image [Unsplash](https://unsplash.com/photos/stainless-steel-cooking-pots-on-stove-0EkWTSFXwCc)
 * GIFs used in results section [Giphy](https://giphy.com/)
-* 
+* https://www.rapidtables.com/convert/color/hex-to-rgb.html?hex=ff6b6b Hex to Rgb converter
