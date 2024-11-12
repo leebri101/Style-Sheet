@@ -10,19 +10,19 @@
   -moz-osx-font-smoothing: grayscale;
   /* Custom Colors*/
   /* Coral Red */
-  --color-one: (255, 107, 107);
+  --color-one: 255, 107, 107;
   /* Pastel Yellow */
-  --color-two: (255, 209, 102);
+  --color-two: 255, 209, 102;
   /* Caribbean Green */
-  --color-three: (6, 214, 160);
+  --color-three: 6, 214, 160;
   /* Steel Blue */
-  --color-four: (17,138, 178);
+  --color-four: 17,138, 178;
   /* Midnight Teal */
-  --color-five: (7, 59, 76);
+  --color-five: 7, 59, 76;
   /* WHite */
-  --color-six: (255, 255, 255);
+  --color-six: 255, 255, 255;
   /* Dark Grey */
-  --color-seven: (51, 51, 51);
+  --color-seven: 51, 51, 51;
 }
 
 /* Color classes*/
@@ -51,11 +51,11 @@
 
 a {
   font-weight: 500;
-  color: rgb(var(--color-four));
+  color: #747bff;
   text-decoration: inherit;
 }
 a:hover {
-  color: rgb(var(--color-));
+  color: rgb(var(--color-two));
 }
 
 body {
