@@ -1,6 +1,3 @@
-import './App.css';
-
-
 const Footer = () => {
     return (
         <footer className="footer">
