@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import {Tabs, TabList, Tab, useColorMode,  Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button} from '@chakra-ui/react'
+import {Tabs, TabList, Tab, useColorMode,  Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button} from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faHouse, faShoppingBasket, faUser, faHeartCirclePlus, faMagnifyingGlassDollar} from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 //import Home from "./components/homepage/Home";
 import Register from "./components/user/Register";
@@ -28,12 +30,11 @@ function App() {
       <h1>Style-Sheet</h1>
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
-            <Tab mr={5}>Products</Tab>
-            <Tab mr={5}>My Styles</Tab>
-            <Tab mr={5}>Basket</Tab>
+            <Tab mr={5}><FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl"/></Tab>
+            <Tab mr={5}><FontAwesomeIcon icon={faHeartCirclePlus} size="xl"/></Tab>
+            <Tab mr={5}><FontAwesomeIcon icon={faShoppingBasket} size="xl"/></Tab>
             <Menu>
-              <MenuButton as={Button}>
-                Account
+              <MenuButton as={Button}><FontAwesomeIcon icon={faUser} size="xl"/>
               </MenuButton>
               <MenuList>
                 <MenuGroup>
