@@ -1,13 +1,12 @@
-import { useState } from 'react'
-import { Routes, Route} from 'react-router-dom';
-import {Tabs, TabList, Tab, useColorMode,  Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button} from '@chakra-ui/react';
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Tabs, TabList, Tab, useColorMode, Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faHouse, faShoppingBasket, faUser, faHeartCirclePlus, faMagnifyingGlassDollar} from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faShoppingBasket, faUser, faHeartCirclePlus, faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import Home from "./components/homepage/Home";
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer';
-
 
 function App() {
   const colors = useColorMode(
@@ -18,15 +17,8 @@ function App() {
   const bg = colors[tabIndex];
 
   return (
-    <div>
-        <Routes>
-        <Route path="/" element={<Home />}/> 
-        {/*<Route path="/product" element={<Product />*/}
-        {/*<Route path="/basket" element={<Basket />*/}
-        {/*<Route path="/profile" element={<Profile />*/}
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      <div>
+    <div className="app-container">
+      <div className="tabs-container">
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
             <Tab mr={5} onClick={() => window.location.href= '/'}><FontAwesomeIcon icon={faHouse} size="xl"/></Tab>
@@ -41,12 +33,21 @@ function App() {
                   <MenuItem mb={3.5}>Profile</MenuItem>
                   <MenuItem mb={3.5}>Login</MenuItem>
                   <MenuItem mb={3.5}>Logout</MenuItem>
-                  <MenuItem mb={3.5}onClick={() => window.location.href = '/register'}>Register</MenuItem>
+                  <MenuItem mb={3.5} onClick={() => window.location.href = '/register'}>Register</MenuItem>
                 </MenuGroup>
               </MenuList>
             </Menu>
           </TabList>
         </Tabs>
+      </div>
+      <div className="routes-container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/*<Route path="/product" element={<Product />*/}
+          {/*<Route path="/basket" element={<Basket />*/}
+          {/*<Route path="/profile" element={<Profile />*/}
+          <Route path="/register" element={<Register />} />
+        </Routes>
       </div>
       <Footer />
     </div>

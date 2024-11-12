@@ -4,6 +4,22 @@
   padding: 2rem;
   text-align: center;
 }
+.app-container {
+  display: inline-flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.tabs-container {
+  display: inline-flex;
+  justify-content: right;
+  padding: 10px;
+}
+
+.routes-container {
+  flex: 1;
+  padding: 20px;
+}
 
 .logo {
   height: 6em;
