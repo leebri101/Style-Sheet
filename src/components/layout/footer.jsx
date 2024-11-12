@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+
 const Footer = () => {
     return (
         <footer className="footer">
@@ -9,22 +12,21 @@ const Footer = () => {
                     <a href="/privacy">Returns</a>
                 </nav>
             </div>
-            {/*<div className="footer-social">
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-facebook-f"></i>
+            <div className="footer-social">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faFacebook} size="lg" />
                 </a>
                 <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-twitter"></i>
+                    <FontAwesomeIcon icon={faTwitter} size="lg" />
                 </a>
                 <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-instagram"></i>
+                    <FontAwesomeIcon icon={faInstagram} size="lg" />
                 </a>
-            </div> */}
+            </div>
         </footer>
     );
 };
 
-// temp disable of web links 
-
-
 export default Footer;
+
+
