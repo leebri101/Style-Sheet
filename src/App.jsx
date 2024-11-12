@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import {Tabs, TabList, Tab, useColorMode,  Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button} from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faHouse, faShoppingBasket, faUser, faHeartCirclePlus, faMagnifyingGlassDollar} from '@fortawesome/free-solid-svg-icons';
 import './App.css';
-//import Home from "./components/homepage/Home";
+import Home from "./components/homepage/Home";
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer';
 
@@ -20,16 +20,16 @@ function App() {
   return (
     <div>
         <Routes>
-        {/*<Route path="/" element={<Home />} />}*/}
+        <Route path="/" element={<Home />}/> 
         {/*<Route path="/product" element={<Product />*/}
         {/*<Route path="/basket" element={<Basket />*/}
         {/*<Route path="/profile" element={<Profile />*/}
           <Route path="/register" element={<Register />} />
         </Routes>
       <div>
-      <h1>Style-Sheet</h1>
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
+            <Tab mr={5} onClick={() => window.location.href= '/'}><FontAwesomeIcon icon={faHouse} size="xl"/></Tab>
             <Tab mr={5}><FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl"/></Tab>
             <Tab mr={5}><FontAwesomeIcon icon={faHeartCirclePlus} size="xl"/></Tab>
             <Tab mr={5}><FontAwesomeIcon icon={faShoppingBasket} size="xl"/></Tab>
