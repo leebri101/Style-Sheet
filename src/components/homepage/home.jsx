@@ -1,4 +1,4 @@
-{/*const Home = () => {
+const Home = () => {
     return (
         <header>
             <h1>Style-Sheet</h1>
@@ -6,4 +6,5 @@
         </header>
     );
 };
-export default Home; */}    //temporarily disabled Home component
+export default Home; 
+
