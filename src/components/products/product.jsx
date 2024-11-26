@@ -1,14 +1,15 @@
 
 const products = {
     mens: [
-        { id: 1, name: 'Men T-Shirt', price: '£20.00' },
-        { id: 2, name: 'Men Jeans', price: '£40.00' },
-        { id: 3, name: 'Men Jacket', price: '£60.00' },
+        { id: 1, name: 'Plain Black T', price: '£20.00' },
+        { id: 2, name: 'BLack Trousers', price: '£40.00' },
+        { id: 3, name: 'Denim Jacket', price: '£60.00' },
+        { id: 4, name: 'Trainers', price: '£80.00' },
     ],
-    womens: [
-        { id: 1, name: 'Women Dress', price: '£30.00' },
-        { id: 2, name: 'Women Skirt', price: '£25.00' },
-        { id: 3, name: 'Women Blouse', price: '£35.00' },
+    women: [
+        { id: 1, name: 'Satin Dress', price: '£30.00' },
+        { id: 2, name: 'Cashmere Skirt', price: '£25.00' },
+        { id: 3, name: 'Cotton Blouse', price: '£35.00' },
     ],
     kids: [
         { id: 1, name: 'Kids T-Shirt', price: '£15.00' },
@@ -28,7 +29,7 @@ const Product = () => {
             </ul>
             <h2>Women</h2>
             <ul>
-                {products.womens.map(product => (
+                {products.women.map(product => (
                     <li key={product.id}>{product.name} - {product.price}</li>
                 ))}
             </ul>

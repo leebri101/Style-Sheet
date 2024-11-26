@@ -20,6 +20,9 @@ function App() {
     <div className="app-container">
       <h1>Style-Sheet</h1>
       <div className="tabs-container">
+        <div className='logo'>
+          <img src="" alt="Logo" />
+        </div>
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
             <Tab mr={5} onClick={() => window.location.href= '/'}><FontAwesomeIcon icon={faHouse} size="xl"/></Tab>
@@ -46,7 +49,7 @@ function App() {
         <Routes>
           <Route path="/product" element={<Products />} />
           {/*<Route path="/basket" element={<Basket />} />
-          <Route path="/profile" element={<Profile />} />*/}
+          <Route path="/profile" element={<Profile />} />*/}}
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>

@@ -93,6 +93,24 @@ footer{
   margin-top: 20px;
 }
 
+.app-container {
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 100%;
+}
+
+.tabs-container {
+  display: flex;
+  align-items: center;
+}
 /* social media animations */
 .fa-facebook,
 .fa-x-twitter,
