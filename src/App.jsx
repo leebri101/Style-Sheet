@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="app-container">
       <div className="tabs-container">
-        <Tabs onChange={(index) => setTabIndex(index)} bg={bg} size="xl">
+        <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
             <Tab mr={5} onClick={() => window.location.href= '/'}><FontAwesomeIcon icon={faHouse} size="xl"/></Tab>
             <Tab mr={5} onClick={() => window.location.href= '/search'}><FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl"/></Tab>
