@@ -4,9 +4,9 @@ import { Tabs, TabList, Tab, useColorMode, Menu, MenuButton, MenuItem, MenuGroup
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faShoppingBasket, faUser, faHeartCirclePlus, faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
-import Home from "./components/homepage/Home";
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer';
+import Products from './components/products/Product'; 
 
 function App() {
   const colors = useColorMode(
@@ -18,6 +18,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <h1>Style-Sheet</h1>
       <div className="tabs-container">
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
@@ -41,11 +42,11 @@ function App() {
         </Tabs>
       </div>
       <div className="routes-container">
+        <Products />
         <Routes>
-          <Route path="/" element={<Home />} />
-          {/*<Route path="/product" element={<Product />} />
-          <Route path="/basket" element={<Basket />} />
-          <Route path="/profile" element={<Profile />} /> */}
+          <Route path="/product" element={<Products />} />
+          {/*<Route path="/basket" element={<Basket />} />
+          <Route path="/profile" element={<Profile />} />*/}
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>

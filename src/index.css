@@ -64,7 +64,7 @@ body {
 }
 
 h1 {
-  font-size: 3.5em;
+  font-size: 3em;
 }
 
 hr {
@@ -116,7 +116,7 @@ footer{
   border-radius: 100%;
   transform: scale(1);
 }
-
+   
 /* X formally known as twitter */
 .fa-x-twitter:hover,
 .fa-x-twitter:focus{
@@ -170,7 +170,8 @@ button:focus-visible {
 
 /* form styling */
 form{
-  display:inline-flex;
+  display: flex;
+  justify-content: right;
   flex-direction: column;
   gap: 10px;
   max-width: 500px;
