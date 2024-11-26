@@ -49,7 +49,7 @@ function App() {
         <Routes>
           <Route path="/product" element={<Products />} />
           {/*<Route path="/basket" element={<Basket />} />
-          <Route path="/profile" element={<Profile />} />*/}}
+          <Route path="/profile" element={<Profile />} />*/}
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
