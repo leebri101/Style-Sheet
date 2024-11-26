@@ -19,12 +19,12 @@ function App() {
   return (
     <div className="app-container">
       <div className="tabs-container">
-        <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
+        <Tabs onChange={(index) => setTabIndex(index)} bg={bg} size="xl">
           <TabList>
             <Tab mr={5} onClick={() => window.location.href= '/'}><FontAwesomeIcon icon={faHouse} size="xl"/></Tab>
-            <Tab mr={5}><FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl"/></Tab>
-            <Tab mr={5}><FontAwesomeIcon icon={faHeartCirclePlus} size="xl"/></Tab>
-            <Tab mr={5}><FontAwesomeIcon icon={faShoppingBasket} size="xl"/></Tab>
+            <Tab mr={5} onClick={() => window.location.href= '/search'}><FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl"/></Tab>
+            <Tab mr={5} onClick={() => window.location.href= '/favorites'}><FontAwesomeIcon icon={faHeartCirclePlus} size="xl"/></Tab>
+            <Tab mr={5} onClick={() => window.location.href= '/basket'}><FontAwesomeIcon icon={faShoppingBasket} size="xl"/></Tab>
             <Menu>
               <MenuButton as={Button}><FontAwesomeIcon icon={faUser} size="xl"/>
               </MenuButton>
@@ -43,9 +43,9 @@ function App() {
       <div className="routes-container">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/*<Route path="/product" element={<Product />*/}
-          {/*<Route path="/basket" element={<Basket />*/}
-          {/*<Route path="/profile" element={<Profile />*/}
+          {/*<Route path="/product" element={<Product />} />
+          <Route path="/basket" element={<Basket />} />
+          <Route path="/profile" element={<Profile />} /> */}
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
