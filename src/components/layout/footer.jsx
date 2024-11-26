@@ -7,6 +7,7 @@ const Footer = () => {
             <div className="footer-social" >
                 <p>&copy; {new Date().getFullYear()} Style-Sheet. All rights reserved.</p>
                 <hr />
+                <br />
                 <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"> 
                 <FontAwesomeIcon icon={faFacebook} size="xl" /> 
                 </a>
