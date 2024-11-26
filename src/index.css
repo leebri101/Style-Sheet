@@ -80,11 +80,10 @@ button {
   border-radius: 5px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 0.9em;
   font-weight: 500;
   margin-left: 10px;
   font-family: inherit;
-  background-color: rgba(var(--color-four), 0.55);
   cursor: pointer;
   transition: border-color 0.25s;
   display: inline-block;
