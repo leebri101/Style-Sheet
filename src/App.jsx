@@ -18,14 +18,12 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>Style-Sheet</h1>
       <div className="tabs-container">
-        <div className='logo'>
-          <img src="src/assets/images/912972e99d7a4b01ad2c1b12d8025b6a-free.png" alt="Logo" />
+        <div className='logo' onClick={() => window.location.href= '/'}>
+          <img src="src/assets/images/logo.png" alt="Logo" style={{ cursor: 'pointer' }} />
         </div>
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
-            <Tab mr={5} onClick={() => window.location.href= '/'}><FontAwesomeIcon icon={faHouse} size="xl"/></Tab>
             <Tab mr={5} onClick={() => window.location.href= '/search'}><FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl"/></Tab>
             <Tab mr={5} onClick={() => window.location.href= '/favorites'}><FontAwesomeIcon icon={faHeartCirclePlus} size="xl"/></Tab>
             <Tab mr={5} onClick={() => window.location.href= '/basket'}><FontAwesomeIcon icon={faShoppingBasket} size="xl"/></Tab>
