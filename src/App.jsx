@@ -21,7 +21,7 @@ function App() {
       <h1>Style-Sheet</h1>
       <div className="tabs-container">
         <div className='logo'>
-          <img src="" alt="Logo" />
+          <img src="src/assets/images/912972e99d7a4b01ad2c1b12d8025b6a-free.png" alt="Logo" />
         </div>
         <Tabs onChange={(index) => setTabIndex(index)} bg={bg}>
           <TabList>
