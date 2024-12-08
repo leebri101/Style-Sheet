@@ -18,6 +18,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <h1>Style-Sheet</h1>
       <div className="tabs-container">
         <div className='logo' onClick={() => window.location.href= '/'}>
           <img src="src/assets/images/logo.png" alt="Logo" style={{ cursor: 'pointer' }} />
