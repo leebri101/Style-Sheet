@@ -5,9 +5,11 @@
   text-align: center;
 }
 .app-container {
-  display: inline-flex;
+  
+  display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: #f9fafb;
 }
 
 .tabs-container {
@@ -26,6 +28,24 @@
   padding: 1.5em;
 }
 
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-primary {
+  color: #1e3a8a;
+}
+
+.bg-background {
+  background-color: #ffffff;
+}
+
+.border-b {
+  border-bottom: 1px solid #e2e8f0;
+}
 
 
 @keyframes logo-spin {
