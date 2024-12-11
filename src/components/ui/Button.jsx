@@ -1,32 +1,20 @@
-import PropTypes from 'prop-types';
 
-<<<<<<< HEAD
-=======
+function Button({ children, className, variant = 'default', size = 'default' }) {
+  const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium';
+  const variantStyles = {
+    default: 'bg-blue-600 text-white hover:bg-blue-700',
+    ghost: 'bg-transparent hover:bg-gray-200',
+  };
+  const sizeStyles = {
+    default: 'px-4 py-2',
+    icon: 'p-2',
+  };
 
->>>>>>> 8290939 (Added core component code for UI an styling)
-export function Button({ children, className, ...props }) {
   return (
-    <button
-      className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ${className}`}
-      {...props}
-    >
+    <button className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}>
       {children}
     </button>
   );
 }
 
-<<<<<<< HEAD
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
-Button.defaultProps = {
-  className: '',
-};
-
 export default Button;
-=======
-
-export default Button;
->>>>>>> 8290939 (Added core component code for UI an styling)
