@@ -1,4 +1,5 @@
 
+import PropTypes from 'prop-types';
 
 export function Button({ children, className, ...props }) {
   return (
@@ -11,5 +12,13 @@ export function Button({ children, className, ...props }) {
   );
 }
 
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
+
+Button.defaultProps = {
+  className: '',
+};
 
 export default Button;
