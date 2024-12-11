@@ -6,7 +6,7 @@ import { faShoppingBasket, faUser, faHeartCirclePlus, faMagnifyingGlassDollar } 
 import './App.css';
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer';
-import Products from './components/products/Product'; 
+import Products from './components/products/Products'; 
 
 function App() {
   const colors = useColorMode(
