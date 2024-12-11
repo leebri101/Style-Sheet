@@ -6,7 +6,7 @@ import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar }
 import './App.css';
 import Register from "./components/user/Register";
 import Footer from './components/layout/footer'; // Ensure this path is correct
-import Products from './components/product/Products'; // Ensure this path is correct
+import Products from './components/products/Products'; // Ensure this path is correct
 
 
 function App() {
@@ -53,8 +53,8 @@ function App() {
       </div>
       <div className="routes-container">
         <Routes>
-          <Route path="/products" element={<Products />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/products" element={<Products />} />
           {/* Add other routes here */}
           <Route path="*" element={<div>404 Not Found</div>} /> {/* Fallback route */}
         </Routes>
