@@ -5,12 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import Register from "./components/user/Register";
-import Footer from './components/layout/Footer';
-<<<<<<< HEAD
+import Footer from './components/layout/footer'; // Ensure this path is correct
 import Products from './components/product/Products'; // Ensure this path is correct
-=======
-import Products from './components/products/Products'; 
->>>>>>> origin/main
+
 
 function App() {
   const colors = useColorMode(
