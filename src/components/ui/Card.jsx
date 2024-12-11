@@ -1,29 +1,37 @@
-<<<<<<< HEAD
-function Card({ children, className }) {
-  return <div className={`border rounded-lg shadow-md overflow-hidden ${className}`}>{children}</div>;
-}
 
-=======
-import PropTypes from 'prop-types'; // Optional: Only if you want to use PropTypes
 
-function Card({ children, className = '' }) {
+/**
+ * Card Component
+ * A container for the entire card, providing a border, rounded corners, and shadow.
+ */
+export function Card({ children, className = '' }) {
   return (
-    <div className={`border rounded-lg shadow-md overflow-hidden ${className}`}>
+    <div className={`border rounded-lg shadow-sm overflow-hidden ${className}`}>
       {children}
     </div>
   );
 }
 
-// Optional: PropTypes for type checking
-Card.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
+/**
+ * CardContent Component
+ * A container for the main content of the card.
+ */
+export function CardContent({ children, className = '' }) {
+  return (
+    <div className={`p-4 ${className}`}>
+      {children}
+    </div>
+  );
+}
 
-// Optional: Default props
-Card.defaultProps = {
-  className: '',
-};
-
->>>>>>> origin/main
-export default Card;
+/**
+ * CardFooter Component
+ * A container for footer content like buttons or additional actions.
+ */
+export function CardFooter({ children, className = '' }) {
+  return (
+    <div className={`p-4 pt-0 ${className}`}>
+      {children}
+    </div>
+  );
+}
