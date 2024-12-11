@@ -4,6 +4,7 @@
  * Card Component
  * A container for the entire card, providing a border, rounded corners, and shadow.
  */
+import React from 'react';
 export function Card({ children, className = '' }) {
   return (
     <div className={`border rounded-lg shadow-sm overflow-hidden ${className}`}>
