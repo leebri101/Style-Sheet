@@ -1,12 +1,12 @@
-import { products } from './ProductsOverview'; // Assuming products data is in products.js
+import { Products } from './Products'; // Assuming products data is in products.js
 import CategoryProductList from './CategoryProductList';
 
 const ProductCategories = () => {
   return (
     <div>
-      <CategoryProductList products={products.mens} title="Men" />
-      <CategoryProductList products={products.women} title="Women" />
-      <CategoryProductList products={products.kids} title="Kids" />
+      <CategoryProductList products={Products.mens} title="Men" />
+      <CategoryProductList products={Products.women} title="Women" />
+      <CategoryProductList products={Products.kids} title="Kids" />
     </div>
   );
 };
