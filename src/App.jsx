@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, } from 'react-router-dom';
 import { Tabs, TabList, Tab, useColorMode, Menu, MenuButton, MenuItem, MenuGroup, MenuList } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
@@ -39,11 +39,11 @@ function App() {
   return (
     <div>
       <div className="tabs-container">
-        <div className='Logo' onClick={() => navigate('/')}>
-          <h1></h1>
-        </div>
         <Tabs onChange={handleTabChange} bg={bg}>
           <TabList>
+            <div onClick={() => navigate('/')}>
+              <Logo />
+            </div>
             <Tab mr={5}>
               <FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl" />
             </Tab>
