@@ -7,7 +7,7 @@ const products = [
     name: 'Cashmere Blend Sweater',
     price: 49.9,
     image: '/placeholder.svg?height=400&width=400',
-    category: "Women's Clothing",
+    category: "Ladies Clothing",
   },
   {
     id: '2',

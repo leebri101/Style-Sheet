@@ -6,7 +6,7 @@ const products = [
     name: 'Cashmere Blend Sweater',
     price: 49.90,
     image: '/path/to/image1.jpg',
-    category: 'Womens Clothing',
+    category: 'Ladies Clothing',
   },
   {
     id: '2',
