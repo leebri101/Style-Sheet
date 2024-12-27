@@ -1,0 +1,21 @@
+/* footer styling */
+footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 0.8em;
+    text-align:center;
+  }
+  .footer-social{
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .other-container{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  
