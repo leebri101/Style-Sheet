@@ -1,10 +1,9 @@
-
+import PropTypes from 'prop-types';
 
 /**
  * Card Component
  * A container for the entire card, providing a border, rounded corners, and shadow.
  */
-import React from 'react';
 export function Card({ children, className = '' }) {
   return (
     <div className={`border rounded-lg shadow-sm overflow-hidden ${className}`}>
@@ -12,6 +11,11 @@ export function Card({ children, className = '' }) {
     </div>
   );
 }
+
+Card.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
 
 /**
  * CardContent Component
@@ -25,14 +29,24 @@ export function CardContent({ children, className = '' }) {
   );
 }
 
+CardContent.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
+
 /**
  * CardFooter Component
  * A container for footer content like buttons or additional actions.
  */
 export function CardFooter({ children, className = '' }) {
   return (
-    <div className={`p-4 pt-0 ${className}`}>
+    <div className={`p-4 border-t ${className}`}>
       {children}
     </div>
   );
 }
+
+CardFooter.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
