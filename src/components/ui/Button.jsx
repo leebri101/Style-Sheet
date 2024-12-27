@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
  * Button Component
  * A customizable button component with different styles and sizes.
  */
-export function Button({ children, variant = 'solid', size = 'md', className = '', ...props }) {
+export default function Button({ children, variant = 'solid', size = 'md', className = '', ...props }) {
   const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variants = {

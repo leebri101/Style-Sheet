@@ -1,4 +1,3 @@
-import ProductCard from './ProductCard';
 
 const products = [
   {
@@ -17,7 +16,7 @@ const products = [
   },
 ];
 
-function App() {
+function ProductCard() {
   return (
     <div className="container mx-auto py-12">
       <h1 className="text-3xl font-bold mb-6">Featured Products</h1>
@@ -30,4 +29,4 @@ function App() {
   );
 }
 
-export default App;
+export default ProductCard;
