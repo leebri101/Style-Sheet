@@ -1,0 +1,20 @@
+form{
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+label{
+  font-weight:600;
+  font-size: 1.5em;
+  text-align: left;
+  text-wrap: wrap;
+  font-family: Montserrat, Helvetica, sans-serif;
+  flex-wrap: column;
+}
