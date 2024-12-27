@@ -7,6 +7,7 @@ import Register from "./components/user/Register";
 import Footer from './components/layout/Footer'; 
 import Products from './components/products/Products'; 
 import Button from './components/ui/Button';
+import Logo from './components/ui/Logo';
 import './App.css';
 
 function App() {
@@ -38,7 +39,8 @@ function App() {
   return (
     <div>
       <div className="tabs-container">
-        <div className='logo' onClick={() => navigate('/')}>
+        <div className='Logo' onClick={() => navigate('/')}>
+          <h1></h1>
         </div>
         <Tabs onChange={handleTabChange} bg={bg}>
           <TabList>

@@ -73,6 +73,10 @@ hr {
   background: rgb(var(--color-one));
 }
 
+Menu {
+  display:block;
+}
+
 .app-container {
   padding: 20px;
 }
@@ -118,4 +122,28 @@ hr {
   button {
     background-color: #f9f9f9;
   }
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.routes-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
