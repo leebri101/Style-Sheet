@@ -4,10 +4,10 @@ import { Tabs, TabList, Tab, useColorMode, Menu, MenuButton, MenuItem, MenuGroup
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
 import Register from "./components/user/Register";
-import Footer from './components/layout/footer'; 
+import Footer from './components/layout/Footer'; 
 import Products from './components/products/Products'; 
-import Button from './components/ui/button'; 
-
+import Button from './components/ui/Button';
+import './App.css';
 
 function App() {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ function App() {
             </Tab>
             <Menu>
               <MenuButton as={Button} variant="solid" size="md">
-                <FontAwesomeIcon icon={faUser } size="xl" />
+                <FontAwesomeIcon icon={faUser} size="xl" />
               </MenuButton>
               <MenuList>
                 <MenuGroup>

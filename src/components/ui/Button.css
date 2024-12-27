@@ -12,11 +12,14 @@ button {
     display: inline-block;
     transition: background-color 0.5s ease-out 100ms;
     justify-content: center;
-  }
-  button:hover {
+
+}
+
+button:hover {
     border-color: rgb(var(--color-five));
-  }
-  button:focus,
-  button:focus-visible {
+}
+
+button:focus,
+button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
-  }
+}
