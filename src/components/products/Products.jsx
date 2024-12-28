@@ -32,12 +32,15 @@ const products = [
   },
 ];
 
-export default function Products() {
+export default function Products() { 
   return (
-    <>
-      {products.map((product) => (
-        <ProductCard key={product.id} {...product} />
-      ))}
-    </>
+    <div className="products-container">
+      <h2>Products</h2>
+      <div className="product-list">
+        {products.map((product) => (
+          <ProductCard key={product.id} {...product} />
+        ))}
+      </div>
+    </div>
   );
 }
