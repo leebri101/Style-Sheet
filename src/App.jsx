@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Routes, Route, useNavigate, } from 'react-router-dom';
 import { Tabs, TabList, Tab, useColorMode, Menu, MenuButton, MenuItem, MenuGroup, MenuList } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar, faShirt } from '@fortawesome/free-solid-svg-icons';
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer'; 
 import Products from './components/products/Products'; 
+import ProductCard from './components/products/ProductCard';
 import Button from './components/ui/Button';
 import Logo from './components/ui/Logo';
 import './App.css';
@@ -44,14 +45,17 @@ function App() {
             <div onClick={() => navigate('/')}>
               <Logo />
             </div>
-            <Tab mr={5}>
+            <Tab mr={5} onClick={() => navigate('/search')}>
               <FontAwesomeIcon icon={faMagnifyingGlassDollar} size="xl" />
             </Tab>
-            <Tab mr={5}>
+            <Tab mr={5} onClick={() => navigate('/wishlist')}>
               <FontAwesomeIcon icon={faHeartCirclePlus} size="xl" />
             </Tab>
-            <Tab mr={5}>
+            <Tab mr={5} onClick={() => navigate('/basket')}>
               <FontAwesomeIcon icon={faShoppingBasket} size="xl" />
+            </Tab>
+            <Tab mr={5} onClick={() => navigate('/products')}>
+            <FontAwesomeIcon icon={faShirt} size="xl"/>
             </Tab>
             <Menu>
               <MenuButton as={Button} variant="solid" size="md">
@@ -71,8 +75,15 @@ function App() {
       </div>
       <div className="routes-container">
         <Routes>
+        <Route path="/" element={
+            <div>
+              <div>Welcome to the Home Page</div>
+              <ProductCard/>
+            </div>
+          } />
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:category" element={<ProductCard />} />
           <Route path="*" element={<div>404 Not Found</ div>} />
         </Routes>
       </div>
