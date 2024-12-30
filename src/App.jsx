@@ -3,10 +3,10 @@ import { Routes, Route, useNavigate, } from 'react-router-dom';
 import { Tabs, TabList, Tab, useColorMode, Menu, MenuButton, MenuItem, MenuGroup, MenuList } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar, faShirt } from '@fortawesome/free-solid-svg-icons';
+import { Button } from '@chakra-ui/react';
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer'; 
 import Products from './components/products/Products';
-import Button from './components/ui/Button';
 import Logo from './components/ui/Logo';
 import './App.css';
 
