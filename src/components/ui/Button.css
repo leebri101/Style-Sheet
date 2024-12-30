@@ -6,7 +6,6 @@ button {
     font-weight: 500;
     margin-left: 10px;
     font-family: inherit;
-    background-color: rgba(var(--color-four), 0.55);
     cursor: pointer;
     transition: border-color 0.25s;
     display: inline-block;

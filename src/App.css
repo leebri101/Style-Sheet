@@ -1,9 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
   font-family: DM Sans, system-ui, Montserrat, Helvetica, sans-serif;
-  color-scheme: dark light;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #333333;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -126,10 +124,6 @@ Menu {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
   a:hover {
     color: #747bff;
     font-weight: bold;
