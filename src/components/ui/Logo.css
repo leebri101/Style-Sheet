@@ -1,6 +1,7 @@
 .logo {
     font-size: 2em;
     font-weight: 600;
+    display: inline;
     color:rgb(var(--color-six));
     background-color:rgb(var(--color-seven));
     padding: 10px;

@@ -90,30 +90,17 @@ Menu {
   align-items: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-    font-weight: bold;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
 }
 
 .routes-container {
   flex: 1;
   padding: 20px;
+  color: #000000;
 }
 
 .container {
