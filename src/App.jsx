@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlassDollar, faShirt } from '@fortawesome/free-solid-svg-icons';
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer'; 
-import Products from './components/products/Products'; 
-import ProductCard from './components/products/ProductCard';
+import Products from './components/products/Products';
 import Button from './components/ui/Button';
 import Logo from './components/ui/Logo';
 import './App.css';
@@ -75,15 +74,8 @@ function App() {
       </div>
       <div className="routes-container">
         <Routes>
-        <Route path="/" element={
-            <div>
-              <div>Welcome to the Home Page</div>
-              <ProductCard/>
-            </div>
-          } />
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/products/:category" element={<ProductCard />} />
           <Route path="*" element={<div>404 Not Found</ div>} />
         </Routes>
       </div>
