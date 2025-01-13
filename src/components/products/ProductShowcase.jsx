@@ -28,6 +28,7 @@ const ProductShowcase = ({
                     alt={title}
                     className="w-full object-cover object-center" />
                 </div>
+                {/*Offer text placeholder text*/}
                 <div className="product-info">
                     <h1 className="product-title">{title}</h1>
                     <div className="mt-4">
@@ -41,6 +42,7 @@ const ProductShowcase = ({
                     <div className="mt-4">
                         <p className="product-description">{description}</p>
                     </div>
+                    {/* Sizing options to chose via button*/}
                     <div className="size-selector mt-8">
                         <h2 className="text-sm font-medium text-gray-900">Sizes</h2>
                         <div className="size-grid mt-4 grid grid-cols-5 gap-4">
@@ -54,6 +56,7 @@ const ProductShowcase = ({
                             ))}
                         </div>
                     </div>
+                    {/* Button options for adding items into cart or to wishlist */}
                     <div className="product-actions mt-8 flex gap-4">
                         <button
                         type="button"
