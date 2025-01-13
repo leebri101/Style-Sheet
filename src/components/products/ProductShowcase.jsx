@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ShoppingCart, Heart } from "lucide-react";
+import './Products.css';
 import PropTypes from 'prop-types'
 
 const ProductShowcase = ({
