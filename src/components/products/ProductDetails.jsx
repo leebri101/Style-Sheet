@@ -9,7 +9,7 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes }) => {
   const handleAddToCart = () => {
     if (!selectedSize) {
       {/* User Prompt to tell them to select the size of their picking */}
-      alert('Please Choose a size')
+      alert('Please select a size')
       return
     }
     {/* User message to display confirmation of added item into cart */}
