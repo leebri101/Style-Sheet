@@ -1,3 +1,4 @@
+/* General Page styling for Men's, Kid's, Women's */
 .page {
     min-height: 100vh;
     background-color: #f9fafb;
@@ -15,9 +16,38 @@
   color: #111827;
   margin-bottom: 2rem;
 }
-  
+
+/* HomePage styling*/
 .home-page{
   min-height: 100vh;
   background-color: #f9fafb;
   
 }
+
+/* ProductPage styling */
+.product-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.product-page-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.5rem;
+  color: #4b5563;
+}
+
+.related-products {
+  margin-top: 4rem;
+}
+
+.related-products-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
