@@ -20,6 +20,7 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes }) => {
       <div className="product-image">
         <img src={imageUrl} alt={name} />
       </div>
+      {/* Product Information */}
       <div className="product-info">
         <h1 className="product-title">{name}</h1>
         <p className="product-price">£{price.toFixed(2)}</p>
@@ -38,7 +39,7 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes }) => {
             ))}
           </div>
         </div>
-        {/* button functionality */}
+        {/* Button functionality */}
         <div className="product-actions">
           <button className="add-to-cart-button" onClick={handleAddToCart}>
             <ShoppingCart className="button-icon" />
