@@ -1,5 +1,7 @@
 import { ProductShowcase } from '../ProductShowcase';
 import { ProductGrid } from '../ProductGrid';
+import Header from '../layout/Header'
+import Footer from '../layout/Footer'
 import '../css/Pages.css';
 
 const products = [
@@ -32,15 +34,19 @@ const products = [
 const HomePage = () => {
     return(
         <div className="page">
-            <ProductShowcase 
-            title="Extra Warm Cashmere Blend Crew Neck T-Shirt"
-            price={20.00}
-            description="The perfect layering piece for colder days."
-            imageUrl="/placeholder.svg?height=400&width=300"
-            isLimitedOffer={true}
-            offerEndDate="February 12th"
-            />
-        <ProductGrid products={products} />
+            <Header />
+            <main>
+                <ProductShowcase 
+                title="Extra Warm Cashmere Blend Crew Neck T-Shirt"
+                price={20.00}
+                description="The perfect layering piece for colder days."
+                imageUrl="/placeholder.svg?height=400&width=300"
+                isLimitedOffer={true}
+                offerEndDate="February 12th"
+                />
+                <ProductGrid products={products} />
+            </main>
+            <Footer />
         </div>
     )
 }

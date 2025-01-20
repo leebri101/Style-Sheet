@@ -18,10 +18,18 @@
 }
 
 /* HomePage styling*/
-.home-page{
-  min-height: 100vh;
+main {
+  flex-grow: 1;
   background-color: #f9fafb;
+  padding: 2rem 0;
 }
+
+@media (max-width: 640px) {
+  main {
+    padding: 1rem 0;
+  }
+}
+
 
 /* ProductPage styling */
 .product-page {
