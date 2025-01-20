@@ -2,7 +2,7 @@ import { ProductShowcase } from '../ProductShowcase';
 import { ProductGrid } from '../ProductGrid';
 import Header from '../layout/Header'
 import Footer from '../layout/Footer'
-import '../../css/Pages.css';
+import './Pages.css';
 
 const products = [
     {

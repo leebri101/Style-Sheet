@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import '../css/Button.css';
+import './Button.css';
 
 /**
  * Button Component
