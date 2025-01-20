@@ -1,6 +1,6 @@
 import { Heart } from 'lucide-react';
 import PropTypes from 'prop-types'
-import '../css/Products.css';
+import '../../css/Products.css';
 
 const ProductGrid = ({ products }) => {
     return(

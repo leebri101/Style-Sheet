@@ -1,5 +1,6 @@
 import { ShoppingBag } from 'lucide-react';
-import '../css/Logo.css';
+import './Logo.css'
+
 
 export default function Logo() {
   return (
