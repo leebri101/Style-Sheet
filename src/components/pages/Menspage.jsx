@@ -1,5 +1,5 @@
 import { ProductGrid } from '../products/ProductGrid';
-import './Pages.css';
+import '../css/Pages.css';
 
 const mensProducts = [
     {

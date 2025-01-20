@@ -1,6 +1,6 @@
 import { ProductShowcase } from '../ProductShowcase';
 import { ProductGrid } from '../ProductGrid';
-import './Pages.css';
+import '../css/Pages.css';
 
 const products = [
     {
