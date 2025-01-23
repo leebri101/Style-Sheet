@@ -51,7 +51,15 @@ const Header= () =>{
                     <button className="text-gray-700 hover:text-900">
                         <Globe className="h-6 w-6"/>
                     </button>
-                    <Link to="/cart"
+                    <Link to="/cart" className="text-gray-700 hover:text-gary-900 relative">
+                    {/* Shopping Cart indicator to display item count */}
+                    <ShoppingCart className="h-5 w-5" />
+                    {cartItemsCount> 0 && (
+                        <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                            {cartItemsCount}
+                        </span>
+                    )}
+                    </Link>
                 </div>
             </nav>
         </header>
