@@ -44,6 +44,15 @@ const Header= () =>{
                     Register
                     </Link>
                 </div>
+                <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-6">
+                    <button className="text-gray-700 hover:text-900">
+                        <Globe className="h-6 w-6"/>
+                    </button>
+                    <button className="text-gray-700 hover:text-900">
+                        <Globe className="h-6 w-6"/>
+                    </button>
+                    <Link to="/cart"
+                </div>
             </nav>
         </header>
     )
