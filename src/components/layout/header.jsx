@@ -1,6 +1,6 @@
-import { Menu, Search, ShoppingCart, Heart, Globe } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import { Link } from 'react-router-dom';
+import { Menu, Search, ShoppingCart, Heart, Globe } from 'lucide-react';
 import './Header.css';
 
 const Header= () =>{
@@ -54,7 +54,7 @@ const Header= () =>{
                     <Link to="/cart" className="text-gray-700 hover:text-gary-900 relative">
                     {/* Shopping Cart indicator to display item count */}
                     <ShoppingCart className="h-5 w-5" />
-                    {cartItemsCount> 0 && (
+                    {cartItemsCount > 0 && (
                         <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
                             {cartItemsCount}
                         </span>
