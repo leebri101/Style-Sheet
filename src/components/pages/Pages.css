@@ -17,6 +17,25 @@
   margin-bottom: 2rem;
 }
 
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-page-main {
+  flex-grow: 1;
+  background-color: #f9fafb;
+  padding: 2rem 0;
+}
+
+@media (max-width: 640px) {
+  .home-page-main {
+    padding: 1rem 0;
+  }
+}
+
+
 /* HomePage styling*/
 main {
   flex-grow: 1;
