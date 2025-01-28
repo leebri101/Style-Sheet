@@ -16,50 +16,49 @@ const Header= () => {
     return(
         <header className="header">
             <nav className="header-nav" aria-label="Global">
-                <div className="flex lg:flex-1">
+                <div className="header-logo-container">
                     <Link to="/" className="header-logo">
                     <span className="sr-only">Style</span>
                     <div>-Sheet</div>
                     </Link>
                 </div>
-                <div className="flex lg:hidden">
-                    <button type="button" className="header-mobile-menu-button" onClick={() => setMobileMenuOpen(true)}>
+                <div className="mobile-menu-button-container">
+                    <button type="button" className="mobile-menu-button" onClick={() => setMobileMenuOpen(true)}>
                         <span className="sr-only">Open Main Menu</span>
-                        <Menu className="h-6 w-6" aria-hidden="true" />
+                        <Menu className="menu-icon" aria-hidden="true" />
                     </button>
                 </div>
-                <div className="hidden lg:flex lg:gap-x-12">
+                <div className="header-links">
                     {navigation.map((item) => (
                         <Link
                         key={item.name}
                         to={item.href}
-                        className="text-sm font-semibold leading-text-gray-900 hover:text-gray-600"
+                        className="header-link"
                         >
                             {item.name}
                         </Link>
                     ))}
-                    <Link to="/login" className="text-sm font-semibold leading-text-gray-900 hover:text-gray-600">
+                    <Link to="/login" className="header-link">
                     Login 
                     </Link>
-                    <Link to="/register" className="text-sm font-semibold leading-text-gray-900 hover:text-gray-600">
+                    <Link to="/register" className="header-link">
                     Register
                     </Link>
                 </div>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-6">
-                    <button className="text-gray-700 hover:text-900">
-                        <Globe className="h-6 w-6"/>
+                <div className="header-icons">
+                    <button className="header-icon-button">
+                        <Globe className="header-icon"/>
                     </button>
-                    <button className="text-gray-700 hover:text-900">
-                        <Globe className="h-6 w-6"/>
+                    <button className="header-icon-button">
+                        <Globe className="header-icon"/>
                     </button>
-                    <Link to="/cart" className="text-gray-700 hover:text-gary-900 relative">
+                    <Link to="/cart" className="header-icon-button-cart-icon-container">
                     {/* Shopping Cart indicator to display item count 
-                    <ShoppingCart className="h-5 w-5" />
-                    {cartItemsCount > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+                    <ShoppingCart className="header-icon" />
+                    {cartItemsCount > 0 && 
+                        <span className="cart-count">
                             {cartItemsCount}
-                        </span>
-                    )}*/}
+                        </span>}*/}
                     </Link>
                 </div>
             </nav>
@@ -73,12 +72,16 @@ const Header= () => {
                         </Link>
                         <button type="button" className="header-mobile-menu-close-button" onClick={() => setMobileMenuOpen(false)}>
                             <span className="sr-only">Close Menu</span>
-                            <Menu className="h-6 w-6" aria-hidden="true" />
+                            <Menu className="menu-icon" aria-hidden="true" />
                         </button>
                     </div>
-                    <div className="mt-6 flow-root">
-                        <div className="-my-6 divide-y divide-gray-500/10">
-
+                    <div className="mobile-menu-content">
+                        <div className="mobile-menu-links">
+                            {navigation.map((item) => (
+                                <Link key={item.name} to={item.href} className="mobile-link-menu">
+                                    {item.name}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
