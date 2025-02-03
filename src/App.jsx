@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'; 
 import { Routes, Route, useNavigate, } from 'react-router-dom';
 import { Tabs, TabList, Tab, useColorMode, Menu, MenuButton, MenuItem, MenuGroup, MenuList, Button } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +6,7 @@ import { faShoppingBasket, faUser , faHeartCirclePlus, faMagnifyingGlass, faShir
 import Register from "./components/user/Register";
 import Footer from './components/layout/Footer'; 
 import Logo from './components/ui/Logo';
+import Header from './components/layout/Header';
 import './App.css';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     ['#ffe5e5', '#e6fffa', '#ebf8ff'],
     ['#7f1d1d', '#234e52', '#2a4365']
   );
-  const [tabIndex, setTabIndex] = useState(0);
+  //const [tabIndex, setTabIndex] = useState(0);
   const bg = colors[tabIndex];
 
   const handleTabChange = (index) => {
