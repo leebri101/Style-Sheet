@@ -62,9 +62,9 @@ const Header= () => {
                     </Link>
                 </div>
             </nav>
-            <Dialog as="div" className="mobile-menu" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}/>
+            <Dialog as="div" className="mobile-menu" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
                 <div className="fixed inset-0 z-10">
-                    <DialogPanel className="mobile-menu-panel"/>
+                    <DialogPanel className="mobile-menu-panel" />
                     <div className="flex items-center justify-between">
                         <Link to="/" className="header-logo">
                             <span className="sr-only">Style - </span>
@@ -82,9 +82,20 @@ const Header= () => {
                                     {item.name}
                                 </Link>
                             ))}
+                            <Link to="/login" className="mobile-menu-link">
+                                Login
+                            </Link>
+                            <Link to="/register" className="mobile-menu-link">
+                                Register
+                            </Link>
+                            {/*<Link to="/cart" className="mobile-menu-link">
+                                Cart({cartItemsCount})
+                            </Link> */}
                         </div>
                     </div>
                 </div>
         </header>
     )
 }
+
+export default Header
