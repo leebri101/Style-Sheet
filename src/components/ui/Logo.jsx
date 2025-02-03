@@ -1,13 +1,18 @@
-import { ShoppingBag } from 'lucide-react';
+
 import './Logo.css'
 
-
-export default function Logo() {
-  return (
-    <div className="logo flex items-center space-x-2">
-      <span className="text-xl font-bold">STYLE</span>
-      <ShoppingBag className="h-6 w-6 text-primary" />
-      <span className="text-xl font-bold">SHEET</span>
+const Logo = () => {
+  return(
+    <div className="logo-page">
+      <div className="logo-container">
+        <div className="logo">
+          <span className="logo-text">STYLE</span>
+          <span className="logo-dash">-</span>
+          <span  className="logo-text">SHEET</span>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
+
+export default Logo
