@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { Menu, Search, ShoppingCart, Heart, Globe } from 'lucide-react';
@@ -50,7 +51,7 @@ const Header= () => {
                         <Globe className="header-icon"/>
                     </button>
                     <button className="header-icon-button">
-                        <Globe className="header-icon"/>
+                        <Heart className="header-icon"/>
                     </button>
                     <Link to="/cart" className="header-icon-button-cart-icon-container">
                     {/* Shopping Cart indicator to display item count 
