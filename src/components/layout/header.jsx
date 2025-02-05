@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import { Menu, Search, ShoppingCart, Heart, Globe } from 'lucide-react';
@@ -12,6 +13,7 @@ const Header= () => {
         { name: 'WOMEN', href: '/women' },
         { name: 'MENs', href: '/mens' },
         { name: 'KIDS', href: '/kids' },
+        { name: 'LOGO', href: '/logo'},
     ]
 
     return(
