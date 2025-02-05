@@ -1,0 +1,28 @@
+.logout-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    padding: 1rem;
+}
+  
+.logout-content {
+    max-width: 24rem;
+    width: 100%;
+    text-align: center;
+}
+  
+.logout-title {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+  
+.logout-message {
+    font-size: 1rem;
+    color: #6b7280;
+}
+  
+  
