@@ -12,18 +12,42 @@
     max-width: 24rem;
     width: 100%;
     text-align: center;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
   
 .logout-title {
     font-size: 1.875rem;
-    font-weight: 800;
+    font-weight: 700;
     color: #111827;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
   
 .logout-message {
     font-size: 1rem;
-    color: #6b7280;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+}
+  
+.logout-spinner {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: 0.25rem solid #e5e7eb;
+    border-top: 0.25rem solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+  
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
 }
   
   
