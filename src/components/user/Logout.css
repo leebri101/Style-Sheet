@@ -33,12 +33,12 @@
   
 .logout-spinner {
     display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    border: 0.25rem solid #e5e7eb;
-    border-top: 0.25rem solid #3b82f6;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.3rem solid rgba(229, 231, 235, 0.3); 
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 1s ease-in-out infinite; 
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3); 
 }
   
 @keyframes spin {
