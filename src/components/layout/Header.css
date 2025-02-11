@@ -63,6 +63,21 @@
   height: 1.5rem;
 }
 
+.icon-count {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: 0.75rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .menu-icon {
   width: 1.5rem;
   height: 1.5rem;

@@ -7,8 +7,9 @@ import './Header.css';
 
 const Header= () => {
     const[mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    {/* 
-    const cartItemsCount = useSelector((state) => state.cart.items.reduce((total, item) => total + item.quantity, 0))*/}
+    const cartItemsCount = useSelector((state) => 
+        state.cart.items.reduce((total, item) => total + item.quantity, 0))
+    const wishlistItemsCount = useSelector((state) => state.wishlist.items.length)
     const navigation = [
         { name: 'WOMEN', href: '/women' },
         { name: 'MENs', href: '/mens' },
@@ -52,16 +53,17 @@ const Header= () => {
                     <button className="header-icon-button">
                         <Globe className="header-icon"/>
                     </button>
-                    <button className="header-icon-button">
+                    <Link to="/wishlist" className="header-icon-button">
                         <Heart className="header-icon"/>
-                    </button>
+                        {wishlistItemsCount > 0 && <span className="icon-count">{wishlistItemsCount}</span>}
+                    </Link>
                     <Link to="/cart" className="header-icon-button-cart-icon-container">
-                    {/* Shopping Cart indicator to display item count 
+                    Shopping Cart indicator to display item count 
                     <ShoppingCart className="header-icon" />
                     {cartItemsCount > 0 && 
                         <span className="cart-count">
                             {cartItemsCount}
-                        </span>}*/}
+                        </span>}
                     </Link>
                 </div>
             </nav>
@@ -91,9 +93,12 @@ const Header= () => {
                             <Link to="/register" className="mobile-menu-link">
                                 Register
                             </Link>
-                            {/*<Link to="/cart" className="mobile-menu-link">
+                            <Link to="/wishlist" className="mobile-menu-link">
+                                Wishlist({wishlistItemsCount})
+                            </Link>
+                            <Link to="/cart" className="mobile-menu-link">
                                 Cart({cartItemsCount})
-                            </Link> */}
+                            </Link>
                         </div>
                     </div>
                 </div>
