@@ -1,4 +1,3 @@
-
 import './Logo.css'
 
 const Logo = () => {
