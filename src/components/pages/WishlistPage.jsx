@@ -1,5 +1,6 @@
 // to do 
 import { useSelector, useDispatch } from "react-redux";
+import { HeartOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { removeFromWishlist } from "./wishlistSlice.js";
 import { addToCart} from "./cartSlice.js";
@@ -30,11 +31,27 @@ const WishlistPage = () => {
                             className="wishlist-item-image"/>
                             <div className="wishlist-item-details">
                                 <h2 className="wishlist-item-name"></h2>
+                                <p className="wishlist-item-price">£{item.price.toFixed(2)}</p>
+                                <div className="wishlist-item-actions">
+                                    <button onClick={() => handleAddToCart(item)}
+                                    className="add-to-cart-button">
+                                        Add To Cart
+                                    </button>
+                                    <HeartOff onClick={() => handleRemoveFromWishlist(item.id)}
+                                        className="remove-from-wishlist-button">
+                                            Remove Item
+                                    </HeartOff>
+                                </div>
                             </div>
                         </div>
-                    )}
+                    ))}
                 </div>  
             )}
+            <Link to="/" className="wishlist-shopping-link">
+                Continue Shopping
+            </Link>
         </div>
     )
 }
+
+export default WishlistPage

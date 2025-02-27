@@ -81,9 +81,10 @@
 .add-to-cart-button:hover {
     background-color: #1f2937;
 }
-  
+
+/*Wishlist button styling */
 .remove-from-wishlist-button {
-    background-color: #ef4444;
+    background-color: #5c5c5c;
     color: white;
 }
   
