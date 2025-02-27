@@ -5,7 +5,7 @@ const mensProducts = [
     {
         id: 1,
         name: "Men's Basic Tee",
-        price: 25,
+        price: 15,
         imageUrl: '/placeholder.svg?height=400&width=300',
     },
     {
