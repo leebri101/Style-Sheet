@@ -1,2 +1,2 @@
-// to do on monday 
+//update 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";

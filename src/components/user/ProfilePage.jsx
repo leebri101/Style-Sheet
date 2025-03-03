@@ -1,10 +1,10 @@
-// to do 
+// to carry on 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Eye, EyeClosed, CircleAlert } from "lucide-react";
 import { Dialog } from "@headlessui/react";
-import "./Profile.css";
+import "../user/ProfilePage.css";
 
 //states for email and password forms
 const ProfilePage = () => {
@@ -147,7 +147,11 @@ const ProfilePage = () => {
                             />
                             </label>
                         </div>
+                        <div className="field-group">
+                            <label htmlFor="emailPassword">Confirm Password</label>
+                        </div>
                     </form>
+                        {/*Password Display & Input*/}
                 </section>
             </div>
         </div>

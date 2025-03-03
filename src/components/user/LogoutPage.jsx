@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutStart, logoutSuccess } from "./authSlice.js"
+import { logoutStart, logoutSuccess } from "../../store/authSlice.js";
 
 const LogoutPage = () => {
     const navigate = useNavigate()

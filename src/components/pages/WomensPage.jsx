@@ -1,4 +1,4 @@
-import { ProductGrid } from './src/components/products/ProductGrid';
+import { ProductGrid } from "../products/ProductGrid";
 import './Pages.css';
 
 const womensProducts = [

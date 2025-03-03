@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { searchProducts } from ".productSlice.js";
+import { searchProducts } from "../../store/productSlice.js";
 import ProductGrid from "../products/ProductGrid";
 import "./SearchResults.css";
 

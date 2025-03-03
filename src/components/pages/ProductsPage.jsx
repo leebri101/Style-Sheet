@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState,useEffect } from "react";
-import { ProductDetails } from "../ProductDetails";
-import { ProductGrid } from "../ProductGrid";
+import { ProductDetails } from "../../components/products/ProductDetails";
+import { ProductGrid } from "../../components/products/ProductGrid";
 import './Pages.css';
 
 const allProducts = [

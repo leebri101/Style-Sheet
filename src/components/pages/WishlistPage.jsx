@@ -2,9 +2,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { HeartOff } from "lucide-react";
 import { Link } from "react-router-dom";
-import { removeFromWishlist } from "./wishlistSlice.js";
-import { addToCart} from "./cartSlice.js";
-import "./Wishlist.css";
+import { removeFromWishlist } from "../../store/wishlistSlice.js";
+import { addToCart} from "../../store/cartSlice.js";
+import "../pages/WishlistPage.css";
 
 const WishlistPage = () => {
     const wishlistItems = useSelector((state) => state.wishlist.items);

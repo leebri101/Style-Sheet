@@ -1,39 +1,52 @@
-import { Heart } from 'lucide-react';
-import PropTypes from 'prop-types'
-import './Products.css';
+//upadate code
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import PropTypes from "prop-types"
+import { Heart } from "lucide-react"
+import { addToWishlist, removeFromWishlist } from "../../store/wishlistSlice"
+import "./Products.css"
 
 const ProductGrid = ({ products }) => {
-    return(
-        <div className="product-grid-container">
-            <div className="product-grid-content">
-                <h2 className="product-grid-title">People have also bought</h2>
-                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 " >
-                    {products.map((product) => (
-                        <div key={product.id} className="product-item">
-                            <div className="product-image">
-                                <img 
-                                src={product.imageUrl}
-                                alt={product.name}
-                                />
-                            </div>
-                            <div className="product-info">
-                                    <h3>
-                                        <a href="#">
-                                            <span aria-hidden="true" className='product-name'/>
-                                            {product.name}
-                                        </a>
-                                    </h3>
-                                <p className="product-price">£{product.price.toFixed(2)}</p>
-                            </div>
-                            <button className="favorite-button">
-                                <Heart className="favorite-icon" />
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    )
+  const dispatch = useDispatch()
+  const wishlistItems = useSelector((state) => state.wishlist.items)
+
+  const handleWishlist = (e, product) => {
+    e.preventDefault()
+    const isInWishlist = wishlistItems.some((item) => item.id === product.id)
+
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(product.id))
+    } else {
+      dispatch(addToWishlist(product))
+    }
+  }
+
+  return (
+    <div className="product-grid">
+      {products.map((product) => {
+        const isInWishlist = wishlistItems.some((item) => item.id === product.id)
+
+        return (
+          <div key={product.id} className="product-card">
+            <Link to={`/product/${product.id}`} className="product-link">
+              <div className="product-image-container">
+                <img src={product.imageUrl || "/placeholder.svg"} alt={product.name} className="product-image" />
+                <button
+                  className={`wishlist-icon-button ${isInWishlist ? "in-wishlist" : ""}`}
+                  onClick={(e) => handleWishlist(e, product)}
+                  aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+                >
+                  <Heart className={`icon ${isInWishlist ? "filled" : ""}`} />
+                </button>
+              </div>
+              <h3 className="product-name">{product.name}</h3>
+              <p className="product-price">£{product.price.toFixed(2)}</p>
+            </Link>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 ProductGrid.propTypes = {
@@ -46,6 +59,5 @@ ProductGrid.propTypes = {
         })
     ).isRequired,
 };
-
 
 export default ProductGrid
