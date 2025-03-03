@@ -1,0 +1,28 @@
+.search-results-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .search-results-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .search-results-loading,
+  .search-results-error,
+  .search-results-empty {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #666;
+    margin-top: 3rem;
+  }
+  
+  .search-results-error {
+    color: #e53e3e;
+  }
+  
+  
