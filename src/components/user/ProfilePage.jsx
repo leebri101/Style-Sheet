@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Eye, EyeClosed, CircleAlert, AlertTriangle } from "lucide-react";
-import { Dialog } from "@headlessui/react";
+import { Dialog, DialogPanel, DialogTitle, Description} from "@headlessui/react";
 import "../user/ProfilePage.css";
 
 //states for email and password forms
@@ -22,6 +22,7 @@ const ProfilePage = () => {
         confirmPassword: "",
     });
 
+    //UI states for password visibility
     const [showPassword, setShowPassword] = useState({
         current: false,
         new: false,
@@ -29,7 +30,7 @@ const ProfilePage = () => {
     });
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [deleteConfirmation, setDeleteConfirmation] = useState(""); 
+    const [passwordConfirmation, setPasswordConfirmation] = useState(""); 
     
     const orderHistory = [
         {
@@ -77,8 +78,8 @@ const ProfilePage = () => {
     //handle password change
     const handlePasswordChange = (e) => {
         const { name, value } = e.target;
-        setPasswordForm((prevState) => ({
-            ...prevState,
+        setPasswordForm((prev) => ({
+            ...prev,
             [name]: value,
         }))
     }
@@ -103,13 +104,13 @@ const ProfilePage = () => {
             alert("Error Changing Password. Please try again.")
         }
     }
-    const handleDeleteAccount = () => {
+    const handleDeleteAccount = async () => {
         try {
-            if(deleteConfirmation !== "DELETE"){
-                alert("Please type DELETE to confirm")
+            if(!passwordConfirmation){
+                alert("Please enter your password to delete your account.")
                 return
-            }console.log("Account Deletion Requested")
-            alert("Account Deleted")
+            }console.log("Account Deletion Requested with password verification")
+            alert("Account Successfully Deleted")
             navigate("/")
         } catch (error){
             console.error("Error Deleting Account:", error)
@@ -299,17 +300,47 @@ const ProfilePage = () => {
                     <div className="delete-account">
                         <div className="warning-message">
                             <CircleAlert className="warning-icon"/>
-                            <p>WARNING: This action cannot be undone. All your data will be 
+                            <p>WARNING: Are you sure you want to delete your account? All your data will be 
                                 permanently deleted.
                             </p>
                         </div>
-                        <button className="delete-button" onClick={() = setIsDeleteModalOpen(true)}>
+                        <button className="delete-button" onClick={() => setIsDeleteModalOpen(true)}>
                             Delete Account
                         </button>
                     </div>
                 </section>
                 {/*Delete Account Modal*/}
-                
+                <Dialog open={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} 
+                className="modal-overlay">
+                    <div className="modal-container">
+                        <DialogPanel>
+                            <DialogTitle className="modal-title">Delete Account Confirmation</DialogTitle>
+                            <Description className="modal-description">
+                                <AlertTriangle>
+                                    This action cannot be undone. Please enter your password to confirm.
+                                </AlertTriangle>
+                            </Description>
+                            <input
+                            type="password"
+                            className="delete-confirmation-input"
+                            value={passwordConfirmation}
+                            onChange={(e) => setPasswordConfirmation(e.target.value)}
+                            placeholder="Enter your password"
+                            />
+                            <div className="modal-actions">
+                                <button className="cancel-button" onClick={() => 
+                                    setIsDeleteModalOpen(false)}>
+                                    Cancel
+                                </button>
+                                <button className="confirm-delete-button" 
+                                onClick={handleDeleteAccount}
+                                disabled={!passwordConfirmation}>
+                                    Confirm
+                                </button>
+                            </div>
+                        </DialogPanel>
+                    </div>
+                </Dialog>
             </div>
         </div>
     )
