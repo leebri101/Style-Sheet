@@ -123,7 +123,31 @@ const ProfilePage = () => {
                 <h1 className="profile-title">Account Settings</h1>
                 {/* Email Change Form */}
                 <section className="profile-section">
-                    <h2 className="section-title"></h2>
+                    <h2 className="section-title">Change Email Address</h2>
+                    <form onSubmit={handleEmailSubmit} className="email-form">
+                        <div className="field-group">
+                            <label htmlFor="currentEmail">Current Email</label>
+                            <input
+                            type="email"
+                            id="currentEmail"
+                            name="currentEmail" 
+                            value={emailForm.currentEmail}
+                            disabled
+                            className="input-disabled"/>
+                        </div>
+                        <div className="field-group">
+                            <label htmlFor="newEmail">
+                            <input
+                            type="email"
+                            id="newEmail"
+                            name="newEmail"
+                            value={emailForm.newEmail}
+                            onChange={handleEmailChange}
+                            required
+                            />
+                            </label>
+                        </div>
+                    </form>
                 </section>
             </div>
         </div>
