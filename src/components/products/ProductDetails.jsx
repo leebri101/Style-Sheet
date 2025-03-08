@@ -19,7 +19,7 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes }) => {
       <div className="product-image">
         <img src={imageUrl} alt={name} />
       </div>
-      {/* Product Information */}
+      {/*Product Information*/}
       <div className="product-info">
         <h1 className="product-title">{name}</h1>
         <p className="product-price">£{price.toFixed(2)}</p>
