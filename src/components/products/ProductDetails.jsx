@@ -11,7 +11,6 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes }) => {
       alert('Please select a size')
       return
     }
-    // Here you would typically add the item to the cart
     console.log('Item added to cart:', { id, name, price, selectedSize })
   }
 
