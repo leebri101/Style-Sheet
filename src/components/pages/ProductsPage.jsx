@@ -1,15 +1,14 @@
 //to do tomorrow 25/03/25
 import { useParams } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
-import ProductDetails from "../components/products/ProductDetails";
-import ProductGrid from "../components/products/ProductGrid";
+import ProductDetails from "../products/ProductDetails";
+import ProductGrid from "../products/ProductGrid";
 import { fetchProducts } from "../store/productSlice";
 import './Pages.css';
-import { use } from "react";
 
 const ProductsPage = () => {
-    const {id} = useParams()
+    const { id } = useParams()
     const dispatch = useDispatch()
     const { items: products, status, error} = useSelector
     ((state) => state.products)
@@ -28,11 +27,10 @@ const ProductsPage = () => {
         return <div className="product-page-error">Error: {error}</div>
     }
 
-    const product = products.find((p)) => p.id === Number(id));
-
-    if(!product) {
-        return <div className="product-page-not-found">
-            Product not found</div>
+    const product = products.find((p) => p.id === Number(id))
+    
+    if (!product) {
+        return <div className="product-page-not-found">Product not found</div>
     }
 
     const relatedProducts = products.filter((p) => p.category 
@@ -47,5 +45,6 @@ const ProductsPage = () => {
             </div>
         </div>
     )
-    
+}
+
 export default ProductsPage;
