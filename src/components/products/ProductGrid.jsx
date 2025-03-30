@@ -8,12 +8,12 @@ import { fetchProducts } from "../../store/productSlice"
 import { addToWishlist, removeFromWishlist } from "../../store/wishlistSlice"
 import "./Products.css"
 
-const ProductGrid = ({ products:  propProducts, loading: propLoading }) => {
+const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
   const dispatch = useDispatch()
-  const { items: storeProducts, status, error } = 
-  useSelector((state) => state.products)
+  const { items: storeProducts, status, error } = useSelector((state) => state.products)
   const wishlistItems = useSelector((state) => state.wishlist.items)
-  
+
+  // Use props products if provided, otherwise use store products
   const products = propProducts || storeProducts
   const loading = propLoading || status === "loading"
 
