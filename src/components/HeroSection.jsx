@@ -1,6 +1,5 @@
 
 import { Badge } from './ui/Badge';
-import { Button } from './ui/button';
 
 export default function HeroSection() {
   return (
