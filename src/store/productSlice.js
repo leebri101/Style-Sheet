@@ -17,7 +17,15 @@ const productSlice = createSlice({
         status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
         error: null,
     },
-    reducers: {},
+    reducers: {
+        updateProductStock:(state, action) => {
+            const { id, quantity } = action.payload;
+            const product = state.items.find(product => product.id === id);
+            if (product) {
+                product.stock = (product.stock || 0 ) - quantity;
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchProducts.pending, (state) => {
@@ -25,7 +33,6 @@ const productSlice = createSlice({
             })
             .addCase(fetchProducts.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                // Add any fetched products to the array
                 state.products = action.payload;
             })
             .addCase(fetchProducts.rejected, (state, action) => {
@@ -33,6 +40,8 @@ const productSlice = createSlice({
                 state.error = action.error.message;
             });
     },
+    
 })
 
+export const { updateProductStock } = productSlice.actions; 
 export default productSlice.reducer;
