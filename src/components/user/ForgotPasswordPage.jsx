@@ -1,7 +1,7 @@
 // to also do 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import "../../components/user/ForgotPassword.css";
+import "./ForgotPasswordPage.css"; // Import your CSS file
 
 const ForgotPasswordPage = () => {
     const [email, setEmail] = useState("");

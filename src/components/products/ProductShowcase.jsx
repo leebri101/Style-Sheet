@@ -65,4 +65,4 @@ ProductShowcase.propTypes ={
     isLimitedOffer: PropTypes.bool,
     offerEndDate: PropTypes.string,
 }
-export default ProductShowcase
+export default ProductShowcase;

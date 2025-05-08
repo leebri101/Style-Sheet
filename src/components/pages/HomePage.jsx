@@ -1,5 +1,5 @@
-import { ProductShowcase } from "../../components/products/ProductShowcase";
-import { ProductGrid } from "../../components/products/ProductGrid";
+import ProductShowcase from "../../components/products/ProductShowcase";
+import ProductGrid from "../../components/products/ProductGrid";
 import Header from '../layout/Header';
 import Footer from '../layout/Footer';
 import './Pages.css';

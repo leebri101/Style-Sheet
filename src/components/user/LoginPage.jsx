@@ -38,7 +38,7 @@ const LoginPage = () => {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try{
             await dispatch(login(formData)).unwrap()
