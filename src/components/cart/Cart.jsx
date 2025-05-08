@@ -24,7 +24,7 @@ const Cart = () => {
           <div className="cart-empty-content">
             <ShoppingCart size={64} className="cart-empty-icon" />
             <h2 className="cart-title">Your Cart is Empty</h2>
-            <p className="cart-empty-message">Looks like you haven't added any items to your cart yet.</p>
+            <p className="cart-empty-message">Looks like you have not added any items to your cart yet.</p>
             <Link to="/" className="continue-shopping-button">
               Continue Shopping
             </Link>
