@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { Heart } from "lucide-react"
 import { fetchProducts } from "../../store/productSlice"
-import { addToWishlist, removeFromWishlist } from "../../store/wishlistSlice"
+import wishlistSlice from "../../store/wishlistSlice"
 import "./Products.css"
 
 const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
@@ -13,7 +13,7 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
   const { items: storeProducts, status, error } = useSelector((state) => state.products)
   const wishlistItems = useSelector((state) => state.wishlist.items)
 
-  // Use props products if provided, otherwise use store products
+
   const products = propProducts || storeProducts
   const loading = propLoading || status === "loading"
 
@@ -29,9 +29,9 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
       item.id === product.id)
 
     if (isInWishlist) {
-      dispatch(removeFromWishlist(product.id))
+      dispatch(wishlistSlice(product.id))
     } else {
-      dispatch(addToWishlist(product))
+      dispatch(wishlistSlice(product))
     }
   }
   if (loading) {
