@@ -3,7 +3,7 @@ import { HeartOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import removeFromWishlist from "../../store/wishlistSlice.js";
 import { addToCart } from "../../store/cartSlice.js";
-import "../pages/WishlistPage.css";
+import "./WishlistPage.css";
 
 const WishlistPage = () => {
     const wishlistItems = useSelector((state) => state.wishlist.items);
