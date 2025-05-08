@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { HeartOff } from "lucide-react";
 import { Link } from "react-router-dom";
-import { removeFromWishlist } from "../../store/wishlistSlice.js";
+import removeFromWishlist from "../../store/wishlistSlice.js";
 import { addToCart } from "../../store/cartSlice.js";
 import "../pages/WishlistPage.css";
 
