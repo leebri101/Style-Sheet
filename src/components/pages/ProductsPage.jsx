@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import ProductDetails from "../products/ProductDetails";
 import ProductGrid from "../products/ProductGrid";
-import { fetchProducts } from "../store/productSlice";
+import fetchProducts from "../store/productSlice";
 import './Pages.css';
 
 const ProductsPage = () => {
