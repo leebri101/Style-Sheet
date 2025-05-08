@@ -1,54 +1,57 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CategorySection from "./CategorySection";
 import ProductShowcase from "../../components/products/ProductShowcase";
 import ProductGrid from "../../components/products/ProductGrid";
-import Header from '../layout/Header';
-import Footer from '../layout/Footer';
+import fetchProducts from "../../store/productSlice";
 import './Pages.css';
 
-const products = [
-    {
-        id: 1,
-        name: "Basic Tee",
-        price: 35,
-        imageUrl: "/images/basic-tee.jpg", 
-    },
-    {
-        id: 2,
-        name: "Wool Sweater",
-        price: 89,
-        imageUrl: "/images/wool-sweater.jpg", 
-    },
-    {
-        id: 3,
-        name: "Denim Jeans",
-        price: 65,
-        imageUrl: "/images/denim-jeans.jpg", 
-    },
-    {
-        id: 4,
-        name: "Cotton Shirt",
-        price: 45,
-        imageUrl: "/images/cotton-shirt.jpg", 
-    },
-];
-
 const HomePage = () => {
+    const dispatch = useDispatch();
+    const { items: products, status, error } = 
+    useSelector((state) => state.products)
+
+    useEffect(() => {
+        dispatch(fetchProducts())
+    }, [dispatch]);
+
+    const featuredProduct = products.length > 0 ? products[0] : null;
+    const gridProducts = products.length > 1 ? products.slice(1, 5) : [];
+
     return (
-        <div className="home-page">
-            <Header />
+        <div className = "home-page">
             <main className="home-page-main">
-                <ProductShowcase
-                    title="Extra Warm Cashmere Blend Crew Neck T-Shirt"
-                    price={15.00}
-                    description="The perfect layering piece for colder days."
-                    imageUrl="/images/cashmere-tee.jpg" 
+                {status === "loading" && <div className="loading-message">
+                    Loading products...
+                    </div>}
+                {status === "failed" && <div className="error-message">
+                    Error: {error}
+                    </div>}
+                
+                {featuredProduct && (
+                    <ProductShowcase
+                    title={featuredProduct.name}
+                    price={featuredProduct.price}
+                    description={featuredProduct.description}
+                    imageUrl={featuredProduct.imageUrl}
                     isLimitedOffer={true}
-                    offerEndDate="February 12th"
-                />
-                <ProductGrid products={products} />
+                    offerEndDate = "December 11th"
+                    />
+                )}
+
+                <CategorySection />
+                
+                {gridProducts.length > 0 && (
+                    <div className="featured-products">
+                        <h2 className="featured-products-title">
+                            Featured Products
+                        </h2>
+                        <ProductGrid products={gridProducts} />
+                    </div>
+                )}
             </main>
-            <Footer />
         </div>
-    );
-};
+    )
+}
 
 export default HomePage;
