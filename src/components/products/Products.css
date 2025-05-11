@@ -378,7 +378,8 @@
   gap: 1rem;
 }
 
-.add-to-cart-button {
+.add-to-cart-button,
+.wishlist-button {
   flex: 1;
   display: flex;
   align-items: center;
@@ -394,6 +395,34 @@
 
 .add-to-cart-button:hover {
   background-color: #1f2937;
+}
+
+.wishlist-button {
+  background-color: white;
+  color: #ef4444;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.wishlist-button:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.wishlist-button.in-wishlist:hover {
+  background-color: #ef4444;
+  border-color: #ef4444;
+}
+
+.wishlist-button .button-icon {
+  margin-right: 0.5rem;
+}
+
+.wishlist-button .button-icon.filled {
+  fill: currentColor;
 }
 
 .button-icon {
