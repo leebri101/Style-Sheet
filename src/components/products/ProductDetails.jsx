@@ -91,7 +91,7 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes=[], cate
           <button 
           className={`wishlist-button $
             {isInWishlist ? 'in-wishlist' : ""}`}
-  onlcick={handleWishlist}
+          onClick={handleWishlist}
           aria-label={isInWishlist ? "Remove from wishlist" : 
           "Add to wishlist"}
           >
