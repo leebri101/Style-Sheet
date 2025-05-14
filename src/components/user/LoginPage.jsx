@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { login, clearError } from "../store/authSlice"
+import { login, clearError } from "../../store/authSlice"
 import './Login.css' 
 import './ForgotPassword.css'
 
