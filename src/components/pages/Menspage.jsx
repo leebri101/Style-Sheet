@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
@@ -78,7 +76,7 @@ const MensPage = () => {
         return (
           <>
             <div className="error-message">
-              Error loading products: {error}. Showing static version instead.
+              Error loading products: {error}. Please try again later.
             </div>
             <ProductGrid products={STATIC_MENS_PRODUCTS} />
           </>
