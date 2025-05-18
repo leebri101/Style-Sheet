@@ -1,7 +1,10 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
+import fetchProductsByCategory from "../../store/productSlice";
 import './Pages.css';
 
-const womensProducts = [
+const STATIC_WOMEN_PRODUCTS = [
   {
     id: 1,
     name: "Women's Basic Tee",
@@ -53,15 +56,57 @@ const womensProducts = [
 ]
 
 const WomenPage = () => {
+  const dispatch = useDispatch();
+  const { items: products, status, error } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(fetchProductsByCategory("women`s clothing"))
+  }, [dispatch]);
+
+  const renderContent = () => {
+    switch (status) {
+      case 'loading':
+        return(
+          <div className="loading-message">
+            Loading Products...
+          </div>
+        );
+      case 'failed':
+        return(
+          <>
+            <div className="error-message">
+              Error loading products: {error}. Showing static version instead.
+            </div>
+            <ProductGrid products={STATIC_WOMEN_PRODUCTS} />
+          </>
+        );
+
+        case 'succeeded':
+          return products.length > 0 ? (
+            <ProductGrid products={products} />
+          ) : (
+            <>
+              <div className="error-message">
+                No products found. Showing static version instead.
+              </div>
+              <ProductGrid products={STATIC_WOMEN_PRODUCTS} />
+            </>
+          );
+        
+        default:
+          return <ProductGrid products={STATIC_WOMEN_PRODUCTS} />;
+    }
+  };
+
   return (
     <div className="page">
       <div className="page-content">
-        <h1 className="page-title">Womens Collection</h1>
-        <ProductGrid products={womensProducts} />
+        <h1 className="page-title">Women`s Collection</h1>
+        {renderContent()}
       </div>
-    </div>
-  )
-}
+   </div>
+  );
+};
 
 export default WomenPage
 

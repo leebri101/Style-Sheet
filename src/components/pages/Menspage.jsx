@@ -78,7 +78,7 @@ const MensPage = () => {
         return (
           <>
             <div className="error-message">
-              Error loading products: {error}. Showing sample products instead.
+              Error loading products: {error}. Showing static version instead.
             </div>
             <ProductGrid products={STATIC_MENS_PRODUCTS} />
           </>
