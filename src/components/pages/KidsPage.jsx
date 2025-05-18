@@ -1,8 +1,11 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
+import fetchProductsByCategory from "../../store/productSlice";
 import './Pages.css';
 
 
-const kidsProducts = [
+const STATIC_KIDS_PRODUCTS = [
     {
         id: 1,
         name: "Kids' Basic Tee",
@@ -54,14 +57,53 @@ const kidsProducts = [
 ]
 
 const KidsPage = () =>{
-    return(
+    const dispatch = useDispatch();
+    const { items: products, status, error } = useSelector((state) => state.products);  
+
+    useEffect(() => {
+        dispatch(fetchProductsByCategory("kids' clothing"));
+    }, [dispatch]);
+        
+        const renderContent = () => {
+            switch (status) {
+                case 'loading':
+                    return (
+                        <div className="loading-message">
+                            Loading products...
+                        </div>
+                    );
+                case 'failed':
+                    return(
+                        <>
+                            <div className="error-message">
+                                Error loading products: {error}. Please try again later.
+                            </div>
+                            <ProductGrid products={STATIC_KIDS_PRODUCTS}/>
+                        </>
+                    )
+                case 'succeeded':
+                    return products.length > 0 ? (
+                        <ProductGrid products={products} />
+                    ) : (
+                        <>
+                            <div className="error-message">
+                                No products found. Please try again later.
+                            </div>
+                            <ProductGrid products={STATIC_KIDS_PRODUCTS} />
+                        </>
+                    ); 
+                default:
+                    return <ProductGrid products={STATIC_KIDS_PRODUCTS} />;
+            }  
+        };
+
+        return(
         <div className="page">
             <div className="page-content">
                 <h1 className="page-title">Kids Collection</h1>
-                <ProductGrid products={kidsProducts} />
+                {renderContent()}
             </div>
         </div>
     )
 }
-
 export default KidsPage;
