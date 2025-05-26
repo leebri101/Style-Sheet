@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { login, clearError, selectIsAuthenticated, selectIsLoading, selectAuthError } from "../store/authSlice"
-import "../styles/LoginPage.css"
+import "./Login.css"
 
 const LoginPage = () => {
   const dispatch = useDispatch()
