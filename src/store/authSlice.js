@@ -801,18 +801,4 @@ export const selectPasswordResetSuccess = (state) => state.auth.passwordResetSuc
 export const selectEmailVerificationSuccess = (state) => state.auth.emailVerificationSuccess
 export const selectRegistrationSuccess = (state) => state.auth.registrationSuccess
 
-export const logoutStart = createAsyncThunk("auth/logoutStart", async (_, { dispatch }) => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
-  return { success: true }
-})
-
-export const logoutSuccess = createAsyncThunk("auth/logoutSuccess", async (_, { dispatch }) => {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
-  return { success: true }
-})
-
 export default authSlice.reducer
