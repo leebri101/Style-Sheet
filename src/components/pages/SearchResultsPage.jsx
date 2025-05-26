@@ -19,7 +19,7 @@ const SearchResultsPage = () => {
     
       return (
         <div className="search-results-page">
-          <h1 className="search-results-title">Search Results for "{searchQuery}"</h1>
+          <h1 className="search-results-title">Search Results for `{searchQuery}`</h1>
     
           {status === "loading" && <div className="search-results-loading">Loading...</div>}
     
