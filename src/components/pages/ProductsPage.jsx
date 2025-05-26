@@ -4,47 +4,51 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import ProductDetails from "../products/ProductDetails";
 import ProductGrid from "../products/ProductGrid";
-import fetchProducts from "../../store/productSlice";
+import { fetchProductById, fetchProductsByCategory } from "../../store/productSlice";
 import './Pages.css';
+
 
 const ProductsPage = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
-    const { items: products, status, error} = useSelector
-    ((state) => state.products)
+    const {selectedProduct, items: relatedProducts, status, error } = useSelector((state) => state.products)
 
     useEffect(() => {
-        if(status === 'idle') {
-            dispatch(fetchProducts())
+        dispatch(fetchProductById(id))
+    }, [id, dispatch])
+
+    useEffect(() => {
+        if(selectedProduct?.category){
+            dispatch(fetchProductsByCategory(selectedProduct.category))
         }
-    }, [status, dispatch])
+    }, [selectedProduct?.category,dispatch])
 
-    if(status === 'loading') {
-        return <div className="product-page-loading">Loading...</div>
+    if (status === "loading" && !selectedProduct) {
+        return <div className="product-page-loading">Loading...
+        </div>
     }
-    
-    if(status === 'failed') {
-        return <div className="product-page-error">Error: {error}</div>
+    if (status === "failed") {
+        return <div className="product-page-error">Error: {error}
+        </div>
+    }
+    if (!selectedProduct) {
+        return <div className="product-page-not-found">Products not found...
+        </div>
     }
 
-    const product = products.find((p) => p.id === Number(id))
-    
-    if (!product) {
-        return <div className="product-page-not-found">Product not found</div>
-    }
-
-    const relatedProducts = products.filter((p) => p.category 
-    === product.category && p.id !== product.id).slice(0, 4)
-
+    const filteredRelatedProducts = relatedProducts.filter(product => product.id !== selectedProduct.id)
     return (
         <div className="product-page">
-            <ProductDetails {...product} />
-            <div className="related-products">
-                <h2 className="related-products-title">Similar Products</h2>
-                <ProductGrid products={relatedProducts} />
-            </div>
+            <ProductDetails product={selectedProduct} />
+            {filteredRelatedProducts.length > 0 && (
+                <div className="related-products">
+                    <h2 className="related-products-title">Related Products</h2>
+                    <ProductGrid products={filteredRelatedProducts} />
+                </div>
+            )}
         </div>
-    )
+    );
 }
 
 export default ProductsPage;
+// This code defines a ProductsPage component that fetches and displays product details and related products based on the selected product's category.
