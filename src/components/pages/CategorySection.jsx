@@ -30,7 +30,7 @@ const CategorySection = () => {
 
     if (status === "loading" && categories.length === 0) {
         return <div className="category-section-loading">
-            Loading categories...
+            Now Loading Choices
         </div>
     }
 

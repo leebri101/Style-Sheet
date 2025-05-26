@@ -6,6 +6,7 @@ import { Dialog, DialogPanel } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
+
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -18,7 +19,6 @@ const Header = () => {
         { name: 'WOMEN', href: '/women' },
         { name: 'MEN', href: '/mens' },
         { name: 'KIDS', href: '/kids' },
-        { name: 'LOGO', href: '/logo' },
     ];
 
     const handleSearch = (e) => {
@@ -35,13 +35,11 @@ const Header = () => {
             <nav className="header-nav" aria-label="Global">
                 <div className="header-logo-container">
                     <Link to="/" className="header-logo">
-                        <span className="sr-only">Style</span>
-                        <div>-Sheet</div>
+                        <span>Style-Sheet</span>
                     </Link>
                 </div>
                 <div className="mobile-menu-button-container">
                     <button type="button" className="mobile-menu-button" onClick={() => setMobileMenuOpen(true)}>
-                        <span className="sr-only">Open Main Menu</span>
                         <Menu className="menu-icon" aria-hidden="true" />
                     </button>
                 </div>
@@ -86,8 +84,7 @@ const Header = () => {
                 <DialogPanel className="mobile-menu-panel">
                     <div className="mobile-menu-header">
                         <Link to="/" className="header-logo">
-                            <span className="sr-only">STYLE-</span>
-                            <div>SHEET</div>
+                            <span>STYLE-SHEET</span>
                         </Link>
                         <button type="button" className="mobile-menu-close-button" onClick={() => setMobileMenuOpen(false)}>
                             <span className="sr-only">Close Menu</span>
@@ -113,7 +110,6 @@ const Header = () => {
                             <Link to="/cart" className="mobile-menu-link">
                             Cart ({cartItemsCount})
                             </Link>
-                        </div>
                         <form onSubmit={handleSearch} className="mobile-search">
                             <input
                                 type="text"
@@ -127,6 +123,7 @@ const Header = () => {
                                 <span className="sr-only">Search</span>
                             </button>
                         </form>
+                        </div>
                     </div>
                 </DialogPanel>
             </Dialog>

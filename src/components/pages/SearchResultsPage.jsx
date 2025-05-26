@@ -19,14 +19,14 @@ const SearchResultsPage = () => {
     
       return (
         <div className="search-results-page">
-          <h1 className="search-results-title">Search Results for `{searchQuery}`</h1>
+          <h1 className="search-results-title">Search Results for {searchQuery}</h1>
     
           {status === "loading" && <div className="search-results-loading">Loading...</div>}
     
           {status === "failed" && <div className="search-results-error">Error: {error}</div>}
     
           {status === "succeeded" && searchResults.length === 0 && (
-            <p className="search-results-empty">No products found for your search.</p>
+            <p className="search-results-empty">No products found... </p>
           )}
     
           {status === "succeeded" && searchResults.length > 0 && (

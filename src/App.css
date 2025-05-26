@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
   font-family: DM Sans, system-ui, Montserrat, Helvetica, sans-serif;
-  color: rgba(255, 255, 255, 0.87);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -48,11 +47,10 @@
 
 a {
   font-weight: 500;
-  color: #747bff;
   text-decoration: inherit;
 }
 a:hover {
-  color: rgb(var(--color-two));
+  color: rgb(var(--color-seven));
 }
 
 body {

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategorySection from "./CategorySection";
-import { ProductShowcase } from "../../components/products/ProductShowcase";
-import { ProductGrid } from "../../components/products/ProductGrid";
+import ProductShowcase from "../../components/products/ProductShowcase";
+import ProductGrid from "../../components/products/ProductGrid";
 import { fetchProducts } from "../../store/productSlice";
 import './Pages.css';
 

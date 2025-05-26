@@ -6,8 +6,7 @@ const Logo = () => {
       <div className="logo-container">
         <div className="logo">
           <span className="logo-text">STYLE</span>
-          <span className="logo-dash">-</span>
-          <span  className="logo-text">SHEET</span>
+          <span className="logo-text">SHEET</span>
         </div>
       </div>
     </div>
