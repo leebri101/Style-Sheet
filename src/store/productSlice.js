@@ -12,18 +12,19 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_
     }
 })
 
+// Async thunk to search products
 export const searchProducts = createAsyncThunk("products/searchProducts", async (searchTerm, { rejectWithValue }) => {
     try {
-        const data = await fetchFromAPI("/products")
-        const normalizedSearch = searchTerm.toLowerCase()
-        const filteredProducts = data.filter(
-            (product) =>
-                product.title.toLowerCase().
-            includes(normalizedSearch) ||
-            product.description.toLowerCase().
-            includes(normalizedSearch) ||
-            product.category.toLowerCase().
-            includes(normalizedSearch),
+      const data = await fetchFromAPI("/products")
+      const normalizedSearch = searchTerm.toLowerCase()
+      const filteredProducts = data.filter(
+        (product) =>
+          product.title.toLowerCase().
+        includes(normalizedSearch) ||
+        product.description.toLowerCase().
+        includes(normalizedSearch) ||
+        product.category.toLowerCase().
+        includes(normalizedSearch),
     )
     
     return filteredProducts.map(transformProductData)
@@ -33,6 +34,7 @@ export const searchProducts = createAsyncThunk("products/searchProducts", async 
   }
 })
 
+//Async thunk to fetch a product by its ID
 export const fetchProductById = createAsyncThunk(
     "products/fetchProductById",
     async (productId, { rejectWithValue }) => {
