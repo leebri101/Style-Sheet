@@ -1,4 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+//to do tomorrow 25/03/25
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+const loginUser = async (credentials) => {
+    
+}
 
 const initialState = {
     isAuthenticated: false, 

@@ -4,7 +4,7 @@ import productReducer from "./productSlice"
 import wishlistReducer from "./wishlistSlice"
 import authReducer from "./authSlice"
 
-export const store = configureStore({
+const store = configureStore({
     reducer:{
         cart: cartReducer,
         products: productReducer,
@@ -12,3 +12,5 @@ export const store = configureStore({
         auth: authReducer,
     },
 })
+
+export default store;

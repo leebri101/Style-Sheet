@@ -1,11 +1,11 @@
 // to change 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./store/index.js";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import HomePage from "./components/pages/HomePage";
-import MensPage from "./components/pages/MensPage";
+import MensPage from "./components/pages/MensPage.jsx";
 import WomensPage from "./components/pages/WomensPage";
 import KidsPage from "./components/pages/KidsPage";
 import ProductPage from "./components/pages/ProductsPage";
