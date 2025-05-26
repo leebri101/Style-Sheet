@@ -1,5 +1,5 @@
 // to change 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/index.js";
 import Header from "./components/layout/Header";
@@ -21,7 +21,6 @@ import SearchResultsPage from "./components/pages/SearchResultsPage.jsx";
 const App = () =>{
     return(
         <Provider store={store}>
-            <Router>
                 <div>
                     <Header/>
                     <main>
@@ -43,7 +42,6 @@ const App = () =>{
                     </main>
                     <Footer/>
                 </div>
-            </Router>
         </Provider>
     )
 }
