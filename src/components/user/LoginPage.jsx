@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { login, clearError, selectIsAuthenticated, selectIsLoading, selectAuthError } from "../store/authSlice"
+import { login, clearError, selectIsAuthenticated, selectIsLoading, selectAuthError } from "../../store/authSlice"
 import "./Login.css"
 
 const LoginPage = () => {
@@ -125,7 +125,7 @@ const LoginPage = () => {
         </form>
         <div className="register-link">
           <Link to="/register" className="register-link-text">
-            Don't have an account? Sign up
+            Don`t have an account? Sign up
           </Link>
         </div>
       </div>
