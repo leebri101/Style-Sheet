@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import fetchCategories from "../../store/productSlice.js";
+import { fetchCategories } from "../../store/productSlice.js";
 import "./CategorySection.css";
 
 
@@ -18,13 +18,13 @@ const CategorySection = () => {
         if(category.includes("men")) return "/men";
         if(category.includes("women")) return "/women";
         if(category.includes("kids")) return "/kids";
-        return "/$category.replace(/[^a-zA-Z0-9]/g, "-")"; // Fallback route
+        return `/$category.replace(/[^a-zA-Z0-9]/g, "-")`; // Fallback route
     }
 
     const formatCategoryName = (category) => {
         return category
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.clice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
     }
 
