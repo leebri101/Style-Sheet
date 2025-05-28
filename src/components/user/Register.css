@@ -1,20 +1,102 @@
-form{
+.registration-form-container {
+  min-height: 100vh;
   display: flex;
-  justify-content: right;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
 }
 
-label{
-  font-weight:600;
-  font-size: 1.5em;
-  text-align: left;
-  text-wrap: wrap;
-  font-family: Montserrat, Helvetica, sans-serif;
-  flex-wrap: column;
+.registration-form-wrapper {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.registration-form-title {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.registration-form {
+  margin-top: 2rem;
+}
+
+.registration-form-inputs {
+  margin-bottom: 1.5rem;
+}
+
+.registration-form-input {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  color: #111827;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.registration-form-input:focus {
+  outline: none;
+  border-color: #6b7280;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+}
+
+.registration-form-input::placeholder {
+  color: #9ca3af;
+}
+
+.registration-form-submit {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background-color: #111827;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.registration-form-submit:hover {
+  background-color: #1f2937;
+}
+
+.registration-form-login-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.registration-form-login-link a {
+  color: #4b5563;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.registration-form-login-link a:hover {
+  color: #111827;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
