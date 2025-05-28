@@ -66,17 +66,18 @@ const Header = () => {
                     </button>
                 </form>
                 <div className="header-icons">
-                    <button className="header-icon-button">
-                        <Globe className="header-icon" />
-                    </button>
-                    <Link to="/wishlist" className="header-icon-button">
+                    <div>
+                        <Link to="/wishlist" className="header-icon-button">
                         <Heart className="header-icon" />
                         {wishlistItemsCount > 0 && <span className="icon-count">{wishlistItemsCount}</span>}
-                    </Link>
-                    <Link to="/cart" className="header-icon-button-cart-icon-container">
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/cart" className="header-icon-button-cart-icon-container">
                         <ShoppingCart className="header-icon" />
                         {cartItemsCount > 0 && <span className="cart-count">{cartItemsCount}</span>}
-                    </Link>
+                        </Link>
+                    </div>
                 </div>
             </nav>
             <Dialog as="div" className="mobile-menu" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
@@ -120,7 +121,7 @@ const Header = () => {
                             />
                             <button type="submit" className="mobile-search-button">
                                 <Search className="header-icon" />
-                                <span className="sr-only">Search</span>
+                                <span>Search</span>
                             </button>
                         </form>
                         </div>
