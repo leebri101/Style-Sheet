@@ -32,7 +32,7 @@ const ForgotPasswordPage = () => {
           <>
             <form onSubmit={handleSubmit} className="forgot-password-form">
               <p className="forgot-password-instruction">
-                Enter your email address and we'll send you a link to reset your password.
+                Enter your email address and we`ll send you a link to reset your password.
               </p>
               {error && <div className="error-message">{error}</div>}
               <div className="form-group">
@@ -61,7 +61,7 @@ const ForgotPasswordPage = () => {
           </div>
         )}
         <div className="back-to-login">
-          <Link to="/login" className="back-to-login-link">
+          <Link to="/LoginPage" className="back-to-login-link">
             Back to Login
           </Link>
         </div>

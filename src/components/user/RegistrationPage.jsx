@@ -106,7 +106,7 @@ const RegistrationPage = () => {
           </div>
         </form>
         <div className="registration-form-login-link">
-          <Link to="/login">Already have an account? Sign in</Link>
+          <Link to="/LoginPage">Already have an account? Sign in</Link>
         </div>
       </div>
     </div>
