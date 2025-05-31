@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Menu, Search, ShoppingCart, Heart, Globe } from 'lucide-react';
+import { Menu, Search, ShoppingCart, Heart} from 'lucide-react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Link } from 'react-router-dom';
 import './Header.css';
