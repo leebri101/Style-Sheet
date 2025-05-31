@@ -61,7 +61,7 @@ const ForgotPasswordPage = () => {
           </div>
         )}
         <div className="back-to-login">
-          <Link to="/LoginPage" className="back-to-login-link">
+          <Link to="/login" className="back-to-login-link">
             Back to Login
           </Link>
         </div>
