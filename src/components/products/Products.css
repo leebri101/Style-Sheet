@@ -34,6 +34,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
+    background-color: #f2f4f6;
 }
 
 @media (min-width: 1024px) {
@@ -47,7 +48,7 @@
 .product-grid-empty {
   text-align: center;
   padding: 3rem;
-  background-color: #ffffff;
+  background-color: #f2f4f6;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
