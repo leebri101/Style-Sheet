@@ -36,7 +36,7 @@ const Header = () => {
             <nav className="header-nav" aria-label="Global">
                 <div className="header-logo-container">
                     <Link to="/" className="header-logo">
-                        <span className="sr-only">Style-Sheet</span>
+                        <span>Style-Sheet</span>
                     </Link>
                 </div>
                 <div className="mobile-menu-button-container">
