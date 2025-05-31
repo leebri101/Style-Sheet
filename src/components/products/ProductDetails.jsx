@@ -32,7 +32,6 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes=[], cate
           price,
           imageUrl,
           category,
-          description,
         }),
       )
     }
