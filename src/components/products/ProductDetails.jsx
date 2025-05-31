@@ -60,7 +60,6 @@ const ProductDetails = ({ id, name, price, description, imageUrl, sizes=[], cate
                   />
               ))},
             </div>
-            <span className="rating-count">{rating.count} reviews</span>
           </div>
         )}
         <p className="product-description">{description}</p>
