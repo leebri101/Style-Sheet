@@ -10,7 +10,7 @@ import WomensPage from "./components/pages/WomensPage";
 import KidsPage from "./components/pages/KidsPage";
 import ProductPage from "./components/pages/ProductsPage";
 import RegistrationPage from "./components/user/RegistrationPage";
-import LoginPage from "./components/user/LoginPage";
+import LoginPage from "./components/user/LoginPage.jsx";
 import ProfilePage from "./components/user/ProfilePage";
 import LogoutPage from "./components/user/LogoutPage";
 import WishlistPage from "./components/pages/WishlistPage";

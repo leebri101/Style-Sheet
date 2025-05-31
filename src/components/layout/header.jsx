@@ -19,6 +19,7 @@ const Header = () => {
         { name: 'WOMEN', href: '/women' },
         { name: 'MEN', href: '/mens' },
         { name: 'KIDS', href: '/kids' },
+        { name: "LOGO", href: '/logo'}
     ];
 
     const handleSearch = (e) => {
@@ -35,7 +36,7 @@ const Header = () => {
             <nav className="header-nav" aria-label="Global">
                 <div className="header-logo-container">
                     <Link to="/" className="header-logo">
-                        <span>Style-Sheet</span>
+                        <span className="sr-only">Style-Sheet</span>
                     </Link>
                 </div>
                 <div className="mobile-menu-button-container">
