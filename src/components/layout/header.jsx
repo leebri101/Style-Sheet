@@ -16,10 +16,9 @@ const Header = () => {
     const wishlistItemsCount = useSelector((state) => state.wishlist.items.length);
 
     const navigation = [
-        { name: 'WOMEN', href: '/women' },
+        { name: 'WOMEN', href: '/womens' },
         { name: 'MEN', href: '/mens' },
         { name: 'KIDS', href: '/kids' },
-        { name: "LOGO", href: '/logo'}
     ];
 
     const handleSearch = (e) => {
