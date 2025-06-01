@@ -113,7 +113,7 @@ const MensPage = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <h1 className="page-title">Men&#39;s Collection</h1> {/* Fixed apostrophe */}
+        <h1 className="page-title">Mens Collection</h1> {/* Fixed apostrophe */}
         {renderContent()}
       </div>
     </div>

@@ -85,7 +85,7 @@ const WomenPage = () => {
         return(
           <>
             <div className="error-message">
-              Error loading products: {error}. Please try again later.
+              {error || 'Error loading products. Please try again later.'}
             </div>
             <ProductGrid products={STATIC_WOMEN_PRODUCTS} />
           </>
@@ -96,14 +96,14 @@ const WomenPage = () => {
             <ProductGrid products={products} />
           ) : (
             <>
-              <div className="error-message">
+              <div className="empty-message">
                 No products found. Showing static version instead.
               </div>
               <ProductGrid products={STATIC_WOMEN_PRODUCTS} />
             </>
           );
         
-        default:
+        default: // 'idle' or other states
           return <ProductGrid products={STATIC_WOMEN_PRODUCTS} />;
     }
   };
@@ -111,7 +111,7 @@ const WomenPage = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <h1 className="page-title">Women&#39;s Collection</h1>
+        <h1 className="page-title">Womens Collection</h1>
         {renderContent()}
       </div>
    </div>

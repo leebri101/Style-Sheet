@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
-import fetchProductsByCategory from "../../store/productSlice";
+import { fetchProductsByCategory } from "../../store/productSlice";
 import './Pages.css';
 
 
@@ -58,25 +58,34 @@ const STATIC_KIDS_PRODUCTS = [
 
 const KidsPage = () =>{
     const dispatch = useDispatch();
-    const { items: products, status, error } = useSelector((state) => state.products);  
-
+    const { 
+        items: products = [], 
+        status = "idle", 
+        error = null 
+    } = useSelector((state) => state.products || {});
+    
     useEffect(() => {
-        dispatch(fetchProductsByCategory("kids' clothing"));
+        try{
+            dispatch(fetchProductsByCategory("kids' clothing"));
+        } catch (err) {
+            console.error("Failed to fetch products:", err);
+        }
     }, [dispatch]);
         
         const renderContent = () => {
             switch (status) {
                 case 'loading':
                     return (
-                        <div className="loading-message">
-                            Loading products...
-                        </div>
+                        <>
+                        <div className="loading-message">Loading products...</div>
+                        <ProductGrid products={STATIC_KIDS_PRODUCTS} />
+                        </>
                     );
                 case 'failed':
                     return(
                         <>
                             <div className="error-message">
-                                Error loading products: {error}. Please try again later.
+                                {error || 'Error loading products. Please try again later.'}
                             </div>
                             <ProductGrid products={STATIC_KIDS_PRODUCTS}/>
                         </>
@@ -86,13 +95,13 @@ const KidsPage = () =>{
                         <ProductGrid products={products} />
                     ) : (
                         <>
-                            <div className="error-message">
+                            <div className="empty-message">
                                 No products found. Please try again later.
                             </div>
                             <ProductGrid products={STATIC_KIDS_PRODUCTS} />
                         </>
                     ); 
-                default:
+                default: // 'idle' or other states
                     return <ProductGrid products={STATIC_KIDS_PRODUCTS} />;
             }  
         };
