@@ -1,8 +1,8 @@
 /* General Page styling for Men's, Kid's, Women's */
 .page {
-    min-height: 100vh;
-    background-color: #f9fafb;
-    padding: 3rem 1rem;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 3rem 1rem;
 }
   
 .page-content {
@@ -90,7 +90,7 @@
   .carousel-discounted-price {
     font-size: 1.5rem;
   }
-  
+
   .carousel-content {
     height: 550px;
   }
@@ -124,8 +124,6 @@
   color: #111827;
   margin-bottom: 1.5rem;
 }
-
-
 
 /* Limited Offer Carousel Styles */
 .limited-offer-carousel {
@@ -343,14 +341,6 @@
   background-color: #111827;
 }
 
-.carousel-autoplay-toggle {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  color: #111827;
-  cursor: pointer;
-}
-
 .discount-badge {
   position: absolute;
   top: 1rem;
@@ -396,4 +386,3 @@
     right: -0.5rem;
   }
 }
-
