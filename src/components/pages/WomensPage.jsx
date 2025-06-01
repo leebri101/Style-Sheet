@@ -72,7 +72,6 @@ const WomenPage = () => {
     }
   }, [dispatch]);
   
-
   const renderContent = () => {
     switch (status) {
       case 'loading':
