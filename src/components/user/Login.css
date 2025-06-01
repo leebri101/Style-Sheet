@@ -9,7 +9,7 @@
 .login-form-container {
     max-width: 400px;
     width: 100%;
-    padding: 2rem;
+    padding: 5rem;
     background-color: #fff;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -24,18 +24,18 @@
 }
 
 .login-form {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .login-inputs {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .login-input {
     appearance: none;
     display: block;
-    width: 100%;
-    padding: 0.75rem 1rem;
+    width: 90%;
+    padding: 0.65rem 1rem;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
     background-color: #fff;
@@ -80,7 +80,7 @@
     display: block;
     width: 100%;
     padding: 0.75rem 1.5rem;
-    background-color: #111827;
+    background-color: #111827a3;
     color: #fff;
     font-size: 0.875rem;
     font-weight: 600;
@@ -112,15 +112,3 @@
     color: #111827;
 }
 
-/* miscellaneous styling */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
