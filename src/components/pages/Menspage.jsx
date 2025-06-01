@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
-import fetchProductsByCategory from "../../store/productSlice";
+import { fetchProductsByCategory } from "../../store/productSlice";
 import './Pages.css';
 
 const STATIC_MENS_PRODUCTS = [
@@ -57,33 +57,44 @@ const STATIC_MENS_PRODUCTS = [
 
 const MensPage = () => {
   const dispatch = useDispatch();
-  const { items: products, status, error } = useSelector((state) => state.products);
+  
+  // Safer selector with default values
+  const { 
+    items: products = [], 
+    status = 'idle', 
+    error = null 
+  } = useSelector((state) => state.products || {});
 
   useEffect(() => {
-    dispatch(fetchProductsByCategory("men's clothing"));
+    try {
+      dispatch(fetchProductsByCategory("men's clothing")); // Fixed category string
+    } catch (err) {
+      console.error("Failed to fetch products:", err);
+    }
   }, [dispatch]);
 
   const renderContent = () => {
     switch (status) {
       case 'loading':
         return (
-          <div className="loading-message">
-            Loading products...
-          </div>
+          <>
+            <div className="loading-message">Loading products...</div>
+            <ProductGrid products={STATIC_MENS_PRODUCTS} />
+          </>
         );
       
       case 'failed':
         return (
           <>
             <div className="error-message">
-              Error loading products: {error}. Please try again later.
+              {error || 'Error loading products'}. Showing sample products.
             </div>
             <ProductGrid products={STATIC_MENS_PRODUCTS} />
           </>
         );
       
       case 'succeeded':
-        return products.length > 0 ? (
+        return products?.length > 0 ? (
           <ProductGrid products={products} />
         ) : (
           <>
@@ -94,7 +105,7 @@ const MensPage = () => {
           </>
         );
       
-      default:
+      default: // 'idle' or other states
         return <ProductGrid products={STATIC_MENS_PRODUCTS} />;
     }
   };
@@ -102,7 +113,7 @@ const MensPage = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <h1 className="page-title">Men`s Collection</h1>
+        <h1 className="page-title">Men&#39;s Collection</h1> {/* Fixed apostrophe */}
         {renderContent()}
       </div>
     </div>
