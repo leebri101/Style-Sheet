@@ -16,8 +16,8 @@ const Header = () => {
     const wishlistItemsCount = useSelector((state) => state.wishlist.items.length);
 
     const navigation = [
-        { name: 'WOMEN', href: '/womens' },
         { name: 'MEN', href: '/mens' },
+        { name: 'WOMEN', href: '/womens' },
         { name: 'KIDS', href: '/kids' },
     ];
 
@@ -35,7 +35,7 @@ const Header = () => {
             <nav className="header-nav" aria-label="Global">
                 <div className="header-logo-container">
                     <Link to="/" className="header-logo">
-                        <span>Style-Sheet</span>
+                        <span>STYLE-SHEET</span>
                     </Link>
                 </div>
                 <div className="mobile-menu-button-container">
