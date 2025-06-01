@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
-import fetchProductsByCategory from "../../store/productSlice";
+import { fetchProductsByCategory } from "../../store/productSlice";
 import './Pages.css';
 
 const STATIC_WOMEN_PRODUCTS = [
@@ -57,19 +57,30 @@ const STATIC_WOMEN_PRODUCTS = [
 
 const WomenPage = () => {
   const dispatch = useDispatch();
-  const { items: products, status, error } = useSelector((state) => state.products);
+
+  const { 
+    items: products = [],
+    status= 'idle',
+    error= null
+   } = useSelector((state) => state.products || {});
 
   useEffect(() => {
-    dispatch(fetchProductsByCategory("women`s clothing"))
+    try {
+      dispatch(fetchProductsByCategory("women's clothing")) // Fetch products
+    } catch (err) {
+      console.error("Failed to fetch products:", err);
+    }
   }, [dispatch]);
+  
 
   const renderContent = () => {
     switch (status) {
       case 'loading':
         return(
-          <div className="loading-message">
-            Loading Products...
-          </div>
+          <>
+          <div className="loading-message">Loading Products...</div>
+          <ProductGrid products={STATIC_WOMEN_PRODUCTS} />
+          </>
         );
       case 'failed':
         return(
@@ -101,7 +112,7 @@ const WomenPage = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <h1 className="page-title">Women`s Collection</h1>
+        <h1 className="page-title">Women&#39;s Collection</h1>
         {renderContent()}
       </div>
    </div>
@@ -109,4 +120,3 @@ const WomenPage = () => {
 };
 
 export default WomenPage
-
