@@ -6,80 +6,91 @@ import { fetchProducts } from "../../store/productSlice";
 import './Pages.css';
 
 const HomePage = () => {
-    const dispatch = useDispatch();
-    const { items: products, status, error } = 
-    useSelector((state) => state.products)
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(true);
-    const autoPlayRef = useRef(null);
+  const dispatch = useDispatch()
+  const { items: products, status, error } = useSelector((state) => state.products)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const autoPlayRef = useRef(null)
 
+  // Get limited offer products (first 5 products or fewer if not enough)
+  const limitedOfferProducts = products.length > 0 ? products.slice(0, Math.min(5, products.length)) : []
 
-    // Auto-play functionality for the product showcase
-    const limitedOfferProducts = products.length > 0 ? products.slice(0, 
-        Math.min(5, products.length)) : []
+  // Get remaining products for the grid (excluding limited offers)
+  const gridProducts = products.length > 5 ? products.slice(5, 9) : []
 
-    const gridProducts = products.length > 5 ? products.slice(5,9) : [];
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch])
 
-    useEffect(() => {
-        dispatch(fetchProducts())
-    }, [dispatch]);
+  // Auto-play functionality
+  useEffect(() => {
+    if (!limitedOfferProducts.length) return
 
-    useEffect(() => {
-        if(!limitedOfferProducts.length) return
-
-        const play = () => {
-            if (isPlaying) {
-                setCurrentSlide((prev) => (prev === limitedOfferProducts.length - 1 ? 0 : prev + 1));
-            }
-        }
-
-        autoPlayRef.current = setInterval(play, 5000);
-
-        return() => {
-            if (autoPlayRef.current) {
-                clearInterval(autoPlayRef.current);
-            }
-        }
-    }, [isPlaying, limitedOfferProducts.length]);
-
-    const goToSlide = (index) => {
-        setCurrentSlide(index);
+    const play = () => {
+      setCurrentSlide((prev) => (prev === limitedOfferProducts.length - 1 ? 0 : prev + 1))
     }
 
-    const goToPrevSlide = () => {
-        setCurrentSlide((prev) => (prev === 0 ? limitedOfferProducts.length - 1 : prev - 1));
+    autoPlayRef.current = setInterval(play, 5000)
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current)
+      }
     }
-    
-    const goToNextSlide = () => {
-        setCurrentSlide((prev) => (prev === limitedOfferProducts.length - 1 ? 0 : prev + 1));
+  }, [limitedOfferProducts.length])
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index)
+  }
+
+  const goToPrevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? limitedOfferProducts.length - 1 : prev - 1))
+  }
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prev) => (prev === limitedOfferProducts.length - 1 ? 0 : prev + 1))
+  }
+
+  // GBP pricing structure for products
+  const getDiscountedPrice = (productId) => {
+    // Base GBP prices for different product categories
+    const gbpPriceMap = {
+      1: 89.99, // Electronics/Jewelry
+      2: 45.99, // Men's Clothing
+      3: 35.99, // Women's Clothing
+      4: 25.99, // Women's Clothing
+      5: 199.99, // Electronics
     }
 
-    const toggleAutoPlay = () => {
-        setIsPlaying((prev) => !prev);
+    // Consistent discount percentages based on product ID
+    const discountMap = {
+      1: 25, // 25% off
+      2: 30, // 30% off
+      3: 20, // 20% off
+      4: 35, // 35% off
+      5: 15, // 15% off
     }
 
-    const getDiscountedPrice = (originalPrice) => {
-        const discount = Math.floor(Math.random() * 30) + 10 // 10-40% discount
-        const discountedPrice = originalPrice * (1 - discount / 100)
-        return {
-            originalPrice,
-            discountedPrice: discountedPrice.toFixed(2),
-            discountPercentage: discount,
-        }
-    }
+    // Default pricing for products not in map
+    const basePrice = gbpPriceMap[productId] || 49.99
+    const discountPercentage = discountMap[productId] || 20
+    const discountedPrice = (basePrice * (1 - discountPercentage / 100)).toFixed(2)
 
-    return (
+    return {
+      originalPrice: `£${basePrice.toFixed(2)}`,
+      discountedPrice: `£${discountedPrice}`,
+      discountPercentage,
+    }
+  }
+  return (
     <div className="home-page">
       <main className="home-page-main">
         {status === "loading" && <div className="loading-message">Loading products...</div>}
         {status === "failed" && <div className="error-message">Error: {error}</div>}
-
         {/* Limited Offer Carousel */}
         {limitedOfferProducts.length > 0 && (
           <section className="limited-offer-carousel">
             <div className="carousel-container">
               <h2 className="carousel-title">Limited Time Offers</h2>
-
               <div className="carousel-wrapper">
                 <button
                   className="carousel-arrow carousel-arrow-prev"
@@ -88,11 +99,9 @@ const HomePage = () => {
                 >
                   &lt;
                 </button>
-
                 <div className="carousel-content">
                   {limitedOfferProducts.map((product, index) => {
-                    const { originalPrice, discountedPrice, discountPercentage } = getDiscountedPrice(product.price)
-
+                    const { originalPrice, discountedPrice, discountPercentage } = getDiscountedPrice(product.id)
                     return (
                       <div key={product.id} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
                         <div className="carousel-slide-content">
@@ -104,22 +113,15 @@ const HomePage = () => {
                               className="carousel-image"
                             />
                           </div>
-
                           <div className="carousel-details">
                             <h3 className="carousel-product-title">{product.name}</h3>
-                            <p className="carousel-product-description">
-                              {product.description || "Limited time offer! Get this amazing product before it's gone."}
-                            </p>
-
                             <div className="carousel-price-container">
-                              <span className="carousel-original-price">${originalPrice}</span>
-                              <span className="carousel-discounted-price">${discountedPrice}</span>
+                              <span className="carousel-original-price">{originalPrice}</span>
+                              <span className="carousel-discounted-price">{discountedPrice}</span>
                             </div>
-
                             <div className="carousel-offer-ends">
                               Offer ends in {Math.floor(Math.random() * 5) + 1} days
                             </div>
-
                             <div className="carousel-actions">
                               <button className="carousel-add-to-cart">Add to Cart</button>
                               <button className="carousel-add-to-wishlist">♡</button>
@@ -130,12 +132,10 @@ const HomePage = () => {
                     )
                   })}
                 </div>
-
                 <button className="carousel-arrow carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
                   &gt;
                 </button>
               </div>
-
               <div className="carousel-controls">
                 <div className="carousel-dots">
                   {limitedOfferProducts.map((_, index) => (
@@ -147,14 +147,6 @@ const HomePage = () => {
                     />
                   ))}
                 </div>
-
-                <button
-                  className="carousel-autoplay-toggle"
-                  onClick={toggleAutoPlay}
-                  aria-label={isPlaying ? "Pause autoplay" : "Start autoplay"}
-                >
-                  {isPlaying ? "❚❚" : "▶"}
-                </button>
               </div>
             </div>
           </section>
