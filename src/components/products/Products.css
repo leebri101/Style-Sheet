@@ -8,12 +8,11 @@
     gap: 20px;
 }
 
-.product-card{
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
+.product-card {
+  width: 300px;
+  padding: 20px; 
+  border: 1px solid #ccc; 
+  text-align: center; 
 }
 
 .product-card img{
@@ -46,7 +45,6 @@
 .product-grid-error,
 .product-grid-empty {
   text-align: center;
-
   background-color: #f2f4f6;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -218,8 +216,8 @@
 }
 
 .product-grid {
-    display:inline-grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  display: inline-grid; 
+  grid-template-columns: repeat(1, minmax(0, 1fr)); /* More restrictive column rule */
 }
 
 @media (min-width: 640px) {
