@@ -93,7 +93,6 @@ const LoginPage = () => {
               />
             </div>
           </div>
-
           <div className="login-options">
             <div className="remember-me">
               <input
@@ -109,7 +108,6 @@ const LoginPage = () => {
                 Remember me
               </label>
             </div>
-
             <div className="forgot-password">
               <Link to="/forgot-password" className="forgot-password-link">
                 Forgotten your password?
@@ -125,7 +123,7 @@ const LoginPage = () => {
         </form>
         <div className="register-link">
             Don`t have an account?
-            <Link to="../user/RegistrationPage.jsx" className="register-link-text">
+            <Link to="/register" className="register-link-text">
             Sign up
             </Link>
         </div>
