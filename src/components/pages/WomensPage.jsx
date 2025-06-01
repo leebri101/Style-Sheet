@@ -93,7 +93,7 @@ const WomenPage = () => {
         );
 
         case 'succeeded':
-          return products.length > 0 ? (
+          return products?.length > 0 ? (
             <ProductGrid products={products} />
           ) : (
             <>
