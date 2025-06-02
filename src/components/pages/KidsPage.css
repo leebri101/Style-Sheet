@@ -1,0 +1,48 @@
+/* Grid section styling */
+.kids-products-grid {
+  margin-top: 3rem;
+}
+
+.grid-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Animation for carousel transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .kids-carousel .carousel-slide-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .kids-carousel .carousel-image-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .kids-carousel .carousel-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .kids-carousel .carousel-arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+}
