@@ -8,7 +8,7 @@ const mainCategories = [
   {
     name: "Men's",
     route: "/men",
-    description: "Discover the latest threads",
+    description: "Discover the threads",
     available: true,
   },
   {
@@ -20,7 +20,7 @@ const mainCategories = [
   {
     name: "Kids",
     route: "/kids",
-    description: "Have fun with what you wear",
+    description: "Have a pajama party",
     available: true,
   },
 ];
@@ -28,7 +28,7 @@ const mainCategories = [
 const comingSoonCategories = [
   {
     name: "Accessories",
-    description: "Bags, and more",
+    description: "Bags, Belts, and Beyond",
     launchDate: "Spring 2025",
   },
   {
