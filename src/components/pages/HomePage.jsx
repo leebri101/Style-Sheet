@@ -15,7 +15,7 @@ const HomePage = () => {
   const limitedOfferProducts = products.length > 0 ? products.slice(0, Math.min(5, products.length)) : []
 
   // Get remaining products for the grid (excluding limited offers)
-  const gridProducts = products.length > 5 ? products.slice(5, 9) : []
+  const gridProducts = products.length > 5 ? products.slice(5, 13) : []
 
   useEffect(() => {
     dispatch(fetchProducts())
@@ -54,19 +54,19 @@ const HomePage = () => {
   const getDiscountedPrice = (productId) => {
     // Base GBP prices for different product categories
     const gbpPriceMap = {
-      1: 89.99, // Electronics/Jewelry
+      1: 85.00, // Electronics/Jewelry
       2: 45.99, // Men's Clothing
       3: 35.99, // Women's Clothing
       4: 25.99, // Women's Clothing
-      5: 199.99, // Electronics
+      5: 75.00, // Electronics
     }
 
     // Consistent discount percentages based on product ID
     const discountMap = {
-      1: 25, // 25% off
-      2: 30, // 30% off
+      1: 15, // 15% off
+      2: 20, // 20% off
       3: 20, // 20% off
-      4: 35, // 35% off
+      4: 10, // 10% off
       5: 15, // 15% off
     }
 
@@ -108,7 +108,7 @@ const HomePage = () => {
                           <div className="carousel-image-container">
                             <div className="discount-badge">-{discountPercentage}%</div>
                             <img
-                              src={product.imageUrl || "/placeholder.svg?height=400&width=400"}
+                              src={product.imageUrl || "/placeholder.svg?height=100&width=100"}
                               alt={product.name}
                               className="carousel-image"
                             />
