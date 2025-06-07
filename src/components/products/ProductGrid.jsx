@@ -69,11 +69,20 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
             className="product-link">
               <div className="product-image-container">
                 <img 
-                src={product.imageUrl || "/placeholder.svg?height=400&width=300"} 
+                src={product.imageUrl || "/placeholder.svg?height=300&width=300"} 
                 alt={product.name} 
-                className="product-image"
+                className="product-image primary-image"
                 loading="lazy" 
                 />
+                {/* Model image appearing on hover*/}
+                {product.imageUrl &&(
+                  <img
+                  src={product.modelImageUrl || "/placeholder.svg"} 
+                  alt={`Model Wearing ${product.name}`}
+                  className="product-image model-image"
+                  loading="lazy"
+                  />
+                )}
                 <button
                   className={`wishlist-icon-button 
                     ${isInWishlist ? "in-wishlist" : ""}`}
