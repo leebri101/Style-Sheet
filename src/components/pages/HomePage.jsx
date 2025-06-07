@@ -15,7 +15,7 @@ const HomePage = () => {
   const limitedOfferProducts = products.length > 0 ? products.slice(0, Math.min(5, products.length)) : []
 
   // Get remaining products for the grid (excluding limited offers)
-  const gridProducts = products.length > 5 ? products.slice(5, 13) : []
+  const gridProducts = products.length > 5 ? products.slice(5, 15) : []
 
   useEffect(() => {
     dispatch(fetchProducts())
