@@ -29,7 +29,7 @@ const HomePage = () => {
       setCurrentSlide((prev) => (prev === limitedOfferProducts.length - 1 ? 0 : prev + 1))
     }
 
-    autoPlayRef.current = setInterval(play, 5000)
+    autoPlayRef.current = setInterval(play, 3000)
 
     return () => {
       if (autoPlayRef.current) {
@@ -54,7 +54,7 @@ const HomePage = () => {
   const getDiscountedPrice = (productId) => {
     // Base GBP prices for different product categories
     const gbpPriceMap = {
-      1: 85.00, // Electronics/Jewelry
+      1: 85.00, // Jewelry
       2: 45.99, // Men's Clothing
       3: 35.99, // Women's Clothing
       4: 25.99, // Women's Clothing
