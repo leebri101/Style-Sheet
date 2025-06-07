@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { ShoppingCart, Heart } from "lucide-react"
 import PropTypes from "prop-types"
-import "./Products.css"
+import "./ProductShowcase.css"
 
 const ProductShowcase = ({ title, price, description, imageUrl, isLimitedOffer = false, offerEndDate }) => {
   const [selectedSize, setSelectedSize] = useState("")
