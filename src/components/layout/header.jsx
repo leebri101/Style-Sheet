@@ -49,8 +49,8 @@ const Header = () => {
                             {item.name}
                         </Link>
                     ))}
-                    <Link to="/login" className="header-link">Login</Link>
-                    <Link to="/register" className="header-link">Register</Link>
+                    <Link to="/login" className="header-link">LOGIN</Link>
+                    <Link to="/register" className="header-link">REGISTER</Link>
                 </div>
                 <form onSubmit={handleSearch} className="header-search">
                     <input
@@ -100,10 +100,10 @@ const Header = () => {
                                 </Link>
                             ))}
                             <Link to="/login" className="mobile-menu-link">
-                            Login
+                            LOGIN
                             </Link>
                             <Link to="/register" className="mobile-menu-link">
-                            Register
+                            REGISTER
                             </Link>
                             <Link to="/wishlist" className="mobile-menu-link">
                             Wishlist ({wishlistItemsCount})
