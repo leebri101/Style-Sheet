@@ -4,7 +4,7 @@ import { addToCart } from "../../store/cartSlice"
 import { ShoppingCart, Heart, Star } from 'lucide-react'
 import { addToWishlist, removeFromWishlist } from '../../store/wishlistSlice'
 import PropTypes from 'prop-types'
-import './Products.css';
+import './ProductDetails.css';
 
 const ProductDetails = ({ id, name, price, description, imageUrl, sizes=[], category, rating }) => {
   const [selectedSize, setSelectedSize] = useState('')

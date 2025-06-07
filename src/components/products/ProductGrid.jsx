@@ -6,7 +6,7 @@ import PropTypes from "prop-types"
 import { Heart } from "lucide-react"
 import { fetchProducts } from "../../store/productSlice"
 import { addToWishlist, removeFromWishlist } from "../../store/wishlistSlice"
-import "./Products.css"
+import "./ProductGrid.css"
 
 const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
   const dispatch = useDispatch()
