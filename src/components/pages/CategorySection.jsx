@@ -29,7 +29,7 @@ const comingSoonCategories = [
   {
     name: "Accessories",
     description: "Bags, Belts, and Beyond",
-    launchDate: "Spring 2025",
+    launchDate: "Fall 2025",
   },
   {
     name: "Jewelry",
@@ -79,7 +79,7 @@ const CategorySection = () => {
               <h4 className="category-name">{category.name}</h4>
               <p className="category-description">{category.description}</p>
               <span className="launch-date">
-                Expected: {category.launchDate}
+                {category.launchDate}
               </span>
               <button className="notify-btn">Notify Me</button>
             </div>
