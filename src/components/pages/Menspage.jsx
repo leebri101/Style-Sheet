@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
 import { fetchProductsByCategory } from "../../store/productSlice";
-import './Pages.css';
+import './MenPages.css';
 
 const STATIC_MENS_PRODUCTS = [
   {
@@ -111,9 +111,9 @@ const MensPage = () => {
   };
 
   return (
-    <div className="page">
-      <div className="page-content">
-        <h1 className="page-title">Mens Collection</h1> {/* Fixed apostrophe */}
+    <div className="mens-page">
+      <div className="mens-page-content">
+        <h1 className="mens-page-title">Mens Collection</h1> {/* Fixed apostrophe */}
         {renderContent()}
       </div>
     </div>
