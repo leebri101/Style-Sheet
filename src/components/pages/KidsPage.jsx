@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
 import { fetchProductsByCategory } from "../../store/productSlice";
-import './Pages.css';
+import './KidsPage.css';
 
 
 const STATIC_KIDS_PRODUCTS = [
@@ -107,9 +107,9 @@ const KidsPage = () =>{
         };
 
         return(
-        <div className="page">
-            <div className="page-content">
-                <h1 className="page-title">Kids Collection</h1>
+        <div className="kids-page">
+            <div className="kids-page-content">
+                <h1 className="kids-page-title">Kids Collection</h1>
                 {renderContent()}
             </div>
         </div>

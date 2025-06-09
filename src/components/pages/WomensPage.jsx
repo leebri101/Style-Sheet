@@ -109,9 +109,9 @@ const WomenPage = () => {
   };
 
   return (
-    <div className="page">
-      <div className="page-content">
-        <h1 className="page-title">Womens Collection</h1>
+    <div className="womens-page">
+      <div className="womens-page-content">
+        <h1 className="womens-page-title">Womens Collection</h1>
         {renderContent()}
       </div>
    </div>

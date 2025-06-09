@@ -1,15 +1,15 @@
-.women-page {
+.womens-page {
   min-height: 100vh;
   background-color: #f9fafb;
   padding: 3rem 1rem;
 }
 
-.women-page-content {
+.womens-page-content {
   max-width: 1280px;
   margin: 0 auto;
 }
 
-.women-page-title {
+.womens-page-title {
   font-size: 1.875rem;
   font-weight: 700;
   color: #111827;
