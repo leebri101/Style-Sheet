@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CategorySection from "./CategorySection";
 import ProductGrid from "../../components/products/ProductGrid";
 import { fetchProducts } from "../../store/productSlice";
-import './Pages.css';
+import './HomePage.css';
 
 const HomePage = () => {
   const dispatch = useDispatch()
