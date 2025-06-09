@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
 import { fetchProductsByCategory } from "../../store/productSlice";
-import './Pages.css';
+import './WomensPage.css';
 
 const STATIC_WOMEN_PRODUCTS = [
   {
