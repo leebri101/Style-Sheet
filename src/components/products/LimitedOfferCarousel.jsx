@@ -62,7 +62,7 @@ const LimitedOfferCarousel = ({ products = [] }) => {
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex === limitedOffers.length - 1 ? 0 : prevIndex + 1))
-    }, 5000) // Change slide every 5 seconds
+    }, 3000) // Change slide every 5 seconds
 
     return () => clearInterval(interval)
   }, [isAutoPlaying, limitedOffers.length])
