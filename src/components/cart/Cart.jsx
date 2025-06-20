@@ -1,4 +1,4 @@
-// to do 
+
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ShoppingCart, Trash2, Plus, Minus } from "lucide-react";
