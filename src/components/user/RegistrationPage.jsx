@@ -35,21 +35,6 @@ const RegistrationPage = () => {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="registration-form-inputs">
             <div>
-              <label htmlFor="username" className="sr-only">
-                Username
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                className="registration-form-input"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
               <label htmlFor="email-address" className="sr-only">
                 Email Address
               </label>
