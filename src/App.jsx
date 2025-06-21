@@ -19,7 +19,7 @@ import Logo from "./components/ui/Logo"
 import ForgotPasswordPage from "./components/user/ForgotPasswordPage";
 import ResetPasswordPage from "./components/user/ResetPasswordPage.jsx"
 import SearchResultsPage from "./components/pages/SearchResultsPage.jsx";
-import CheckoutPage from "./components/pages/CheckoutPage.jsx"
+import CheckoutPage from "./components/cart/CheckoutPage.jsx"
 
 const App = () =>{
     return(
