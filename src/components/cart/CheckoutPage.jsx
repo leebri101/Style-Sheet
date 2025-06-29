@@ -155,7 +155,15 @@ const CheckoutPage = () => {
                 .trim()
             }
             // Format Expiry Date
-            if ()
+            if (field === "cvv") {
+                value = value.replace(/\D/g, "").slice(0, 4)
+            }
+
+            dispatch(updateCardDetails({ [field]: value }))
+        }
+
+        const render stepContent = () => {
+            
         }
 }
 
