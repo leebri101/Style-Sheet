@@ -163,7 +163,95 @@ const CheckoutPage = () => {
         }
 
         const render stepContent = () => {
+            switch (currentStep) {
+                case 1: 
+                    return (
+                        <div className="checkout-step">
+                            <div className="step-header">
+                                <Truck className="step-icon"/>
+                                <h2>Shipping Information</h2>
+                            </div>
+                            <form onSubmit={handleShippingSubmit}>
+                                <div className="form-row">
+                                    <div className="form-row">
+                                        <label htmlFor="firstName">First Name</label>
+                                            <input 
+                                                type="text" 
+                                                id="firstName" 
+                                                value={shippingAddress.firstName} 
+                                                onChange={(e) => handleShippingChange("firstName", e.target.value)}
+                                                className={validationErrors.firstName ? "error" : ""} 
+                                                required
+                                            />
+                                            {validationErrors.firstName && <span className="error-text">{validationErrors.firstName}</span>}
+                                    </div>
+                                    <div className="form-group">
+                                        <input 
+                                            type="text" 
+                                            id="lastName" 
+                                            value={shippingAddress.lastName} 
+                                            onChange={(e) => handleShippingChange("lastName", e.target.value)}
+                                            className={validationErrors.lastName ? "error" : ""} 
+                                            required
+                                        />
+                                        {validationErrors.lastName && <span className="error-text">{validationErrors.lastName}</span>}
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="email">Email Address</label>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        value={shippingAddress.email} 
+                                        onChange={(e) => handleShippingChange("email", e.target.value)}
+                                        className={validationErrors.email ? "error" : ""} 
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="phone">Phone Number</label>
+                                    <input
+                                        type="tel" 
+                                        id="phone" 
+                                        value={shippingAddress.phone} 
+                                        onChange={(e) => handleShippingChange("phone", e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="address">Address </label>
+                                    <input
+                                        type="text" 
+                                        id="address" 
+                                        value={shippingAddress.address} 
+                                        onChange={(e) => handleShippingChange("address", e.target.value)}
+                                        className={validationErrors.address ? "error" : ""} 
+                                        required
+                                    />
+                                    {validationErrors.address && <span className="error-text">{validationErrors.address}</span>}
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="country">Country</label>
+                                    <select
+                                        id="country" 
+                                        value={shippingAddress.country} 
+                                        onChange={(e) => handleShippingChange("country", e.target.value)}>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="United States">United States</option>
+                                            <option value="France">France</option>
+                                            <option value="Germany">Germany</option>
+                                            <option value="Spain">Spain</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                )
+            case 2:
             
+
+
+
+
+            }
         }
 }
 
