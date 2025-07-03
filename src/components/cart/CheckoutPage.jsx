@@ -18,6 +18,7 @@ import { validateCardDetails, getSupportedPaymentMethods } from "../../services/
 import{ ChevronLeft, ChevronRight, CreditCard, Truck, CheckCircle, Lock} from "lucide-react"
 import "./CheckoutPage.css"
 
+
 const CheckoutPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()

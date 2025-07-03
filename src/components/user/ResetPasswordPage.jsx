@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { resetPassword, clearAuthState, selectIsLoading, selectPasswordResetSuccess, selectAuthError} from '../../store/userSlice';
+import { resetPassword, clearAuthState, selectIsLoading, selectPasswordResetSuccess, selectAuthError} from '../../store/authSlice';
 import { Eye, EyeOff } from 'lucide-react';
-import "ResetPasswordPage.css"; 
+import "./ResetPasswordPage.css";
 
 const ResetPasswordPage = () => {
     const dispatch = useDispatch();
