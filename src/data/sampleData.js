@@ -3,11 +3,11 @@ export const sampleProducts = [
   // MEN'S CLOTHING
   {
     id: 1,
-    name: "Classic White T-Shirt",
-    title: "Classic White T-Shirt",
+    name: "Plain White T",
+    title: "Plain White T",
     price: 19.99,
     category: "men's clothing",
-    description: "A comfortable and versatile white t-shirt made from 100% cotton. Perfect for everyday wear.",
+    description: "Comfortable & versatile made from 100% cotton.",
     image: "/placeholder.svg?height=400&width=400&text=White+T-Shirt",
     imageUrl: "/placeholder.svg?height=400&width=400&text=White+T-Shirt",
     modelImageUrl: "/placeholder.svg?height=600&width=400&text=Model+White+T-Shirt",
@@ -28,7 +28,7 @@ export const sampleProducts = [
     title: "Premium Denim Jeans",
     price: 79.99,
     category: "men's clothing",
-    description: "High-quality denim jeans with a perfect fit. Made from premium denim fabric with stretch comfort.",
+    description: "High-quality denim jeans with a perfect fit.",
     image: "/placeholder.svg?height=400&width=400&text=Denim+Jeans",
     imageUrl: "/placeholder.svg?height=400&width=400&text=Denim+Jeans",
     modelImageUrl: "/placeholder.svg?height=600&width=400&text=Model+Denim+Jeans",
@@ -45,8 +45,8 @@ export const sampleProducts = [
   },
   {
     id: 3,
-    name: "Business Formal Shirt",
-    title: "Business Formal Shirt",
+    name: "Business Shirt",
+    title: "Business Shirt",
     price: 45.99,
     category: "men's clothing",
     description:
@@ -88,8 +88,8 @@ export const sampleProducts = [
   },
   {
     id: 5,
-    name: "Wool Blend Sweater",
-    title: "Wool Blend Sweater",
+    name: "Wool Sweater",
+    title: "Wool Sweater",
     price: 65.99,
     category: "men's clothing",
     description: "Warm and stylish wool blend sweater perfect for cooler weather. Classic crew neck design.",
@@ -109,8 +109,8 @@ export const sampleProducts = [
   },
   {
     id: 6,
-    name: "Athletic Shorts",
-    title: "Athletic Shorts",
+    name: "Sports Shorts",
+    title: "Sports Shorts",
     price: 24.99,
     category: "men's clothing",
     description: "Lightweight athletic shorts with moisture-wicking technology. Perfect for workouts and sports.",
@@ -151,8 +151,8 @@ export const sampleProducts = [
   },
   {
     id: 8,
-    name: "Chino Pants",
-    title: "Chino Pants",
+    name: "Chino Trousers",
+    title: "Chino Trousers",
     price: 39.99,
     category: "men's clothing",
     description: "Versatile chino pants suitable for both casual and semi-formal occasions. Comfortable fit.",
@@ -178,7 +178,7 @@ export const sampleProducts = [
     title: "Floral Summer Dress",
     price: 55.99,
     category: "women's clothing",
-    description: "Beautiful floral print summer dress perfect for warm weather occasions. Lightweight and breathable.",
+    description: "Beautiful floral print summer dress, lightweight and breathable.",
     image: "/placeholder.svg?height=400&width=400&text=Floral+Dress",
     imageUrl: "/placeholder.svg?height=400&width=400&text=Floral+Dress",
     modelImageUrl: "/placeholder.svg?height=600&width=400&text=Model+Floral+Dress",
@@ -365,8 +365,8 @@ export const sampleProducts = [
   },
   {
     id: 18,
-    name: "Girls Princess Dress",
-    title: "Girls Princess Dress",
+    name: "Girls Floral Dress",
+    title: "Girls Floral Dress",
     price: 39.99,
     category: "kids clothing",
     description:
@@ -429,8 +429,8 @@ export const sampleProducts = [
   },
   {
     id: 21,
-    name: "Baby Onesie Set",
-    title: "Baby Onesie Set",
+    name: "Kids Onesie Set",
+    title: "Kids Onesie Set",
     price: 24.99,
     category: "kids clothing",
     description: "Adorable set of baby onesies in soft cotton. Perfect for newborns and infants.",
@@ -469,9 +469,10 @@ export const sampleProducts = [
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
+  /* to change different item 
   {
     id: 23,
-    name: "School Uniform Polo",
+    name: " Polo",
     title: "School Uniform Polo",
     price: 18.99,
     category: "kids clothing",
@@ -489,9 +490,9 @@ export const sampleProducts = [
     featured: false,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-  },
+  },*/
   {
-    id: 24,
+    id: 23,
     name: "Kids Pajama Set",
     title: "Kids Pajama Set",
     price: 22.99,
