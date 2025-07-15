@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { UsersAPI } from "../services/mockApiService"
 
 // Sample user data for development
 const sampleUsers = [
@@ -537,7 +538,61 @@ export const logoutSuccess = createAsyncThunk("auth/logoutSuccess", async (_, { 
   return { success: true }
 })
 
-// Initialize state from localStorage if available
+// Async thunks for authentication
+export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, password }, { rejectWithValue }) => {
+  try {
+    // Try to authenticate with MockAPI
+    const user = await UsersAPI.authenticate(email, password)
+    return user
+  } catch (error) {
+    // Fallback: try to find user by email and check password
+    try {
+      const user = await UsersAPI.getByEmail(email)
+      if (user && user.password === password) {
+        // Remove password from response
+        const { password: _, ...userWithoutPassword } = user
+        return userWithoutPassword
+      } else {
+        return rejectWithValue("Invalid email or password")
+      }
+    } catch (fallbackError) {
+      return rejectWithValue("Authentication failed")
+    }
+  }
+})
+
+export const registerUser = createAsyncThunk("auth/registerUser", async (userData, { rejectWithValue }) => {
+  try {
+    // Check if user already exists
+    const existingUser = await UsersAPI.getByEmail(userData.email)
+    if (existingUser) {
+      return rejectWithValue("User with this email already exists")
+    }
+
+    // Create new user
+    const newUser = await UsersAPI.register(userData)
+    // Remove password from response
+    const { password: _, ...userWithoutPassword } = newUser
+    return userWithoutPassword
+  } catch (error) {
+    return rejectWithValue("Registration failed")
+  }
+})
+
+export const updateUserProfile = createAsyncThunk(
+  "auth/updateUserProfile",
+  async ({ userId, updates }, { rejectWithValue }) => {
+    try {
+      const updatedUser = await UsersAPI.update(userId, updates)
+      // Remove password from response
+      const { password: _, ...userWithoutPassword } = updatedUser
+      return userWithoutPassword
+    } catch (error) {
+      return rejectWithValue("Profile update failed")
+    }
+  },
+)
+
 const getUserFromStorage = () => {
   try {
     const userData = localStorage.getItem("userData")
@@ -553,164 +608,243 @@ const getTokenFromStorage = () => {
 }
 
 const initialState = {
-  isAuthenticated: !!getTokenFromStorage(),
   user: getUserFromStorage(),
-  token: getTokenFromStorage(),
-  isLoading: false,
-  isLoggingOut: false,
+  isAuthenticated: !!getTokenFromStorage(),
+  loading: false,
   error: null,
-  passwordResetRequested: false,
-  passwordResetSuccess: false,
-  emailVerificationSuccess: false,
-  registrationSuccess: false,
+  loginAttempts: 0,
+  lastLoginAttempt: null,
+  sessionExpiry: null,
 }
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Logout user
+    logout: (state) => {
+      state.user = null
+      state.isAuthenticated = false
+      state.error = null
+      state.sessionExpiry = null
+    },
+
+    // Clear auth error
     clearError: (state) => {
       state.error = null
     },
-    clearAuthState: (state) => {
-      state.passwordResetRequested = false
-      state.passwordResetSuccess = false
-      state.emailVerificationSuccess = false
-      state.registrationSuccess = false
-      state.error = null
+
+    // Set session expiry
+    setSessionExpiry: (state, action) => {
+      state.sessionExpiry = action.payload
+    },
+
+    // Check session validity
+    checkSession: (state) => {
+      if (state.sessionExpiry && new Date() > new Date(state.sessionExpiry)) {
+        state.user = null
+        state.isAuthenticated = false
+        state.sessionExpiry = null
+        state.error = "Session expired. Please log in again."
+      }
+    },
+
+    // Reset login attempts
+    resetLoginAttempts: (state) => {
+      state.loginAttempts = 0
+      state.lastLoginAttempt = null
+    },
+
+    // Update user data (for real-time updates)
+    updateUser: (state, action) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload }
+      }
     },
   },
   extraReducers: (builder) => {
     builder
+      // Login user
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+        state.isAuthenticated = true
+        state.error = null
+        state.loginAttempts = 0
+        state.lastLoginAttempt = null
+        // Set session expiry to 24 hours from now
+        state.sessionExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+        state.user = null
+        state.isAuthenticated = false
+        state.loginAttempts += 1
+        state.lastLoginAttempt = new Date().toISOString()
+      })
+
+      // Register user
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+        state.isAuthenticated = true
+        state.error = null
+        // Set session expiry to 24 hours from now
+        state.sessionExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+        state.user = null
+        state.isAuthenticated = false
+      })
+
+      // Update user profile
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.loading = false
+        state.user = action.payload
+        state.error = null
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
       // Login cases
       .addCase(login.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.isAuthenticated = true
         state.user = action.payload.user
-        state.token = action.payload.token
         state.error = null
       })
       .addCase(login.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Register cases
       .addCase(register.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.isAuthenticated = true
         state.user = action.payload.user
-        state.token = action.payload.token
-        state.registrationSuccess = true
         state.error = null
       })
       .addCase(register.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Logout cases
       .addCase(logoutStart.pending, (state) => {
-        state.isLoggingOut = true
+        state.loading = true
       })
       .addCase(logoutStart.fulfilled, (state) => {
+        state.loading = false
         state.isAuthenticated = false
         state.user = null
-        state.token = null
-        state.isLoggingOut = false
         state.error = null
       })
       .addCase(logoutStart.rejected, (state) => {
-        state.isLoggingOut = false
+        state.loading = false
       })
 
       .addCase(logoutSuccess.pending, (state) => {
-        state.isLoggingOut = true
+        state.loading = true
       })
       .addCase(logoutSuccess.fulfilled, (state) => {
+        state.loading = false
         state.isAuthenticated = false
         state.user = null
-        state.token = null
-        state.isLoggingOut = false
         state.error = null
       })
       .addCase(logoutSuccess.rejected, (state) => {
-        state.isLoggingOut = false
+        state.loading = false
       })
 
       // Password reset request cases
       .addCase(requestPasswordReset.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(requestPasswordReset.fulfilled, (state) => {
-        state.isLoading = false
-        state.passwordResetRequested = true
+        state.loading = false
       })
       .addCase(requestPasswordReset.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Password reset cases
       .addCase(resetPassword.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(resetPassword.fulfilled, (state) => {
-        state.isLoading = false
-        state.passwordResetSuccess = true
+        state.loading = false
       })
       .addCase(resetPassword.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Update profile cases
       .addCase(updateProfile.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.user = action.payload.user
       })
       .addCase(updateProfile.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Add address cases
       .addCase(addAddress.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(addAddress.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         if (state.user) {
           state.user.addresses = [...(state.user.addresses || []), action.payload.address]
         }
       })
       .addCase(addAddress.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Update address cases
       .addCase(updateAddress.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(updateAddress.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         if (state.user && state.user.addresses) {
           state.user.addresses = state.user.addresses.map((addr) =>
             addr.id === action.payload.address.id ? action.payload.address : addr,
@@ -718,87 +852,87 @@ const authSlice = createSlice({
         }
       })
       .addCase(updateAddress.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Delete address cases
       .addCase(deleteAddress.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(deleteAddress.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         if (state.user && state.user.addresses) {
           state.user.addresses = state.user.addresses.filter((addr) => addr.id !== action.meta.arg.addressId)
         }
       })
       .addCase(deleteAddress.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Add payment method cases
       .addCase(addPaymentMethod.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(addPaymentMethod.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         if (state.user) {
           state.user.paymentMethods = [...(state.user.paymentMethods || []), action.payload.paymentMethod]
         }
       })
       .addCase(addPaymentMethod.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Update preferences cases
       .addCase(updatePreferences.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(updatePreferences.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         if (state.user) {
           state.user.preferences = action.payload.preferences
         }
       })
       .addCase(updatePreferences.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
 
       // Verify email cases
       .addCase(verifyEmail.pending, (state) => {
-        state.isLoading = true
+        state.loading = true
         state.error = null
       })
       .addCase(verifyEmail.fulfilled, (state) => {
-        state.isLoading = false
-        state.emailVerificationSuccess = true
+        state.loading = false
       })
       .addCase(verifyEmail.rejected, (state, action) => {
-        state.isLoading = false
+        state.loading = false
         state.error = action.payload
       })
   },
 })
 
 // Export actions
-export const { clearError, clearAuthState } = authSlice.actions
+export const { logout, clearError, setSessionExpiry, checkSession, resetLoginAttempts, updateUser } = authSlice.actions
 
-// Export selectors
-export const selectIsAuthenticated = (state) => state.auth.isAuthenticated
+// Selectors
 export const selectUser = (state) => state.auth.user
-export const selectToken = (state) => state.auth.token
-export const selectIsLoading = (state) => state.auth.isLoading
-export const selectIsLoggingOut = (state) => state.auth.isLoggingOut
+export const selectIsAuthenticated = (state) => state.auth.isAuthenticated
+export const selectAuthLoading = (state) => state.auth.loading
 export const selectAuthError = (state) => state.auth.error
-export const selectPasswordResetRequested = (state) => state.auth.passwordResetRequested
-export const selectPasswordResetSuccess = (state) => state.auth.passwordResetSuccess
-export const selectEmailVerificationSuccess = (state) => state.auth.emailVerificationSuccess
-export const selectRegistrationSuccess = (state) => state.auth.registrationSuccess
+export const selectLoginAttempts = (state) => state.auth.loginAttempts
+export const selectSessionExpiry = (state) => state.auth.sessionExpiry
+export const selectIsSessionValid = (state) => {
+  if (!state.auth.sessionExpiry) return false
+  return new Date() < new Date(state.auth.sessionExpiry)
+}
 
+// Export reducer
 export default authSlice.reducer

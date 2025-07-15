@@ -1,254 +1,309 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { fetchFromAPI, transformProductData, fetchFromAPIWithAxios } from "../utils/api"
-// Import Axios services
-import { searchProducts as searchProductsService } from "../services/productService"
-
-// Async thunk for fetching all products
-export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_, { rejectWithValue }) => {
+import productService from "../services/productService"
+// Async thunks for product operations
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async (filters = {}, { rejectWithValue }) => {
   try {
-    // Try Axios first, fallback to original fetch
-    let data
-    try {
-      data = await fetchFromAPIWithAxios("/products")
-      console.log("✅ Using Axios for fetchProducts")
-    } catch (axiosError) {
-      console.warn("⚠️ Axios failed, falling back to fetch:", axiosError.message)
-      data = await fetchFromAPI("/products")
-    }
-    return data.map(transformProductData)
+    const products = await productService.getAllProducts(filters)
+    return products
   } catch (error) {
-    return rejectWithValue(error.message || "Failed to fetch products. Please try again later.")
+    return rejectWithValue(error.message)
   }
 })
 
-// Async thunk for searching products
-export const searchProducts = createAsyncThunk("products/searchProducts", async (searchTerm, { rejectWithValue }) => {
+export const fetchProductById = createAsyncThunk("products/fetchProductById", async (id, { rejectWithValue }) => {
   try {
-    //Try Axios search service first, fallback to original method
-    let filteredProducts
-    try {
-      filteredProducts = await searchProductsService(searchTerm)
-      console.log("✅ Using Axios for searchProducts")
-    } catch (axiosError) {
-      console.warn("⚠️ Axios search failed, falling back to fetch:", axiosError.message)
-      // Fetch all products first (Fake Store API doesn't have a search endpoint)
-      const data = await fetchFromAPI("/products")
-
-      // Filter products based on search term
-      const normalizedSearch = searchTerm.toLowerCase()
-      filteredProducts = data.filter(
-        (product) =>
-          product.title.toLowerCase().includes(normalizedSearch) ||
-          product.description.toLowerCase().includes(normalizedSearch) ||
-          product.category.toLowerCase().includes(normalizedSearch),
-      )
-    }
-
-    return filteredProducts.map(transformProductData)
+    const product = await productService.getProductById(id)
+    return product
   } catch (error) {
-    return rejectWithValue(error.message || "Failed to search products. Please try again later.")
+    return rejectWithValue(error.message)
   }
 })
 
-// Async thunk for fetching product by ID
-export const fetchProductById = createAsyncThunk(
-  "products/fetchProductById",
-  async (productId, { rejectWithValue }) => {
-    try {
-      // Try Axios first, fallback to original fetch
-      let product
-      try {
-        product = await fetchFromAPIWithAxios(`/products/${productId}`)
-        console.log("✅ Using Axios for fetchProductById")
-      } catch (axiosError) {
-        console.warn("⚠️ Axios failed, falling back to fetch:", axiosError.message)
-        product = await fetchFromAPI(`/products/${productId}`)
-      }
-      return transformProductData(product)
-    } catch (error) {
-      return rejectWithValue(error.message || "Failed to fetch product. Please try again later.")
-    }
-  },
-)
-
-// Async thunk for fetching products by category
 export const fetchProductsByCategory = createAsyncThunk(
   "products/fetchProductsByCategory",
   async (category, { rejectWithValue }) => {
     try {
-      // Try Axios first, fallback to original fetch
-      let data
-      try {
-        data = await fetchFromAPIWithAxios(`/products/category/${category}`)
-        console.log("✅ Using Axios for fetchProductsByCategory")
-      } catch (axiosError) {
-        console.warn("⚠️ Axios failed, falling back to fetch:", axiosError.message)
-        data = await fetchFromAPI(`/products/category/${category}`)
-      }
-      return data.map(transformProductData)
+      const products = await productService.getProductsByCategory(category)
+      return products
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to fetch products by category. Please try again later.")
+      return rejectWithValue(error.message)
     }
   },
 )
 
-// Async thunk for fetching all categories
+export const searchProducts = createAsyncThunk(
+  "products/searchProducts",
+  async ({ searchTerm, filters = {} }, { rejectWithValue }) => {
+    try {
+      const products = await productService.searchProducts(searchTerm, filters)
+      return { products, searchTerm }
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
 export const fetchCategories = createAsyncThunk("products/fetchCategories", async (_, { rejectWithValue }) => {
   try {
-    // NEW CODE: Try Axios first, fallback to original fetch
-    let categories
-    try {
-      categories = await fetchFromAPIWithAxios("/products/categories")
-      console.log("✅ Using Axios for fetchCategories")
-    } catch (axiosError) {
-      console.warn("⚠️ Axios failed, falling back to fetch:", axiosError.message)
-      categories = await fetchFromAPI("/products/categories")
-    }
+    const categories = await productService.getCategories()
     return categories
   } catch (error) {
-    return rejectWithValue(error.message || "Failed to fetch categories. Please try again later.")
+    return rejectWithValue(error.message)
   }
 })
 
+export const fetchFeaturedProducts = createAsyncThunk(
+  "products/fetchFeaturedProducts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const products = await productService.getFeaturedProducts()
+      return products
+    } catch (error) {
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+// Initial state
+const initialState = {
+  // Products data
+  products: [],
+  featuredProducts: [],
+  categories: [],
+  currentProduct: null,
+
+  // Search and filtering
+  searchResults: [],
+  searchTerm: "",
+  currentCategory: null,
+  filters: {
+    priceRange: [0, 1000],
+    brands: [],
+    sizes: [],
+    colors: [],
+    rating: 0,
+    inStock: false,
+  },
+
+  // UI state
+  loading: false,
+  searchLoading: false,
+  error: null,
+
+  // Pagination
+  pagination: {
+    currentPage: 1,
+    totalPages: 1,
+    totalItems: 0,
+    itemsPerPage: 20,
+  },
+
+  // Sorting
+  sortBy: "name",
+  sortOrder: "asc", // 'asc' or 'desc'
+}
+
+// Product slice
 const productSlice = createSlice({
   name: "products",
-  initialState: {
-    items: [],
-    searchResults: [],
-    selectedProduct: null,
-    categories: [],
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
-    error: null,
-    filters: {
-      category: null,
-      priceRange: { min: 0, max: Number.POSITIVE_INFINITY },
-      sizes: [],
-      colors: [],
-    },
-  },
+  initialState,
   reducers: {
-    setFilters: (state, action) => {
+    // Clear current product
+    clearCurrentProduct: (state) => {
+      state.currentProduct = null
+    },
+
+    // Clear search results
+    clearSearchResults: (state) => {
+      state.searchResults = []
+      state.searchTerm = ""
+    },
+
+    // Set current category
+    setCurrentCategory: (state, action) => {
+      state.currentCategory = action.payload
+    },
+
+    // Update filters
+    updateFilters: (state, action) => {
       state.filters = { ...state.filters, ...action.payload }
     },
+
+    // Clear filters
     clearFilters: (state) => {
-      state.filters = {
-        category: null,
-        priceRange: { min: 0, max: Number.POSITIVE_INFINITY },
-        sizes: [],
-        colors: [],
+      state.filters = initialState.filters
+    },
+
+    // Update sorting
+    updateSorting: (state, action) => {
+      const { sortBy, sortOrder } = action.payload
+      state.sortBy = sortBy
+      state.sortOrder = sortOrder
+
+      // Sort current products
+      const sortProducts = (products) => {
+        return [...products].sort((a, b) => {
+          let aValue = a[sortBy]
+          let bValue = b[sortBy]
+
+          // Handle different data types
+          if (typeof aValue === "string") {
+            aValue = aValue.toLowerCase()
+            bValue = bValue.toLowerCase()
+          }
+
+          if (sortOrder === "asc") {
+            return aValue > bValue ? 1 : -1
+          } else {
+            return aValue < bValue ? 1 : -1
+          }
+        })
+      }
+
+      state.products = sortProducts(state.products)
+      if (state.searchResults.length > 0) {
+        state.searchResults = sortProducts(state.searchResults)
       }
     },
-    sortProducts: (state, action) => {
-      const { sortBy } = action.payload
-      switch (sortBy) {
-        case "price-low-high":
-          state.items.sort((a, b) => a.price - b.price)
-          break
-        case "price-high-low":
-          state.items.sort((a, b) => b.price - a.price)
-          break
-        case "name-a-z":
-          state.items.sort((a, b) => a.name.localeCompare(b.name))
-          break
-        case "name-z-a":
-          state.items.sort((a, b) => b.name.localeCompare(a.name))
-          break
-        case "rating-high-low":
-          state.items.sort((a, b) => (b.rating?.rate || 0) - (a.rating?.rate || 0))
-          break
-        default:
-          break
-      }
+
+    // Update pagination
+    updatePagination: (state, action) => {
+      state.pagination = { ...state.pagination, ...action.payload }
+    },
+
+    // Clear error
+    clearError: (state) => {
+      state.error = null
     },
   },
   extraReducers: (builder) => {
     builder
-      // Handle fetchProducts
+      // Fetch all products
       .addCase(fetchProducts.pending, (state) => {
-        state.status = "loading"
+        state.loading = true
         state.error = null
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = "succeeded"
-        state.items = action.payload
-        state.error = null
+        state.loading = false
+        state.products = action.payload
+        state.pagination.totalItems = action.payload.length
+        state.pagination.totalPages = Math.ceil(action.payload.length / state.pagination.itemsPerPage)
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = "failed"
+        state.loading = false
         state.error = action.payload
+        state.products = []
       })
 
-      // Handle searchProducts
-      .addCase(searchProducts.pending, (state) => {
-        state.status = "loading"
-        state.error = null
-      })
-      .addCase(searchProducts.fulfilled, (state, action) => {
-        state.status = "succeeded"
-        state.searchResults = action.payload
-        state.error = null
-      })
-      .addCase(searchProducts.rejected, (state, action) => {
-        state.status = "failed"
-        state.error = action.payload
-      })
-
-      // Handle fetchProductById
+      // Fetch product by ID
       .addCase(fetchProductById.pending, (state) => {
-        state.status = "loading"
+        state.loading = true
         state.error = null
       })
       .addCase(fetchProductById.fulfilled, (state, action) => {
-        state.status = "succeeded"
-        state.selectedProduct = action.payload
-        state.error = null
+        state.loading = false
+        state.currentProduct = action.payload
       })
       .addCase(fetchProductById.rejected, (state, action) => {
-        state.status = "failed"
+        state.loading = false
         state.error = action.payload
+        state.currentProduct = null
       })
 
-      // Handle fetchProductsByCategory
+      // Fetch products by category
       .addCase(fetchProductsByCategory.pending, (state) => {
-        state.status = "loading"
+        state.loading = true
         state.error = null
       })
       .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
-        state.status = "succeeded"
-        state.items = action.payload
-        state.error = null
+        state.loading = false
+        state.products = action.payload
+        state.pagination.totalItems = action.payload.length
+        state.pagination.totalPages = Math.ceil(action.payload.length / state.pagination.itemsPerPage)
       })
       .addCase(fetchProductsByCategory.rejected, (state, action) => {
-        state.status = "failed"
+        state.loading = false
         state.error = action.payload
+        state.products = []
       })
 
-      // Handle fetchCategories
+      // Search products
+      .addCase(searchProducts.pending, (state) => {
+        state.searchLoading = true
+        state.error = null
+      })
+      .addCase(searchProducts.fulfilled, (state, action) => {
+        state.searchLoading = false
+        state.searchResults = action.payload.products
+        state.searchTerm = action.payload.searchTerm
+      })
+      .addCase(searchProducts.rejected, (state, action) => {
+        state.searchLoading = false
+        state.error = action.payload
+        state.searchResults = []
+      })
+
+      // Fetch categories
       .addCase(fetchCategories.pending, (state) => {
-        state.status = "loading"
+        state.loading = true
         state.error = null
       })
       .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.loading = false
         state.categories = action.payload
-        state.error = null
       })
       .addCase(fetchCategories.rejected, (state, action) => {
+        state.loading = false
         state.error = action.payload
+        state.categories = []
+      })
+
+      // Fetch featured products
+      .addCase(fetchFeaturedProducts.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchFeaturedProducts.fulfilled, (state, action) => {
+        state.loading = false
+        state.featuredProducts = action.payload
+      })
+      .addCase(fetchFeaturedProducts.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+        state.featuredProducts = []
       })
   },
 })
 
 // Export actions
-export const { setFilters, clearFilters, sortProducts } = productSlice.actions
+export const {
+  clearCurrentProduct,
+  clearSearchResults,
+  setCurrentCategory,
+  updateFilters,
+  clearFilters,
+  updateSorting,
+  updatePagination,
+  clearError,
+} = productSlice.actions
 
-// Export selectors
-export const selectAllProducts = (state) => state.products.items
-export const selectSearchResults = (state) => state.products.searchResults
-export const selectSelectedProduct = (state) => state.products.selectedProduct
-export const selectProductStatus = (state) => state.products.status
-export const selectProductError = (state) => state.products.error
-export const selectProductFilters = (state) => state.products.filters
+// Selectors
+export const selectProducts = (state) => state.products.products
+export const selectFeaturedProducts = (state) => state.products.featuredProducts
 export const selectCategories = (state) => state.products.categories
+export const selectCurrentProduct = (state) => state.products.currentProduct
+export const selectSearchResults = (state) => state.products.searchResults
+export const selectSearchTerm = (state) => state.products.searchTerm
+export const selectCurrentCategory = (state) => state.products.currentCategory
+export const selectFilters = (state) => state.products.filters
+export const selectLoading = (state) => state.products.loading
+export const selectSearchLoading = (state) => state.products.searchLoading
+export const selectError = (state) => state.products.error
+export const selectPagination = (state) => state.products.pagination
+export const selectSorting = (state) => ({
+  sortBy: state.products.sortBy,
+  sortOrder: state.products.sortOrder,
+})
 
 // Export reducer
 export default productSlice.reducer
