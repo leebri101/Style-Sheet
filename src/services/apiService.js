@@ -40,13 +40,3 @@ export const del = async (endpoint) => {
     throw new Error(error.response?.data?.message || error.message || "DELETE request failed")
   }
 }
-
-// Generic PATCH request
-export const patch = async (endpoint, data = {}) => {
-  try {
-    const response = await axiosInstance.patch(endpoint, data)
-    return response.data
-  } catch (error) {
-    throw new Error(error.response?.data?.message || error.message || "PATCH request failed")
-  }
-}
