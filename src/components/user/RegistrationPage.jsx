@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Register.css';
+import './RegistrationPage.css';
 
 // Register component for user registration
 const RegistrationPage = () => {
