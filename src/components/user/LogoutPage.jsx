@@ -1,48 +1,39 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutStart, logoutSuccess } from "../../store/authSlice.js";
+import { useDispatch} from "react-redux";
+import { logout } from "../../store/authSlice.js";
+import "./LogoutPage.css";
 
 const LogoutPage = () => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const isLoggingOut = useSelector((state) => state.auth.isLoggingOut)
-    
-    const clearUserSession = useCallback(() => {
-        // Clear user token from localStorage
-        localStorage.removeItem("userToken");
-        // Clearance of other data 
-        localStorage.removeItem("userData");
-        console.log("User Session cleared");
-    }, []);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-    useEffect(() =>{
-        dispatch(logoutStart())
-        clearUserSession()
-        console.log("Logging Out....")
+  useEffect(() => {
+    // Perform logout
+    dispatch(logout())
 
-        const timer = setTimeout(() =>{
-            dispatch(logoutSuccess())
-            navigate("/")
-        }, 2000)
+    // Redirect to home page after a short delay
+    const timer = setTimeout(() => {
+      navigate("/")
+    }, 2000)
 
-        return () => clearTimeout(timer)
-    }, [dispatch, navigate, clearUserSession])
+    return () => clearTimeout(timer)
+  }, [dispatch, navigate])
 
-    return(
-        <div className="logout-page">
-            <div className="logout-content">
-                <h2 className="logout-title">{isLoggingOut ? "Logging Out..." : "You Have been Logged out"}</h2>
-                <p className="logout-message">
-                    {isLoggingOut 
-                    ? "Please wait while we securely log you out." 
-                    : "Redirecting to home-page."
-                    }
-                </p>
-                {isLoggingOut && <div className="logout-spinner"></div>}
-            </div>
+  return (
+    <div className="logout-page">
+      <div className="logout-container">
+        <div className="logout-content">
+          <h1>Logging Out...</h1>
+          <p>See you next time !</p>
+          <div className="logout-spinner">
+            <div className="spinner"></div>
+          </div>
+          <p>Redirecting to the home page.</p>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default LogoutPage
