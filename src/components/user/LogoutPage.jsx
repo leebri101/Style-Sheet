@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch} from "react-redux";
 import { logout } from "../../store/authSlice.js";
-import "./LogoutPage.css";
+import "./Logout.css";
 
 const LogoutPage = () => {
   const dispatch = useDispatch()
