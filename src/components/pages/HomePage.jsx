@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategorySection from "./CategorySection";
 import ProductGrid from "../../components/products/ProductGrid";
+import NewsletterSignup from "../pages/NewsletterSignup";
 import { fetchProducts } from "../../store/productSlice";
 import './HomePage.css';
 
@@ -158,6 +159,7 @@ const HomePage = () => {
             <ProductGrid products={gridProducts} />
           </div>
         )}
+        <NewsletterSignup />
       </main>
     </div>
   )
