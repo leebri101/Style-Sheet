@@ -1,10 +1,10 @@
-// to carry on 
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Eye, EyeClosed, CircleAlert, AlertTriangle } from "lucide-react";
 import { Dialog, DialogPanel, DialogTitle, Description} from "@headlessui/react";
-import "../user/ProfilePage.css";
+import "./ProfilePage.css";
 
 //states for email and password forms
 const ProfilePage = () => {
