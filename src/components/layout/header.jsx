@@ -1,135 +1,194 @@
+"use client";
+
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Menu, Search, ShoppingCart, Heart} from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Menu, X, Search, ShoppingCart, Heart, User} from 'lucide-react';
+import { selectCartTotalQuantity, selectCartIsOpen, toggleCart } from "../../store/cartSlice";
+import { selectWishlistTotalItems } from "../../store/wishlistSlice";
+import { selectIsAuthenticted, selectUser, logout} from "../../store/authSlice";
 import { Dialog, DialogPanel } from '@headlessui/react';
-import { Link } from 'react-router-dom';
 import './Header.css';
 
 
 const Header = () => {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate();
-    const cartItemsCount = useSelector((state) => 
-        state.cart.items.reduce((total, item) => total + item.quantity, 0));
-    const wishlistItemsCount = useSelector((state) => state.wishlist.items.length);
-
-    const navigation = [
-        { name: 'MEN', href: '/mens' },
-        { name: 'WOMEN', href: '/womens' },
-        { name: 'KIDS', href: '/kids' },
-    ];
+    const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const cartQuantity = useSelector(selectCartTotalQuantity);
+    const wishlistCount = useSelector(selectWishlistTotalItems);
+    const isAuthenticated = useSelector(selectIsAuthenticted);
+    const user = useSelector(selectUser);
+    const isCartOpen = useSelector(selectCartIsOpen);
 
     const handleSearch = (e) => {
         e.preventDefault();
-        if (searchQuery.trim()) {
-            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-            setSearchQuery("");
-            setMobileMenuOpen(false);
+        if (searchTerm.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+            setSearchTerm("");
         }
     };
 
+    const handleLogout = () => {
+        dispatch(logout());
+        localStorage.removeItem("userToken")
+        localStorage.removeItem("userData")
+        navigate('/');
+        setIsMobileMenuOpen(false)
+    }
+
+    const handleCartToggle = () => {
+        dispatch(toggleCart());
+        
+    } 
+
     return (
         <header className="header">
-            <nav className="header-nav" aria-label="Global">
-                <div className="header-logo-container">
+            <nav className="header-nav">
+                <div className="head-logo-container">
                     <Link to="/" className="header-logo">
-                        <span>STYLE-SHEET</span>
+                    STYLE-SHEET
                     </Link>
                 </div>
+                {/* Mobile menu button */}
                 <div className="mobile-menu-button-container">
-                    <button type="button" className="mobile-menu-button" onClick={() => setMobileMenuOpen(true)}>
-                        <Menu className="menu-icon" aria-hidden="true" />
+                    <button 
+                    className="mobile-menu-button" 
+                    onClick={() => setIsMobileMenuOpen (!isMobileMenuOpen)}
+                    aria-label="Toggle Menu">
+                        {isMobileMenuOpen ? <X className="menu-icon" /> : <Menu className="menu-icon"/>}
                     </button>
                 </div>
+                {/*Desktop Navigation*/}
                 <div className="header-links">
-                    {navigation.map((item) => (
-                        <Link key={item.name} to={item.href} className="header-link">
-                            {item.name}
-                        </Link>
-                    ))}
-                    <Link to="/login" className="header-link">LOGIN</Link>
-                    <Link to="/register" className="header-link">REGISTER</Link>
+                    <Link to="/men" className="header-link">
+                    Mens
+                    </Link>
+                    <Link to="/women" className="header-link">
+                    Womens
+                    </Link>
+                    <Link to="/kids" className="header-link">
+                    Kids
+                    </Link>
                 </div>
-                <form onSubmit={handleSearch} className="header-search">
+                {/*Desktop Search*/}
+                <form className="header-search" onSubmit={handleSearch}>
                     <input
-                        type="text"
-                        placeholder="Search By Keyword"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="header-search-input"
+                    type="text"
+                    placeholder="Search for your style..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="header-search-input"
                     />
                     <button type="submit" className="header-search-button">
-                        <Search className="header-icon" />
-                        <span className="sr-only">Search</span>
+                        <Search size={16}/>
                     </button>
                 </form>
+                {/*Desktop Icons*/}
                 <div className="header-icons">
-                    <div>
-                        <Link to="/wishlist" className="header-icon-button">
+                    <button className="header-icon-button" 
+                    onClick={() => navigate('/wishlist')}>
                         <Heart className="header-icon" />
-                        {wishlistItemsCount > 0 && <span className="icon-count">{wishlistItemsCount}</span>}
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to="/cart" className="header-icon-button-cart-icon-container">
-                        <ShoppingCart className="header-icon" />
-                        {cartItemsCount > 0 && <span className="cart-count">{cartItemsCount}</span>}
-                        </Link>
-                    </div>
-                </div>
-            </nav>
-            <Dialog as="div" className="mobile-menu" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
-                <div className="mobile-menu-backdrop" />
-                <DialogPanel className="mobile-menu-panel">
-                    <div className="mobile-menu-header">
-                        <Link to="/" className="header-logo">
-                            <span>STYLE-SHEET</span>
-                        </Link>
-                        <button type="button" className="mobile-menu-close-button" onClick={() => setMobileMenuOpen(false)}>
-                            <span className="sr-only">Close Menu</span>
-                            <Menu className="menu-icon" aria-hidden="true" />
+                        {wishlistCount > 0 && <span className="icon-count">
+                            {wishlistCount}</span>}
+                    </button>
+                    <button className="header-icon-button" 
+                    onClick={handleCartToggle}>
+                        <ShoppingCart className="header-icon" /> 
+                        {cartQuantity > 0 && <span className="icon-count">
+                            {cartQuantity}</span>}
+                    </button>
+                    {isAuthenticated ? (
+                        <button className="header-icon-button" 
+                        onClick={() => navigate("/profile")}>
+                            <User className="header-icon" />  
                         </button>
-                    </div>
-                    <div className="mobile-menu-content">
-                        <div className="mobile-menu-links">
-                            {navigation.map((item) => (
-                                <Link key={item.name} to={item.href} className="mobile-menu-link">
-                                    {item.name}
-                                </Link>
-                            ))}
-                            <Link to="/login" className="mobile-menu-link">
-                            LOGIN
-                            </Link>
-                            <Link to="/register" className="mobile-menu-link">
-                            REGISTER
-                            </Link>
-                            <Link to="/wishlist" className="mobile-menu-link">
-                            Wishlist ({wishlistItemsCount})
-                            </Link>
-                            <Link to="/cart" className="mobile-menu-link">
-                            Cart ({cartItemsCount})
-                            </Link>
-                        <form onSubmit={handleSearch} className="mobile-search">
-                            <input
-                                type="text"
-                                placeholder="Search By Keyword"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="mobile-search-input"
-                            />
-                            <button type="submit" className="mobile-search-button">
-                                <Search className="header-icon" />
-                                <span>Search</span>
-                            </button>
-                        </form>
+                    ) : (
+                        <Link to="/login" className="header-link">
+                            Login
+                        </Link>
+                    )}    
+                </div>
+                {/*Mobile Menu Dialog*/}
+                <Dialog open={isMobileMenuOpen} onClose={setIsMobileMenuOpen}>
+                    <div className="mobile-menu-backdrop" aria-hidden="true">
+                        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+                            <DialogPanel className="mobile-menu-panel">
+                                <div className="mobile-menu-header">
+                                    <Link to="/" className="header-logo">
+                                        STYLE-SHEET
+                                    </Link>
+                                    <button className="mobile-menu-close-button" 
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    aria-label="Close Menu">
+                                        <X size={24} />
+                                    </button>
+                                </div>
+                                <div className="mobile-menu-content">
+                                    <div className="mobile-menu-links">
+                                        <Link to="/men" className="mobile-menu-link"
+                                        onClick={() => setIsMobileMenuOpen(false)}>
+                                            Mens
+                                        </Link>
+                                        <Link to="/women" className="mobile-menu-link"
+                                        onClick={() => setIsMobileMenuOpen(false)}>
+                                            Women
+                                        </Link>
+                                        <Link to="/kids" className="mobile-menu-link"
+                                        onClick={() => setIsMobileMenuOpen(false)}>
+                                            Kids
+                                        </Link>
+                                        <Link to="/wishlist" className="mobile-menu-link"
+                                        onClick={() => setIsMobileMenuOpen(false)}>
+                                            Wishlist ({wishlistCount})
+                                        </Link>
+                                        {isAuthenticated ? (
+                                            <>
+                                            <Link to="/profile" 
+                                            className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
+                                                Profile
+                                            </Link>
+                                            <button className="mobile-menu-link"
+                                            onClick={handleLogout}>
+                                                Logout
+                                            </button>
+                                            </>
+                                        ): (
+                                            <>
+                                            <Link to="/login" className="mobile-menu-link" 
+                                            onClick={() => setIsMobileMenuOpen(false)}>
+                                                Login
+                                            </Link>
+                                            <Link to="/register" className="mobile-menu-link"
+                                            onClick={() => setIsMobileMenuOpen(false)}>
+                                                Register
+                                            </Link>
+                                            </>
+                                        )}
+                                    </div>
+                                    {/*Mobile Search*/}
+                                    <form className="mobile-search" 
+                                    onSubmit={handleSearch}>
+                                        <input
+                                        type="text"
+                                        placeholder="Search for your Style..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        className="mobile-search-input"
+                                        />
+                                        <button type="submit" className="mobile-search-button">
+                                            <Search size={16} />
+                                        </button>
+                                    </form>
+                                </div>
+                            </DialogPanel>
                         </div>
                     </div>
-                </DialogPanel>
-            </Dialog>
+                </Dialog>
+            </nav>
         </header>
-    );
-};
+    )
+}
 
 export default Header;
