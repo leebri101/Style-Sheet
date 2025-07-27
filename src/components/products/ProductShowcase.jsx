@@ -1,68 +1,131 @@
 
-import { useState } from "react"
-import { ShoppingCart, Heart } from "lucide-react"
-import PropTypes from "prop-types"
-import "./ProductShowcase.css"
 
-const ProductShowcase = ({ title, price, description, imageUrl, isLimitedOffer = false, offerEndDate }) => {
-  const [selectedSize, setSelectedSize] = useState("")
+import { useSelector, useDispatch } from "react-redux"
+import { addToCart } from "../store/cartSlice"
+import { 
+  addToWishlist, 
+  removeFromWishlist, 
+  selectWishlistItems 
+} from "../store/wishlistSlice"
+import "./ProductShowcase.css"
+import Image from "next/image" // Better image handling
+import PropTypes from 'prop-types'
+
+const ProductShowcase = ({ products = [] }) => { // Added default empty array
+  const dispatch = useDispatch()
+  const wishlistItems = useSelector(selectWishlistItems)
+
+  // Handles adding product to cart with default values
+  const handleAddToCart = (product) => {
+    if (!product) return // Safety check
+    
+    dispatch(
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.imageUrl,
+        size: product.size || "M", // Default size with fallback
+        color: product.color || "Default", // Default color with fallback
+        quantity: 1,
+      })
+    )
+  }
+
+  // Toggles product in wishlist
+  const handleWishlistToggle = (product) => {
+    if (!product?.id) return // Safety check
+    
+    const isInWishlist = wishlistItems.some((item) => item.id === product.id)
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(product.id))
+    } else {
+      dispatch(addToWishlist({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        imageUrl: product.imageUrl
+      }))
+    }
+  }
+
+  // Checks if product is in wishlist
+  const isInWishlist = (productId) => {
+    return wishlistItems.some((item) => item.id === productId)
+  }
+
+  // Early return if no products
+  if (!products.length) {
+    return (
+      <section className="product-showcase">
+        <div className="showcase-container">
+          <h2 className="showcase-title">Featured Products</h2>
+          <p>No products available</p>
+        </div>
+      </section>
+    )
+  }
 
   return (
-    <div className="product-showcase">
-      <div className="product-grid">
-        <div className="product-image">
-          {isLimitedOffer && (
-            <div className="limited-offer">
-              <span>LIMITED OFFER</span>
-            </div>
-          )}
-          <img src={imageUrl || "/placeholder.svg"} alt={title} />
-        </div>
-        <div className="product-info">
-          <h1 className="product-title">{title}</h1>
-          <div className="product-price-container">
-            <p className="product-price">£{price.toFixed(2)}</p>
-            {isLimitedOffer && offerEndDate && (
-              <p className="offer-end-date">Limited-time offer available until {offerEndDate}.</p>
-            )}
-          </div>
-          <div className="product-description">
-            <p>{description}</p>
-          </div>
-          <div className="size-selector">
-            <h2>Size</h2>
-            <div className="size-grid">
-              {["XS", "S", "M", "L", "XL"].map((size) => (
+    <section className="product-showcase">
+      <div className="showcase-container">
+        <h2 className="showcase-title">Featured Products</h2>
+        <div className="showcase-grid">
+          {products.map((product) => (
+            <div key={product.id} className="showcase-card">
+              <div className="showcase-image-container">
+                <Image
+                  src={product.imageUrl || "/placeholder.svg"}
+                  alt={product.name || "Product image"}
+                  className="showcase-image"
+                  width={300}
+                  height={300}
+                  priority={false}
+                />
                 <button
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
-                  className={`size-button ${selectedSize === size ? "selected" : ""}`}
+                  aria-label={isInWishlist(product.id) ? 
+                    "Remove from wishlist" : "Add to wishlist"}
+                  className={`wishlist-btn ${isInWishlist(product.id) ? "active" : ""}`}
+                  onClick={() => handleWishlistToggle(product)}
                 >
-                  {size}
+                  {isInWishlist(product.id) ? "❤️" : "♡"}
                 </button>
-              ))}
+              </div>
+              <div className="showcase-info">
+                <h3 className="showcase-product-name">{product.name}</h3>
+                <p className="showcase-product-price">
+                  £{product.price?.toFixed(2) || "0.00"}
+                </p>
+                <p className="showcase-product-description">
+                  {product.description || "No description available"}
+                </p>
+                <button 
+                  className="showcase-add-to-cart" 
+                  onClick={() => handleAddToCart(product)}
+                  aria-label={`Add ${product.name} to cart`}
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="product-actions">
-            <button type="button" className="add-to-cart">
-              <ShoppingCart className="button-icon" />
-              Add to Cart
-            </button>
-            <button type="button" className="favorite-button">
-              <Heart className="button-icon" />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
-ProductShowcase.propTypes ={
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-    isLimitedOffer: PropTypes.bool,
-    offerEndDate: PropTypes.string,
+ProductShowcase.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      imageUrl: PropTypes.string,
+      description: PropTypes.string,
+      size: PropTypes.string,
+      color: PropTypes.string
+    })
+  )
 }
-export default ProductShowcase;
+
+export default ProductShowcase
