@@ -1,132 +1,126 @@
-import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { login, clearError, selectIsAuthenticated, selectIsLoading, selectAuthError } from "../../store/authSlice"
+import { login } from "../../store/authSlice"
 import "./Login.css"
 
 const LoginPage = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const isAuthenticated = useSelector(selectIsAuthenticated)
-  const isLoading = useSelector(selectIsLoading)
-  const error = useSelector(selectAuthError)
-
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    remember: false,
   })
-
-  useEffect(() => {
-    // Clear any previous errors when component mounts
-    dispatch(clearError())
-  }, [dispatch])
-
-  useEffect(() => {
-    // Redirect if user is authenticated
-    if (isAuthenticated) {
-      navigate("/profile")
-    }
-  }, [isAuthenticated, navigate])
+  const [errors, setErrors] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: type === "checkbox" ? checked : value,
-    }))
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+    // Clear error when user starts typing
+    if (errors[e.target.name]) {
+      setErrors({
+        ...errors,
+        [e.target.name]: "",
+      })
+    }
+  }
+
+  const validateForm = () => {
+    const newErrors = {}
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required"
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid"
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required"
+    }
+
+    return newErrors
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    try {
-      await dispatch(login(formData)).unwrap()
-      // Navigation will be handled by the useEffect above
-    } catch (err) {
-      // Error will be handled by Redux and displayed in the UI
-      console.error("Login failed:", err)
+    const newErrors = validateForm()
+
+    if (Object.keys(newErrors).length === 0) {
+      setIsLoading(true)
+
+      // Simulate API call
+      setTimeout(() => {
+        const userData = {
+          id: 1,
+          name: "John Doe",
+          email: formData.email,
+        }
+
+        dispatch(login(userData))
+        setIsLoading(false)
+        navigate("/")
+      }, 1500)
+    } else {
+      setErrors(newErrors)
     }
   }
 
   return (
     <div className="login-page">
-      <div className="login-form-container">
-        <div>
-          <h2 className="login-title">Sign in to your account</h2>
+      <div className="login-container">
+        <div className="login-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to your Style-Sheet account</p>
         </div>
-        {error && <div className="login-error">{error}</div>}
-        <form className="login-form" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" defaultValue="true" />
-          <div className="login-inputs">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="login-input"
-                placeholder="Email address"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={isLoading}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="login-input"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="login-options">
-            <div className="remember-me">
-              <input
-                id="remember-me"
-                name="remember"
-                type="checkbox"
-                className="remember-me-checkbox"
-                checked={formData.remember}
-                onChange={handleChange}
-                disabled={isLoading}
-              />
-              <label htmlFor="remember-me" className="remember-me-label">
-                Remember me
-              </label>
-            </div>
-            <div className="forgot-password">
-              <Link to="/forgot-password" className="forgot-password-link">
-                Forgotten your password?
-              </Link>
-            </div>
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={errors.email ? "error" : ""}
+              placeholder="Enter your email"
+            />
+            {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
-          <div>
-            <button type="submit" className="login-submit" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign in"}
-            </button>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={errors.password ? "error" : ""}
+              placeholder="Enter your password"
+            />
+            {errors.password && <span className="error-message">{errors.password}</span>}
+          </div>
+
+          <button type="submit" className="login-btn" disabled={isLoading}>
+            {isLoading ? "Signing In..." : "Sign In"}
+          </button>
+
+          <div className="login-links">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+
+          <div className="divider">
+            <span>or</span>
+          </div>
+
+          <div className="login-links">
+            <Link to="/register">Don`t have an account? Sign Up</Link>
           </div>
         </form>
-        <div className="register-link">
-            Don`t have an account?
-            <Link to="/register" className="register-link-text">
-              Sign up
-            </Link>
-        </div>
       </div>
     </div>
   )
