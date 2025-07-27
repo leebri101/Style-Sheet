@@ -3,98 +3,172 @@ import {
   MOCK_API_CONFIG,
   buildApiUrl,
   handleApiError,
-  retryRequest,
-  CONSTANTS
+  retryRequest
 } from '../utils/mockApiConfig';
 
-// Product Services
-export const fetchProducts = async (params = {}) => {
-  try {
-    const query = new URLSearchParams(params).toString();
-    const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}?${query}`);
-    const response = await fetch(url, {
-      timeout: MOCK_API_CONFIG.timeout
-    });
-    return await response.json();
-  } catch (error) {
-    return handleApiError(error, "fetching products");
-  }
-};
+// Products API Service
+const ProductsAPI = {
+  getAll: async (filters = {}) => {
+    try {
+      const query = new URLSearchParams(filters).toString();
+      const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}?${query}`);
+      const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      return handleApiError(error, "fetching products");
+    }
+  },
 
-// Cart Services
-export const addToCart = async (productData) => {
-  const requestFn = async () => {
-    const response = await fetch(buildApiUrl(MOCK_API_CONFIG.endpoints.cart), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...productData,
-        date: new Date().toISOString()
-      }),
-      timeout: MOCK_API_CONFIG.timeout
-    });
-    return await response.json();
-  };
-  return retryRequest(requestFn);
-};
+  getById: async (id) => {
+    try {
+      const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}/${id}`);
+      const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      return handleApiError(error, `fetching product ${id}`);
+    }
+  },
 
-export const getCartItems = async (userId) => {
-  try {
-    const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.cart}?userId=${userId}`);
-    const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
-    return await response.json();
-  } catch (error) {
-    return handleApiError(error, "fetching cart items");
-  }
-};
+  getByCategory: async (category) => {
+    try {
+      const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}?category=${category}`);
+      const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      return handleApiError(error, `fetching ${category} products`);
+    }
+  },
 
-// Wishlist Services
-export const getWishlist = async (userId) => {
-  try {
-    const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.wishlist}?userId=${userId}`);
-    const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
-    return await response.json();
-  } catch (error) {
-    return handleApiError(error, "fetching wishlist");
-  }
-};
+  search: async (searchTerm, filters = {}) => {
+    try {
+      const query = new URLSearchParams({ ...filters, q: searchTerm }).toString();
+      const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}?${query}`);
+      const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      return handleApiError(error, `searching for ${searchTerm}`);
+    }
+  },
 
-export const addToWishlist = async (productData) => {
-  const requestFn = async () => {
-    const response = await fetch(buildApiUrl(MOCK_API_CONFIG.endpoints.wishlist), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(productData),
-      timeout: MOCK_API_CONFIG.timeout
-    });
-    return await response.json();
-  };
-  return retryRequest(requestFn);
-};
+  getFeatured: async () => {
+    try {
+      const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}?featured=true`);
+      const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      return handleApiError(error, "fetching featured products");
+    }
+  },
 
-export const removeFromWishlist = async (itemId) => {
-  const requestFn = async () => {
-    const response = await fetch(
-      buildApiUrl(`${MOCK_API_CONFIG.endpoints.wishlist}/${itemId}`), 
-      {
+  create: async (productData) => {
+    const requestFn = async () => {
+      const response = await fetch(buildApiUrl(MOCK_API_CONFIG.endpoints.products), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productData),
+        timeout: MOCK_API_CONFIG.timeout
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    };
+    return retryRequest(requestFn);
+  },
+
+  update: async (id, productData) => {
+    const requestFn = async () => {
+      const response = await fetch(buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}/${id}`), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productData),
+        timeout: MOCK_API_CONFIG.timeout
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    };
+    return retryRequest(requestFn);
+  },
+
+  delete: async (id) => {
+    const requestFn = async () => {
+      const response = await fetch(buildApiUrl(`${MOCK_API_CONFIG.endpoints.products}/${id}`), {
         method: 'DELETE',
         timeout: MOCK_API_CONFIG.timeout
-      }
-    );
-    return await response.json();
-  };
-  return retryRequest(requestFn);
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    };
+    return retryRequest(requestFn);
+  }
 };
 
-// Export constants if needed
-export const {
-  CATEGORY_MAPPING,
-  PRODUCT_STATUS,
-  ORDER_STATUS,
-  USER_ROLES,
-  PAGINATION
-} = CONSTANTS;
+// Categories API Service
+const CategoriesAPI = {
+  getAll: async () => {
+    try {
+      const url = buildApiUrl(MOCK_API_CONFIG.endpoints.categories);
+      const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      return handleApiError(error, "fetching categories");
+    }
+  },
+
+  getById: async (id) => {
+    try {
+      const url = buildApiUrl(`${MOCK_API_CONFIG.endpoints.categories}/${id}`);
+      const response = await fetch(url, { timeout: MOCK_API_CONFIG.timeout });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      return handleApiError(error, `fetching category ${id}`);
+    }
+  },
+
+  create: async (categoryData) => {
+    const requestFn = async () => {
+      const response = await fetch(buildApiUrl(MOCK_API_CONFIG.endpoints.categories), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(categoryData),
+        timeout: MOCK_API_CONFIG.timeout
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    };
+    return retryRequest(requestFn);
+  },
+
+  update: async (id, categoryData) => {
+    const requestFn = async () => {
+      const response = await fetch(buildApiUrl(`${MOCK_API_CONFIG.endpoints.categories}/${id}`), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(categoryData),
+        timeout: MOCK_API_CONFIG.timeout
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    };
+    return retryRequest(requestFn);
+  },
+
+  delete: async (id) => {
+    const requestFn = async () => {
+      const response = await fetch(buildApiUrl(`${MOCK_API_CONFIG.endpoints.categories}/${id}`), {
+        method: 'DELETE',
+        timeout: MOCK_API_CONFIG.timeout
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    };
+    return retryRequest(requestFn);
+  }
+};
+
+export { ProductsAPI, CategoriesAPI };

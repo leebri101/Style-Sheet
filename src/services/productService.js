@@ -1,289 +1,294 @@
-// Product Service - Unified API layer with MockAPI primary and FakeStore fallback
-import { ProductsAPI, CategoriesAPI } from "./mockApiService"
+// src/services/productService.js
+import { ProductsAPI, CategoriesAPI } from "./mockApiService";
 
 // Configuration
-const USE_MOCK_API = true
-const FALLBACK_API_URL = "https://fakestoreapi.com"
+const API_CONFIG = {
+  useMockAPI: true,
+  fallbackAPI: {
+    baseURL: "https://fakestoreapi.com",
+    endpoints: {
+      products: "/products",
+      categories: "/products/categories",
+      product: "/products/{id}",
+      category: "/products/category/{category}",
+    },
+  },
+  logLevel: "debug",
+};
 
-// Fallback API functions
-const fallbackFetch = async (endpoint) => {
-  try {
-    const response = await fetch(`${FALLBACK_API_URL}${endpoint}`)
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+// Logger utility
+const logger = {
+  debug: (...args) => API_CONFIG.logLevel === "debug" && console.debug("🔍", ...args),
+  info: (...args) => ["debug", "info"].includes(API_CONFIG.logLevel) && console.log("ℹ️", ...args),
+  warn: (...args) => ["debug", "info", "warn"].includes(API_CONFIG.logLevel) && console.warn("⚠️", ...args),
+  error: (...args) => console.error("❌", ...args),
+};
+
+// Fallback API Service
+class FallbackAPIService {
+  constructor() {
+    this.baseURL = API_CONFIG.fallbackAPI.baseURL;
+  }
+
+  async request(endpoint) {
+    try {
+      const url = `${this.baseURL}${endpoint}`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      logger.error("Fallback API request failed:", error.message);
+      throw error;
     }
-    return await response.json()
-  } catch (error) {
-    console.error("Fallback API request failed:", error)
-    throw error
+  }
+
+  async getProducts() {
+    return this.request(API_CONFIG.fallbackAPI.endpoints.products);
+  }
+
+  async getProduct(id) {
+    return this.request(
+      API_CONFIG.fallbackAPI.endpoints.product.replace("{id}", id)
+    );
+  }
+
+  async getProductsByCategory(category) {
+    return this.request(
+      API_CONFIG.fallbackAPI.endpoints.category.replace("{category}", category)
+    );
+  }
+
+  async getCategories() {
+    return this.request(API_CONFIG.fallbackAPI.endpoints.categories);
   }
 }
 
-// Transform FakeStore API data to match our format
-const transformFakeStoreProduct = (product) => ({
-  id: product.id,
-  name: product.title,
-  title: product.title,
-  price: product.price,
-  description: product.description,
-  category: product.category,
-  image: product.image,
-  images: [product.image],
-  rating: {
-    rate: product.rating?.rate || 0,
-    count: product.rating?.count || 0,
-  },
-  stockQuantity: Math.floor(Math.random() * 100) + 10,
-  inStock: true,
-  brand: "Generic Brand",
-  sizes: ["S", "M", "L", "XL"],
-  colors: ["Black", "White", "Gray"],
-  featured: Math.random() > 0.7,
-  tags: [product.category],
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-})
+const fallbackAPI = new FallbackAPIService();
 
-// Product Service Class
+// Data Transformer
+class DataTransformer {
+  static transformProduct(product) {
+    return {
+      id: product.id,
+      name: product.title,
+      title: product.title,
+      price: product.price,
+      description: product.description,
+      category: product.category,
+      image: product.image,
+      images: [product.image],
+      rating: {
+        rate: product.rating?.rate || 0,
+        count: product.rating?.count || 0,
+      },
+      stockQuantity: Math.floor(Math.random() * 100) + 10,
+      inStock: true,
+      brand: "Generic Brand",
+      sizes: ["S", "M", "L", "XL"],
+      colors: ["Black", "White", "Gray"],
+      featured: Math.random() > 0.7,
+      tags: [product.category],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+  }
+
+  static transformCategory(category, index) {
+    return {
+      id: index + 1,
+      name: category,
+      slug: category.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase(),
+      description: `Browse our ${category} collection`,
+      image: "/placeholder.svg?height=200&width=300",
+      productCount: 0,
+      featured: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+  }
+}
+
+// Main Product Service
 class ProductService {
-  // Get all products with optional filtering
+  constructor() {
+    this.fallbackEnabled = !API_CONFIG.useMockAPI;
+  }
+
+  async #tryMockAPICall(operation, callback) {
+    if (!API_CONFIG.useMockAPI) {
+      throw new Error(`Operation ${operation} requires MockAPI`);
+    }
+
+    try {
+      logger.debug(`Attempting ${operation} with MockAPI...`);
+      const result = await callback();
+      logger.info(`Successfully completed ${operation} with MockAPI`);
+      return result;
+    } catch (error) {
+      logger.warn(`MockAPI failed for ${operation}:`, error.message);
+      this.fallbackEnabled = true;
+      throw error;
+    }
+  }
+
+  async #withFallback(operation, primaryCallback, fallbackCallback) {
+    try {
+      return await primaryCallback();
+    } catch (error) {
+      if (!this.fallbackEnabled) {
+        throw error;
+      }
+
+      logger.warn(`Primary API failed for ${operation}, attempting fallback...`);
+      try {
+        const result = await fallbackCallback();
+        logger.info(`Fallback succeeded for ${operation}`);
+        return result;
+      } catch (fallbackError) {
+        logger.error(`Both APIs failed for ${operation}:`, fallbackError.message);
+        throw new Error(`Unable to complete ${operation}`);
+      }
+    }
+  }
+
+  // Product methods
   async getAllProducts(filters = {}) {
-    try {
-      if (USE_MOCK_API) {
-        console.log("🔄 Fetching products from MockAPI...")
-        const products = await ProductsAPI.getAll(filters)
-        console.log("✅ Products fetched from MockAPI:", products.length)
-        return products
+    return this.#withFallback(
+      "getAllProducts",
+      () => this.#tryMockAPICall("getAllProducts", () => ProductsAPI.getAll(filters)),
+      async () => {
+        const products = await fallbackAPI.getProducts();
+        return products.map(DataTransformer.transformProduct);
       }
-    } catch (error) {
-      console.warn("⚠️ MockAPI failed, falling back to FakeStore API:", error.message)
-    }
-
-    // Fallback to FakeStore API
-    try {
-      console.log("🔄 Fetching products from FakeStore API...")
-      const products = await fallbackFetch("/products")
-      const transformedProducts = products.map(transformFakeStoreProduct)
-      console.log("✅ Products fetched from FakeStore API:", transformedProducts.length)
-      return transformedProducts
-    } catch (error) {
-      console.error("❌ Both APIs failed:", error)
-      throw new Error("Unable to fetch products from any API")
-    }
+    );
   }
 
-  // Get product by ID
   async getProductById(id) {
-    try {
-      if (USE_MOCK_API) {
-        console.log(`🔄 Fetching product ${id} from MockAPI...`)
-        const product = await ProductsAPI.getById(id)
-        console.log("✅ Product fetched from MockAPI:", product.name)
-        return product
+    return this.#withFallback(
+      "getProductById",
+      () => this.#tryMockAPICall("getProductById", () => ProductsAPI.getById(id)),
+      async () => {
+        const product = await fallbackAPI.getProduct(id);
+        return DataTransformer.transformProduct(product);
       }
-    } catch (error) {
-      console.warn(`⚠️ MockAPI failed for product ${id}, falling back:`, error.message)
-    }
-
-    // Fallback to FakeStore API
-    try {
-      console.log(`🔄 Fetching product ${id} from FakeStore API...`)
-      const product = await fallbackFetch(`/products/${id}`)
-      const transformedProduct = transformFakeStoreProduct(product)
-      console.log("✅ Product fetched from FakeStore API:", transformedProduct.name)
-      return transformedProduct
-    } catch (error) {
-      console.error(`❌ Failed to fetch product ${id} from both APIs:`, error)
-      throw new Error(`Unable to fetch product ${id}`)
-    }
+    );
   }
 
-  // Get products by category
   async getProductsByCategory(category) {
-    try {
-      if (USE_MOCK_API) {
-        console.log(`🔄 Fetching ${category} products from MockAPI...`)
-        const products = await ProductsAPI.getByCategory(category)
-        console.log(`✅ ${category} products fetched from MockAPI:`, products.length)
-        return products
+    return this.#withFallback(
+      "getProductsByCategory",
+      () => this.#tryMockAPICall("getProductsByCategory", () => 
+        ProductsAPI.getByCategory(category)
+      ),
+      async () => {
+        const products = await fallbackAPI.getProductsByCategory(category);
+        return products.map(DataTransformer.transformProduct);
       }
-    } catch (error) {
-      console.warn(`⚠️ MockAPI failed for category ${category}, falling back:`, error.message)
-    }
-
-    // Fallback to FakeStore API
-    try {
-      console.log(`🔄 Fetching ${category} products from FakeStore API...`)
-      const products = await fallbackFetch(`/products/category/${category}`)
-      const transformedProducts = products.map(transformFakeStoreProduct)
-      console.log(`✅ ${category} products fetched from FakeStore API:`, transformedProducts.length)
-      return transformedProducts
-    } catch (error) {
-      console.error(`❌ Failed to fetch ${category} products from both APIs:`, error)
-      throw new Error(`Unable to fetch products for category ${category}`)
-    }
+    );
   }
 
-  // Search products
   async searchProducts(searchTerm, filters = {}) {
-    try {
-      if (USE_MOCK_API) {
-        console.log(`🔍 Searching products for "${searchTerm}" in MockAPI...`)
-        const products = await ProductsAPI.search(searchTerm, filters)
-        console.log(`✅ Found ${products.length} products in MockAPI`)
-        return products
+    return this.#withFallback(
+      "searchProducts",
+      () => this.#tryMockAPICall("searchProducts", () => 
+        ProductsAPI.search(searchTerm, filters)
+      ),
+      async () => {
+        const allProducts = await fallbackAPI.getProducts();
+        const transformedProducts = allProducts.map(DataTransformer.transformProduct);
+        return transformedProducts.filter(
+          product =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.category.toLowerCase().includes(searchTerm.toLowerCase())
+        );
       }
-    } catch (error) {
-      console.warn(`⚠️ MockAPI search failed, falling back:`, error.message)
-    }
-
-    // Fallback search using FakeStore API
-    try {
-      console.log(`🔍 Searching products for "${searchTerm}" in FakeStore API...`)
-      const allProducts = await fallbackFetch("/products")
-      const transformedProducts = allProducts.map(transformFakeStoreProduct)
-
-      // Simple search implementation
-      const searchResults = transformedProducts.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchTerm.toLowerCase()),
-      )
-
-      console.log(`✅ Found ${searchResults.length} products in FakeStore API`)
-      return searchResults
-    } catch (error) {
-      console.error(`❌ Search failed in both APIs:`, error)
-      throw new Error(`Unable to search for "${searchTerm}"`)
-    }
+    );
   }
 
-  // Get all categories
+  // Category methods
   async getCategories() {
-    try {
-      if (USE_MOCK_API) {
-        console.log("🔄 Fetching categories from MockAPI...")
-        const categories = await CategoriesAPI.getAll()
-        console.log("✅ Categories fetched from MockAPI:", categories.length)
-        return categories
+    return this.#withFallback(
+      "getCategories",
+      () => this.#tryMockAPICall("getCategories", () => CategoriesAPI.getAll()),
+      async () => {
+        const categories = await fallbackAPI.getCategories();
+        return categories.map(DataTransformer.transformCategory);
       }
-    } catch (error) {
-      console.warn("⚠️ MockAPI categories failed, falling back:", error.message)
-    }
-
-    // Fallback to FakeStore API
-    try {
-      console.log("🔄 Fetching categories from FakeStore API...")
-      const categories = await fallbackFetch("/products/categories")
-
-      // Transform to match our format
-      const transformedCategories = categories.map((category, index) => ({
-        id: index + 1,
-        name: category,
-        slug: category.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase(),
-        description: `Browse our ${category} collection`,
-        image: "/placeholder.svg?height=200&width=300",
-        productCount: 0,
-        featured: false,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      }))
-
-      console.log("✅ Categories fetched from FakeStore API:", transformedCategories.length)
-      return transformedCategories
-    } catch (error) {
-      console.error("❌ Failed to fetch categories from both APIs:", error)
-      throw new Error("Unable to fetch categories")
-    }
+    );
   }
 
-  // Get featured products
+  async getCategoryById(id) {
+    return this.#tryMockAPICall(
+      "getCategoryById",
+      () => CategoriesAPI.getById(id)
+    );
+  }
+
+  // Featured products
   async getFeaturedProducts() {
-    try {
-      if (USE_MOCK_API) {
-        console.log("🔄 Fetching featured products from MockAPI...")
-        const products = await ProductsAPI.getFeatured()
-        console.log("✅ Featured products fetched from MockAPI:", products.length)
-        return products
+    return this.#withFallback(
+      "getFeaturedProducts",
+      () => this.#tryMockAPICall("getFeaturedProducts", () => ProductsAPI.getFeatured()),
+      async () => {
+        const allProducts = await fallbackAPI.getProducts();
+        const transformedProducts = allProducts.map(DataTransformer.transformProduct);
+        const shuffled = transformedProducts.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, 6).map(product => ({ 
+          ...product, 
+          featured: true 
+        }));
       }
-    } catch (error) {
-      console.warn("⚠️ MockAPI featured products failed, falling back:", error.message)
-    }
-
-    // Fallback - get random products from FakeStore API
-    try {
-      console.log("🔄 Getting random products as featured from FakeStore API...")
-      const allProducts = await fallbackFetch("/products")
-      const transformedProducts = allProducts.map(transformFakeStoreProduct)
-
-      // Get random 6 products as featured
-      const shuffled = transformedProducts.sort(() => 0.5 - Math.random())
-      const featured = shuffled.slice(0, 6).map((product) => ({ ...product, featured: true }))
-
-      console.log("✅ Featured products created from FakeStore API:", featured.length)
-      return featured
-    } catch (error) {
-      console.error("❌ Failed to get featured products from both APIs:", error)
-      throw new Error("Unable to fetch featured products")
-    }
+    );
   }
 
-  // Create new product (MockAPI only)
+  // Write operations (MockAPI only)
   async createProduct(productData) {
-    if (!USE_MOCK_API) {
-      throw new Error("Product creation is only available with MockAPI")
-    }
-
-    try {
-      console.log("🔄 Creating new product in MockAPI...")
-      const newProduct = await ProductsAPI.create(productData)
-      console.log("✅ Product created successfully:", newProduct.name)
-      return newProduct
-    } catch (error) {
-      console.error("❌ Failed to create product:", error)
-      throw new Error("Unable to create product")
-    }
+    return this.#tryMockAPICall(
+      "createProduct",
+      () => ProductsAPI.create(productData)
+    );
   }
 
-  // Update product (MockAPI only)
   async updateProduct(id, productData) {
-    if (!USE_MOCK_API) {
-      throw new Error("Product updates are only available with MockAPI")
-    }
-
-    try {
-      console.log(`🔄 Updating product ${id} in MockAPI...`)
-      const updatedProduct = await ProductsAPI.update(id, productData)
-      console.log("✅ Product updated successfully:", updatedProduct.name)
-      return updatedProduct
-    } catch (error) {
-      console.error(`❌ Failed to update product ${id}:`, error)
-      throw new Error(`Unable to update product ${id}`)
-    }
+    return this.#tryMockAPICall(
+      "updateProduct",
+      () => ProductsAPI.update(id, productData)
+    );
   }
 
-  // Delete product (MockAPI only)
   async deleteProduct(id) {
-    if (!USE_MOCK_API) {
-      throw new Error("Product deletion is only available with MockAPI")
-    }
+    return this.#tryMockAPICall(
+      "deleteProduct",
+      () => ProductsAPI.delete(id)
+    );
+  }
 
-    try {
-      console.log(`🔄 Deleting product ${id} from MockAPI...`)
-      await ProductsAPI.delete(id)
-      console.log("✅ Product deleted successfully")
-      return true
-    } catch (error) {
-      console.error(`❌ Failed to delete product ${id}:`, error)
-      throw new Error(`Unable to delete product ${id}`)
-    }
+  async createCategory(categoryData) {
+    return this.#tryMockAPICall(
+      "createCategory",
+      () => CategoriesAPI.create(categoryData)
+    );
+  }
+
+  async updateCategory(id, categoryData) {
+    return this.#tryMockAPICall(
+      "updateCategory",
+      () => CategoriesAPI.update(id, categoryData)
+    );
+  }
+
+  async deleteCategory(id) {
+    return this.#tryMockAPICall(
+      "deleteCategory",
+      () => CategoriesAPI.delete(id)
+    );
   }
 }
 
 // Export singleton instance
-const productService = new ProductService()
-export default productService
+const productService = new ProductService();
+export default productService;
 
 // Export individual methods for convenience
 export const {
@@ -292,8 +297,12 @@ export const {
   getProductsByCategory,
   searchProducts,
   getCategories,
+  getCategoryById,
   getFeaturedProducts,
   createProduct,
   updateProduct,
   deleteProduct,
-} = productService
+  createCategory,
+  updateCategory,
+  deleteCategory
+} = productService;
