@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Menu, X, Search, ShoppingCart, Heart, User} from 'lucide-react';
 import { selectCartTotalQuantity, selectCartIsOpen, toggleCart } from "../../store/cartSlice";
 import { selectWishlistTotalItems } from "../../store/wishlistSlice";
-import { selectIsAuthenticted, selectUser, logout} from "../../store/authSlice";
+import { selectIsAuthenticated, selectUser, logout} from "../../store/authSlice";
 import { Dialog, DialogPanel } from '@headlessui/react';
 import './Header.css';
 
@@ -18,7 +18,7 @@ const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const cartQuantity = useSelector(selectCartTotalQuantity);
     const wishlistCount = useSelector(selectWishlistTotalItems);
-    const isAuthenticated = useSelector(selectIsAuthenticted);
+    const isAuthenticated = useSelector(selectIsAuthenticated);
     const user = useSelector(selectUser);
     const isCartOpen = useSelector(selectCartIsOpen);
 
