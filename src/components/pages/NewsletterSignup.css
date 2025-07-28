@@ -20,7 +20,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: url('/src/assets/images/construction-gif.gif');
+  /*background: url('/src/assets/images/construction-gif.gif');*/
   animation: float 20s infinite linear;
   pointer-events: none;
 }
@@ -54,12 +54,10 @@
   font-size: 4rem;
   font-weight: 800;
   color: #2d3748;
-  margin-bottom: 1rem;
   background: linear-gradient(135deg, #667eea, #764ba2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Subtitle styling */
