@@ -5,8 +5,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   resetPassword, 
   clearAuthState, 
-  selectIsLoading, 
-  selectPasswordResetSuccess, 
+  selectIsAuthenticated, 
+  selectPasswordResetStatus, 
   selectAuthError 
 } from '../../store/authSlice';
 import { Eye, EyeOff } from 'lucide-react';
@@ -16,8 +16,8 @@ const ResetPasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const isLoading = useSelector(selectIsLoading);
-  const passwordResetSuccess = useSelector(selectPasswordResetSuccess);
+  const isLoading = useSelector(selectIsAuthenticated);
+  const passwordResetSuccess = useSelector(selectPasswordResetStatus);
   const error = useSelector(selectAuthError);
 
   const [formData, setFormData] = useState({

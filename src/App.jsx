@@ -42,7 +42,6 @@ const App = () =>{
                             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                             <Route path="/reset-password" element={<ResetPasswordPage />}/>
                             <Route path="/search" element={<SearchResultsPage />} />
-                            <Route path="/checkout" element={<CheckoutPage />} />
                         </Routes>
                     </main>
                     <Footer/>
