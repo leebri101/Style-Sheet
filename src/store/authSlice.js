@@ -67,10 +67,11 @@ const getTokenFromStorage = () => {
 
 // Initial state
 const initialState = {
-  user: getUserFromStorage(),
-  isAuthenticated: !!getTokenFromStorage(),
+  user: JSON.parse(localStorage.getItem("userData")) || null,
+  isAuthenticated: !!localStorage.getItem("userToken"),
   loading: false,
   error: null,
+  status: 'idle',
   loginAttempts: 0,
   lastLoginAttempt: null,
   sessionExpiry: null,
@@ -81,11 +82,11 @@ const initialState = {
 
 // Async Thunks
 export const loginUser = createAsyncThunk(
-  "auth/loginUser",
+  "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const user = await UsersAPI.authenticate(email, password);
-      const token = btoa(JSON.stringify({ userId: user.id, email: user.email }));
+      const token = "mock-token";
       localStorage.setItem("userToken", token);
       localStorage.setItem("userData", JSON.stringify(user));
       return { user, token };
@@ -247,7 +248,7 @@ const authSlice = createSlice({
 });
 
 // Selectors
-export const selectCurrentUser = (state) => state.auth.user;
+export const selectUser = (state) => state.auth.user;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectAuthLoading = (state) => state.auth.loading;
 export const selectAuthError = (state) => state.auth.error;
@@ -262,7 +263,8 @@ export const {
   clearError,
   clearAuthState,
   setSessionExpiry,
-  updateUser
+  updateUser,
+  logout
 } = authSlice.actions;
 
 export default authSlice.reducer;
