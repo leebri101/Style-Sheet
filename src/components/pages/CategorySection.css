@@ -81,15 +81,7 @@
 
 /* Coming Soon Section */
 .coming-soon-section {
-  margin-top: 4rem;
-}
-
-.coming-soon-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #111827;
-  text-align: center;
-  margin-bottom: 2rem;
+  margin-top: 3rem;
 }
 
 .coming-soon-grid {

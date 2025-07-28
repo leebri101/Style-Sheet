@@ -70,7 +70,6 @@ const CategorySection = () => {
 
   const renderComingSoonCategories = () => (
     <div className="coming-soon-section">
-      <h3 className="coming-soon-title">Coming Soon</h3>
       <div className="coming-soon-grid">
         {comingSoonCategories.map((category) => (
           <div key={category.name} className="category-card coming-soon-card">
@@ -90,7 +89,7 @@ const CategorySection = () => {
   );
 
   return (
-    <section className="category-section">
+    <section>
       <h2 className="category-section-title">Shop by Category</h2>
       {renderMainCategories()}
       {renderComingSoonCategories()}
