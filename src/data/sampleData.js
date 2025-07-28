@@ -39,12 +39,12 @@ export const sampleProducts = [
   // Men's Clothing (8 products)
   {
     id: 1,
-    name: "Classic White T-Shirt",
-    title: "Classic White T-Shirt",
-    description: "A timeless white t-shirt made from 100% cotton. Perfect for casual wear or layering.",
+    name: "Classic White Shirt",
+    title: "Classic White Shirt",
+    description: "A timeless white shirt made from 100% cotton. Perfect for casual wear or layering.",
     price: 19.99,
     category: "men's clothing",
-    image: "/placeholder.svg?height=400&width=300",
+    image: "../assets/images/plain-white-shirt.jpg",
     images: [
       "/placeholder.svg?height=400&width=300",
       "/placeholder.svg?height=400&width=300",
