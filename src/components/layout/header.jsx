@@ -10,7 +10,6 @@ import { selectIsAuthenticated, selectUser, logout} from "../../store/authSlice"
 import { Dialog, DialogPanel } from '@headlessui/react';
 import './Header.css';
 
-
 const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
