@@ -33,7 +33,7 @@ const comingSoonCategories = [
   },
   {
     name: "Jewelry",
-    description: "Shine bright like a diamond",
+    description: "Shine bright like the Sun",
     launchDate: "Summer 2026",
   },
 ];
