@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {logout, updateProfile} from "../../store/authSlice";
+import {logout, updateUserProfile} from "../../store/authSlice";
 import "./ProfilePage.css";
 
 //states for email and password forms
@@ -26,7 +26,7 @@ const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(updateProfile(formData))
+    dispatch(updateUserProfile(formData))
     setIsEditing(false)
   }
 
