@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../store/authSlice';
+import { loginUser } from '../../store/authSlice';
 import './RegistrationPage.css';
 
 // Register component for user registration
@@ -68,7 +68,7 @@ const RegistrationForm = () => {
         email: formData.email,
       }
 
-      dispatch(login(userData))
+      dispatch(loginUser(userData))
       navigate("/")
     } else {
       setErrors(newErrors)
