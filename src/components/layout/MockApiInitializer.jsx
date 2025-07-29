@@ -2,6 +2,7 @@
 
 // MockAPI Initializer - Now handles FakeStore API status
 import { useState, useEffect } from "react"
+import PropTypes from 'prop-types'
 import "./MockApiInitializer.css"
 
 const MockApiInitializer = ({ children }) => {
@@ -103,6 +104,10 @@ const MockApiInitializer = ({ children }) => {
       </div>
     </>
   )
+}
+
+MockApiInitializer.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export default MockApiInitializer
