@@ -1,72 +1,138 @@
-/* footer styling */
-footer{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 20px;
-    font-size: 0.8em;
-    text-align:center;
-    color: #000000;
-}
-.footer-social{
-    text-align: center;
-    margin-top: 20px;
-}
-  
-.other-container{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+/* Footer Container */
+.footer {
+  background-color: #f3f4f6;
+  padding: 3rem 1rem 4rem;
 }
 
-  /* social media animations */
-.fa-facebook,
-.fa-x-twitter,
-.fa-instagram{
-    transition: 0.5s;
-    cursor: pointer;
-    font-size: 1.5rem;
-    margin: 0 10px;
+/* Footer Content Wrapper */
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
-/* Facebook */
-.fa-facebook:hover,
-.fa-facebook:focus{
-    background: #3B5998;
-    color: #ffff;
-    padding: 0.25em;
-    width: 1em;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 2px;
-    border-radius: 100%;
-    transform: scale(1);
-}
-   
-/* X formally known as twitter */
-.fa-x-twitter:hover,
-.fa-x-twitter:focus{
-    background: #000000;
-    color: #ffff;
-    padding: 0.25em;
-    width: 1em;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 2px;
-    border-radius: 100%;
-    transform: scale(1);
+/* Footer Grid Layout */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
-/* Instagram */
-.fa-instagram:hover,
-.fa-instagram:focus{
-    background: linear-gradient(#e66465, #9198e5);
-    color: #ffff;
-    padding: 0.25em;
-    width: 1em;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 2px;
-    border-radius: 100%;
-    transform: scale(1);
+/* Footer Column Headers */
+.footer-column h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* Footer Links List */
+.footer-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-link {
+  margin-bottom: 1rem;
+}
+
+.footer-link a {
+  color: #4b5563;
+  text-decoration: none;
+}
+
+.footer-link a:hover {
+  color: #111827;
+}
+
+/* Newsletter Section */
+.newsletter {
+  margin-top: 2rem;
+}
+
+.newsletter-heading {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.newsletter-description {
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+/* Newsletter Form */
+.newsletter-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.newsletter-input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+}
+
+.newsletter-button {
+  background-color: #111827;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.newsletter-button:hover {
+  background-color: #374151;
+}
+
+/* Footer Bottom Section */
+.footer-bottom {
+  border-top: 1px solid #d1d5db;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.social-link {
+  color: #6b7280;
+}
+
+.social-link:hover {
+  color: #111827;
+}
+
+/* Copyright Text */
+.copyright {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Tablet and Desktop Responsive Styles */
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .social-links {
+    margin-bottom: 0;
+  }
 }
