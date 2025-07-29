@@ -51,24 +51,6 @@ const ComingSoonPage = () => {
             </div>
           </div>
         </div>
-
-        {/* Social media links */}
-        <div className="social-section">
-          <p className="social-text">Follow us for updates</p>
-          <div className="social-links">
-            <div className="footer-social max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={faFacebook} size="xl" /> 
-                </a>
-                <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={faXTwitter} size="xl"/>
-                </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={faInstagram} size="xl"/>
-                </a>
-              </div>
-          </div>
-        </div>
       </div>
     </div>
   )
