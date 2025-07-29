@@ -1,43 +1,72 @@
 import "./NewsletterSignup.css";
 
 const ComingSoonPage = () => {
-  return (
-    <section className="coming-soon-section">
-      <div className="coming-soon-container">
-        {/* Main heading */}
-        <h1 className="coming-soon-title">Coming Soon</h1>
+   return (
+    <div className="coming-soon-container">
+      {/* Animated background particles */}
+      <div className="particles">
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+      </div>
 
-        {/* Subtitle */}
-        <p className="coming-soon-subtitle">Something amazing is on the way!</p>
-
-        {/* Description */}
-        <p className="coming-soon-description">
-          We`re working hard to bring you the perfect Style. Be the first to know when we launch
-        </p>
+      <div className="coming-soon-content">
+        {/* Main heading section */}
+        <div className="hero-section">
+          <h1 className="coming-soon-title">Coming Soon</h1>
+          <h2 className="coming-soon-subtitle">Something Amazing is on the Way</h2>
+          <p className="coming-soon-description">
+            We are working hard to bring you an incredible shopping experience. Get notified when we launch and be the
+            first to explore our amazing collection.
+          </p>
+        </div>
 
         {/* Features preview */}
-        <div className="features-preview">
-          <h3 className="features-title">What to expect:</h3>
+        <div className="features-section">
+          <h3 className="features-title">What to Expect</h3>
           <div className="features-grid">
-            <div className="feature-item">
+            <div className="feature-card">
               <div className="feature-icon">🛍️</div>
-              <h4>Premium Fashion</h4>
-              <p>Curated collection of the latest trends</p>
+              <h4>Premium Products</h4>
+              <p>Curated collection of high-quality items</p>
             </div>
-            <div className="feature-item">
+            <div className="feature-card">
               <div className="feature-icon">🚚</div>
               <h4>Fast Delivery</h4>
               <p>Quick and reliable shipping worldwide</p>
             </div>
-            <div className="feature-item">
+            <div className="feature-card">
               <div className="feature-icon">💎</div>
               <h4>Exclusive Deals</h4>
               <p>Special offers for early subscribers</p>
             </div>
+            <div className="feature-card">
+              <div className="feature-icon">🔒</div>
+              <h4>Secure Shopping</h4>
+              <p>Safe and protected transactions</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Social media links */}
+        <div className="social-section">
+          <p className="social-text">Follow us for updates</p>
+          <div className="social-links">
+            <a href="#" className="social-link">
+              <span>Facebook</span>
+            </a>
+            <a href="#" className="social-link">
+              <span>Twitter</span>
+            </a>
+            <a href="#" className="social-link">
+              <span>Instagram</span>
+            </a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
