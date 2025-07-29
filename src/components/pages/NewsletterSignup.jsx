@@ -66,10 +66,6 @@ const ComingSoonPage = () => {
                 <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faInstagram} size="xl"/>
                 </a>
-                <div className="other-container">
-                  <a href="/about-us" className="text-base text-gray-500 hover:text-gray-900">About Us</a> ||
-                  <a href="/returns" className="text-base text-gray-500 hover:text-gray-900">Returns</a> 
-                </div>
               </div>
           </div>
         </div>
