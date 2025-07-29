@@ -1,9 +1,26 @@
-import "./NewsletterSignup.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faXTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons';
+import { useState } from "react"
+import "./NewsletterSignup.css"
 
 const ComingSoonPage = () => {
-   return (
+  const [email, setEmail] = useState("")
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!email) return
+
+    setIsLoading(true)
+
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubscribed(true)
+      setIsLoading(false)
+      setEmail("")
+    }, 1500)
+  }
+
+  return (
     <div className="coming-soon-container">
       {/* Animated background particles */}
       <div className="particles">
@@ -20,9 +37,35 @@ const ComingSoonPage = () => {
           <h1 className="coming-soon-title">Coming Soon</h1>
           <h2 className="coming-soon-subtitle">Something Amazing is on the Way</h2>
           <p className="coming-soon-description">
-            We are working hard to bring you an incredible shopping experience. Get notified when we launch and be the
-            first to explore our amazing collection.
+            We are working hard to bring you an incredible shopping experience. 
           </p>
+        </div>
+
+        {/* Email subscription form */}
+        <div className="subscription-section">
+          {!isSubscribed ? (
+            <form onSubmit={handleSubmit} className="subscription-form">
+              <div className="input-group">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  className="email-input"
+                  required
+                />
+                <button type="submit" className={`subscribe-btn ${isLoading ? "loading" : ""}`} disabled={isLoading}>
+                  {isLoading ? "Subscribing..." : "Notify Me"}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="success-message">
+              <div className="success-icon">✓</div>
+              <h3>Thank you for subscribing!</h3>
+              <p>We will notify you as soon as we launch.</p>
+            </div>
+          )}
         </div>
 
         {/* Features preview */}
