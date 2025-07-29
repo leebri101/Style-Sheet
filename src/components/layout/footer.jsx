@@ -1,6 +1,8 @@
 import './Footer.css'; 
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faXTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   const [email, setEmail] = useState("")
@@ -68,18 +70,18 @@ const Footer = () => {
             <h3>Socials</h3>
             <ul className="footer-links">
               <li className="footer-link">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                  Facebook
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"> 
+                <FontAwesomeIcon icon={faFacebook} size="xl" /> 
                 </a>
               </li>
               <li className="footer-link">
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                  Twitter
+                 <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faXTwitter} size="xl"/>
                 </a>
               </li>
               <li className="footer-link">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                  Instagram
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faInstagram} size="xl"/>
                 </a>
               </li>
             </ul>
