@@ -1,4 +1,6 @@
 import "./NewsletterSignup.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faXTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons';
 
 const ComingSoonPage = () => {
    return (
@@ -54,15 +56,21 @@ const ComingSoonPage = () => {
         <div className="social-section">
           <p className="social-text">Follow us for updates</p>
           <div className="social-links">
-            <a href="#" className="social-link">
-              <span>Facebook</span>
-            </a>
-            <a href="#" className="social-link">
-              <span>Twitter</span>
-            </a>
-            <a href="#" className="social-link">
-              <span>Instagram</span>
-            </a>
+            <div className="footer-social max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faFacebook} size="xl" /> 
+                </a>
+                <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faXTwitter} size="xl"/>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faInstagram} size="xl"/>
+                </a>
+                <div className="other-container">
+                  <a href="/about-us" className="text-base text-gray-500 hover:text-gray-900">About Us</a> ||
+                  <a href="/returns" className="text-base text-gray-500 hover:text-gray-900">Returns</a> 
+                </div>
+              </div>
           </div>
         </div>
       </div>
