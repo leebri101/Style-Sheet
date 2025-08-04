@@ -1,8 +1,10 @@
+"use client"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
 import { selectProducts, selectLoading, selectError } from "../../store/productSlice";
 import './WomensPage.css';
+
 
 const WomenPage = () => {
   const dispatch = useDispatch()
@@ -11,26 +13,26 @@ const WomenPage = () => {
   const error = useSelector(selectError)
   const [allClothingProducts, setAllClothingProducts] = useState([])
   const [comingSoonProducts, setComingSoonProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchAllProducts = async () => {
+      setIsLoading(true)
       try {
         // Fetch all clothing categories for women's page
-        const [mensResponse, womensResponse, electronicsResponse, jewelryResponse] = await Promise.all([
+        const [mensResponse, womensResponse, jewelryResponse] = await Promise.all([
           fetch("https://fakestoreapi.com/products/category/men's clothing"),
           fetch("https://fakestoreapi.com/products/category/women's clothing"),
-          fetch("https://fakestoreapi.com/products/category/electronics"),
           fetch("https://fakestoreapi.com/products/category/jewelery"),
         ])
 
-        const [mensProducts, womensProducts, electronicsProducts, jewelryProducts] = await Promise.all([
+        const [mensProducts, womensProducts, jewelryProducts] = await Promise.all([
           mensResponse.json(),
           womensResponse.json(),
-          electronicsResponse.json(),
           jewelryResponse.json(),
         ])
 
-        // Transform clothing products (both men's and women's)
+        // Transform clothing products (both men's and women's) with real images
         const clothingProducts = [...mensProducts, ...womensProducts].map((product) => ({
           id: product.id,
           name: product.title,
@@ -38,8 +40,9 @@ const WomenPage = () => {
           price: product.price,
           description: product.description,
           category: product.category,
-          image: product.image,
-          images: [product.image, product.image, product.image],
+          image: product.image, // Use of API image
+          imageUrl: product.image, // Use of API image
+          images: [product.image], // Use of API image
           rating: {
             rate: product.rating?.rate || 0,
             count: product.rating?.count || 0,
@@ -55,16 +58,17 @@ const WomenPage = () => {
           updatedAt: new Date().toISOString(),
         }))
 
-        // Transform misc products as coming soon (no price)
-        const miscProducts = [...electronicsProducts, ...jewelryProducts].map((product) => ({
+        // Transform misc products as coming soon (no price) with real images
+        const miscProducts = [...jewelryProducts].map((product) => ({
           id: `coming-soon-${product.id}`,
           name: product.title,
           title: product.title,
           price: null, // No price for coming soon items
           description: "Coming Soon - Stay tuned for availability",
           category: product.category,
-          image: product.image,
-          images: [product.image],
+          image: product.image, // Use of API image
+          imageUrl: product.image, // Use of API image
+          images: [product.image], // Use of API image
           rating: {
             rate: 0,
             count: 0,
@@ -85,6 +89,8 @@ const WomenPage = () => {
         setComingSoonProducts(miscProducts)
       } catch (error) {
         console.error("Error fetching products:", error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -93,7 +99,7 @@ const WomenPage = () => {
 
   const allProducts = [...allClothingProducts, ...comingSoonProducts]
 
-  if (loading && allProducts.length === 0) {
+  if (isLoading) {
     return (
       <div className="women-page">
         <div className="women-loading">
@@ -127,7 +133,7 @@ const WomenPage = () => {
           <p className="women-hero-subtitle">Explore our curated selection of fashion and upcoming products</p>
           <div className="women-hero-stats">
             <span className="product-count">{allClothingProducts.length} clothing items available</span>
-            <span className="coming-soon-count">{comingSoonProducts.length} items coming soon</span>
+            <span className="coming-soon-count">{comingSoonProducts.length} Coming soon</span>
           </div>
         </div>
         <div className="women-hero-image">
@@ -162,11 +168,6 @@ const WomenPage = () => {
                 alt="Men's Clothing"
                 className="category-image"
               />
-              <h3>Unisex Options</h3>
-              <p>Versatile clothing for everyone</p>
-              <span className="category-count">
-                {allClothingProducts.filter((p) => p.category === "men's clothing").length} items
-              </span>
             </div>
             <div className="category-card coming-soon-card">
               <img
@@ -175,7 +176,7 @@ const WomenPage = () => {
                 className="category-image"
               />
               <h3>Accessories & More</h3>
-              <p>Jewelry & electronics coming soon</p>
+              <p>Jewelry soon</p>
               <span className="category-count">{comingSoonProducts.length} items</span>
             </div>
           </div>
@@ -191,7 +192,7 @@ const WomenPage = () => {
           ) : (
             <div className="no-products">
               <h3>No items found</h3>
-              <p>Check back later for new arrivals.</p>
+              <p>Check back later.</p>
             </div>
           )}
         </div>

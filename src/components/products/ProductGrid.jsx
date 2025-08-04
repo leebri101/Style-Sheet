@@ -1,40 +1,45 @@
-"use client"
-import PropTypes from "prop-types"
-import { useState } from "react"
-import ProductCard from "./ProductCard"
-import "./ProductGrid.css"
+"use client";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Heart } from "lucide-react";
+import PropTypes from 'prop-types';
+import { fetchProducts } from "../../store/productSlice";
+import { addToWishlist, removeFromWishlist } from "../../store/wishlistSlice";
+import "./ProductGrid.css";
 
-const ProductGrid = ({ products, loading = false }) => {
-  const [sortBy, setSortBy] = useState("name")
-  const [filterBy, setFilterBy] = useState("all")
+const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
+  const dispatch = useDispatch();
+  const { items: storeProducts, status, error } = useSelector((state) => state.products);
+  const wishlistItems = useSelector((state) => state.wishlist.items);
 
-  // Separate clothing and coming soon products
-  const clothingProducts = products.filter((product) => !product.comingSoon && product.price !== null)
-  const comingSoonProducts = products.filter((product) => product.comingSoon || product.price === null)
+  // Use props products if provided, otherwise use store products
+  const products = propProducts || storeProducts;
+  const loading = propLoading || status === "loading";
 
-  // Sort products
-  const sortProducts = (productsToSort) => {
-    return [...productsToSort].sort((a, b) => {
-      switch (sortBy) {
-        case "price-low":
-          return (a.price || 0) - (b.price || 0)
-        case "price-high":
-          return (b.price || 0) - (a.price || 0)
-        case "name":
-        default:
-          return a.name.localeCompare(b.name)
-      }
-    })
-  }
+  useEffect(() => {
+    // Only fetch products if we're using store products and they haven't been loaded
+    if (!propProducts && status === "idle") {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, propProducts, status]);
 
-  // Filter products
-  const filterProducts = (productsToFilter) => {
-    if (filterBy === "all") return productsToFilter
-    return productsToFilter.filter((product) => product.category.toLowerCase().includes(filterBy.toLowerCase()))
-  }
+  const handleWishlist = (e, product) => {
+    e.preventDefault(); // Prevent navigation to product detail
 
-  const sortedClothingProducts = sortProducts(filterProducts(clothingProducts))
-  const sortedComingSoonProducts = sortProducts(filterProducts(comingSoonProducts))
+    // Don't add coming soon items to wishlist
+    if (product.comingSoon || product.price === null) {
+      return;
+    }
+
+    const isInWishlist = wishlistItems.some((item) => item.id === product.id);
+
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(product.id));
+    } else {
+      dispatch(addToWishlist(product));
+    }
+  };
 
   if (loading) {
     return (
@@ -42,83 +47,116 @@ const ProductGrid = ({ products, loading = false }) => {
         <div className="loading-spinner"></div>
         <p>Loading products...</p>
       </div>
-    )
+    );
+  }
+
+  if (error) {
+    return <div className="product-grid-error">Error loading products: {error}</div>;
+  }
+
+  if (!products?.length) {
+    return <div className="product-grid-empty">No products found.</div>;
   }
 
   return (
-    <div className="product-grid-container">
-      {/* Filter and Sort Controls */}
-      <div className="product-controls">
-        <div className="filter-controls">
-          <label htmlFor="filter-select">Filter by:</label>
-          <select
-            id="filter-select"
-            value={filterBy}
-            onChange={(e) => setFilterBy(e.target.value)}
-            className="filter-select"
-          >
-            <option value="all">All Categories</option>
-            <option value="men's clothing">Men&apos;s Clothing</option>
-            <option value="women's clothing">Women&apos;s Clothing</option>
-            <option value="jewelry">Coming Soon</option>
-          </select>
-        </div>
+    <div className="product-grid">
+      {products.map((product) => {
+        const isInWishlist = wishlistItems.some((item) => item.id === product.id);
+        const isComingSoon = product.comingSoon || product.price === null;
 
-        <div className="sort-controls">
-          <label htmlFor="sort-select">Sort by:</label>
-          <select id="sort-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
-            <option value="name">Name (A-Z)</option>
-            <option value="price-low">Price (Low to High)</option>
-            <option value="price-high">Price (High to Low)</option>
-          </select>
-        </div>
-      </div>
+        return (
+          <div key={product.id} className={`product-card ${isComingSoon ? "coming-soon-card" : ""}`}>
+            {/* Coming Soon Badge */}
+            {isComingSoon && <div className="coming-soon-badge">Coming Soon</div>}
 
-      {/* Product Stats */}
-      <div className="product-stats">
-        <span className="available-count">{sortedClothingProducts.length} available products</span>
-        {sortedComingSoonProducts.length > 0 && (
-          <span className="coming-soon-count">{sortedComingSoonProducts.length} coming soon</span>
-        )}
-      </div>
+            <Link
+              to={isComingSoon ? "#" : `/product/${product.id}`}
+              className={`product-link ${isComingSoon ? "disabled-link" : ""}`}
+              onClick={isComingSoon ? (e) => e.preventDefault() : undefined}
+            >
+              <div className="product-image-container">
+                {/* Product image with real API image */}
+                <img
+                  src={product.image || product.imageUrl || "/placeholder.svg?height=400&width=300"}
+                  alt={product.name}
+                  className="product-image"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.src = "/placeholder.svg?height=400&width=300&text=Image+Not+Found";
+                  }}
+                />
 
-      {/* Available Products Grid */}
-      {sortedClothingProducts.length > 0 && (
-        <div className="products-section">
-          <h3 className="section-title">Available Now</h3>
-          <div className="product-grid">
-            {sortedClothingProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+                {/* Coming Soon Overlay */}
+                {isComingSoon && (
+                  <div className="coming-soon-overlay">
+                    <span>Stay Tuned</span>
+                  </div>
+                )}
+
+                {/* Wishlist Button */}
+                <button
+                  className={`wishlist-icon-button ${isInWishlist ? "in-wishlist" : ""} ${isComingSoon ? "disabled" : ""}`}
+                  onClick={(e) => handleWishlist(e, product)}
+                  aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+                  disabled={isComingSoon}
+                >
+                  <Heart className={`icon ${isInWishlist ? "filled" : ""}`} />
+                </button>
+              </div>
+
+              <div className="product-details">
+                <h3 className="product-name">{product.name}</h3>
+
+                {/* Price Display */}
+                {product.price !== null && !isComingSoon ? (
+                  <p className="product-price">£{product.price?.toFixed(2)}</p>
+                ) : (
+                  <p className="product-price coming-soon-price">Price TBA</p>
+                )}
+
+                {/* Category */}
+                {product.category && (
+                  <p className="product-category">
+                    <span className={`category-tag ${isComingSoon ? "coming-soon-tag" : ""}`}>{product.category}</span>
+                  </p>
+                )}
+
+                {/* Rating Display */}
+                {product.rating && product.rating.rate > 0 && !isComingSoon && (
+                  <div className="product-rating">
+                    <div className="rating-stars">
+                      {"★".repeat(Math.floor(product.rating.rate))}
+                      {"☆".repeat(5 - Math.floor(product.rating.rate))}
+                    </div>
+                    <span className="rating-count">({product.rating.count})</span>
+                  </div>
+                )}
+              </div>
+            </Link>
           </div>
-        </div>
-      )}
-
-      {/* Coming Soon Products Grid */}
-      {sortedComingSoonProducts.length > 0 && (
-        <div className="products-section coming-soon-section">
-          <h3 className="section-title">Coming Soon</h3>
-          <div className="product-grid">
-            {sortedComingSoonProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Empty State */}
-      {sortedClothingProducts.length === 0 && sortedComingSoonProducts.length === 0 && (
-        <div className="empty-state">
-          <h3>No products found</h3>
-          <p>Try adjusting your filters or check back later.</p>
-        </div>
-      )}
+        );
+      })}
     </div>
-  )
-}
+  );
+};
 
-export default ProductGrid
 ProductGrid.propTypes = {
-  products: PropTypes.array.isRequired,
-  loading: PropTypes.bool,
-}
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number,
+      image: PropTypes.string,
+      imageUrl: PropTypes.string,
+      comingSoon: PropTypes.bool,
+      category: PropTypes.string,
+      rating: PropTypes.shape({
+        rate: PropTypes.number,
+        count: PropTypes.number
+      })
+    })
+  ),
+  loading: PropTypes.bool
+};
+
+export default ProductGrid;

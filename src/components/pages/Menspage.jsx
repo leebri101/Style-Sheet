@@ -11,9 +11,11 @@ const MenPage = () => {
   const error = useSelector(selectError)
   const [allClothingProducts, setAllClothingProducts] = useState([])
   const [comingSoonProducts, setComingSoonProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchAllProducts = async () => {
+      setIsLoading(true)
       try {
         // Fetch all clothing categories for men's page
         const [mensResponse, womensResponse, electronicsResponse, jewelryResponse] = await Promise.all([
@@ -30,7 +32,7 @@ const MenPage = () => {
           jewelryResponse.json(),
         ])
 
-        // Transform clothing products (both men's and women's)
+        // Transform clothing products (both men's and women's) with real images
         const clothingProducts = [...mensProducts, ...womensProducts].map((product) => ({
           id: product.id,
           name: product.title,
@@ -38,8 +40,9 @@ const MenPage = () => {
           price: product.price,
           description: product.description,
           category: product.category,
-          image: product.image,
-          images: [product.image, product.image, product.image],
+          image: product.image, // Use real API image
+          imageUrl: product.image, // Use real API image
+          images: [product.image], // Use real API image
           rating: {
             rate: product.rating?.rate || 0,
             count: product.rating?.count || 0,
@@ -55,7 +58,7 @@ const MenPage = () => {
           updatedAt: new Date().toISOString(),
         }))
 
-        // Transform misc products as coming soon (no price)
+        // Transform misc products as coming soon (no price) with real images
         const miscProducts = [...electronicsProducts, ...jewelryProducts].map((product) => ({
           id: `coming-soon-${product.id}`,
           name: product.title,
@@ -63,8 +66,9 @@ const MenPage = () => {
           price: null, // No price for coming soon items
           description: "Coming Soon - Stay tuned for availability",
           category: product.category,
-          image: product.image,
-          images: [product.image],
+          image: product.image, // Use real API image
+          imageUrl: product.image, // Use real API image
+          images: [product.image], // Use real API image
           rating: {
             rate: 0,
             count: 0,
@@ -85,6 +89,8 @@ const MenPage = () => {
         setComingSoonProducts(miscProducts)
       } catch (error) {
         console.error("Error fetching products:", error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -93,7 +99,7 @@ const MenPage = () => {
 
   const allProducts = [...allClothingProducts, ...comingSoonProducts]
 
-  if (loading && allProducts.length === 0) {
+  if (isLoading) {
     return (
       <div className="men-page">
         <div className="men-loading">
@@ -151,7 +157,7 @@ const MenPage = () => {
                 className="category-image"
               />
               <h3>Men&apos;s Clothing</h3>
-              <p>Premium men&apos;s fashion</p>
+              <p>Premium fashion</p>
               <span className="category-count">
                 {allClothingProducts.filter((p) => p.category === "men's clothing").length} items
               </span>
