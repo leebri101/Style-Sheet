@@ -1,123 +1,214 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductGrid from "../products/ProductGrid";
-import { fetchProductsByCategory } from "../../store/productSlice";
+import { selectProducts, selectLoading, selectError} from "../../store/productSlice";
 import "./MensPage.css";
 
-const STATIC_MENS_PRODUCTS = [
-  {
-    id: 1,
-    name: "Men's Basic Tee",
-    price: 15,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-  {
-    id: 2,
-    name: "Men's Wool Sweater",
-    price: 89,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-  {
-    id: 3,
-    name: "Men's Denim Jeans",
-    price: 65,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-  {
-    id: 4,
-    name: "Men's Cotton Shirt",
-    price: 45,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-  {
-    id: 5,
-    name: "Men's Leather Jacket",
-    price: 199,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-  {
-    id: 6,
-    name: "Men's Chino Pants",
-    price: 55,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-  {
-    id: 7,
-    name: "Men's Polo Shirt",
-    price: 40,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-  {
-    id: 8,
-    name: "Men's Hoodie",
-    price: 70,
-    imageUrl: '/placeholder.svg?height=300&width=300',
-  },
-];
-
-const MensPage = () => {
-  const dispatch = useDispatch();
-  
-  // Safer selector with default values
-  const { 
-    items: products = [], 
-    status = 'idle', 
-    error = null 
-  } = useSelector((state) => state.products || {});
+const MenPage = () => {
+  const dispatch = useDispatch()
+  const products = useSelector(selectProducts)
+  const loading = useSelector(selectLoading)
+  const error = useSelector(selectError)
+  const [allClothingProducts, setAllClothingProducts] = useState([])
+  const [comingSoonProducts, setComingSoonProducts] = useState([])
 
   useEffect(() => {
-    try {
-      dispatch(fetchProductsByCategory("men's clothing")); // Fixed category string
-    } catch (err) {
-      console.error("Failed to fetch products:", err);
-    }
-  }, [dispatch]);
+    const fetchAllProducts = async () => {
+      try {
+        // Fetch all clothing categories for men's page
+        const [mensResponse, womensResponse, electronicsResponse, jewelryResponse] = await Promise.all([
+          fetch("https://fakestoreapi.com/products/category/men's clothing"),
+          fetch("https://fakestoreapi.com/products/category/women's clothing"),
+          fetch("https://fakestoreapi.com/products/category/electronics"),
+          fetch("https://fakestoreapi.com/products/category/jewelery"),
+        ])
 
-  const renderContent = () => {
-    switch (status) {
-      case 'loading':
-        return (
-          <>
-            <div className="loading-message">Loading products...</div>
-            <ProductGrid products={STATIC_MENS_PRODUCTS} />
-          </>
-        );
-      
-      case 'failed':
-        return (
-          <>
-            <div className="error-message">
-              {error || 'Error loading products'}. Showing sample products.
-            </div>
-            <ProductGrid products={STATIC_MENS_PRODUCTS} />
-          </>
-        );
-      
-      case 'succeeded':
-        return products?.length > 0 ? (
-          <ProductGrid products={products} />
-        ) : (
-          <>
-            <div className="empty-message">
-              No products found. Showing sample products.
-            </div>
-            <ProductGrid products={STATIC_MENS_PRODUCTS} />
-          </>
-        );
-      
-      default: // 'idle' or other states
-        return <ProductGrid products={STATIC_MENS_PRODUCTS} />;
+        const [mensProducts, womensProducts, electronicsProducts, jewelryProducts] = await Promise.all([
+          mensResponse.json(),
+          womensResponse.json(),
+          electronicsResponse.json(),
+          jewelryResponse.json(),
+        ])
+
+        // Transform clothing products (both men's and women's)
+        const clothingProducts = [...mensProducts, ...womensProducts].map((product) => ({
+          id: product.id,
+          name: product.title,
+          title: product.title,
+          price: product.price,
+          description: product.description,
+          category: product.category,
+          image: product.image,
+          images: [product.image, product.image, product.image],
+          rating: {
+            rate: product.rating?.rate || 0,
+            count: product.rating?.count || 0,
+          },
+          stockQuantity: Math.floor(Math.random() * 100) + 10,
+          inStock: true,
+          brand: product.category.includes("men's") ? "Men's Brand" : "Women's Brand",
+          sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+          colors: ["Black", "White", "Navy", "Gray", "Red"],
+          featured: Math.random() > 0.7,
+          tags: [product.category, "clothing"],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        }))
+
+        // Transform misc products as coming soon (no price)
+        const miscProducts = [...electronicsProducts, ...jewelryProducts].map((product) => ({
+          id: `coming-soon-${product.id}`,
+          name: product.title,
+          title: product.title,
+          price: null, // No price for coming soon items
+          description: "Coming Soon - Stay tuned for availability",
+          category: product.category,
+          image: product.image,
+          images: [product.image],
+          rating: {
+            rate: 0,
+            count: 0,
+          },
+          stockQuantity: 0,
+          inStock: false,
+          brand: "Coming Soon",
+          sizes: [],
+          colors: [],
+          featured: false,
+          tags: [product.category, "coming-soon"],
+          comingSoon: true,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        }))
+
+        setAllClothingProducts(clothingProducts)
+        setComingSoonProducts(miscProducts)
+      } catch (error) {
+        console.error("Error fetching products:", error)
+      }
     }
-  };
+
+    fetchAllProducts()
+  }, [])
+
+  const allProducts = [...allClothingProducts, ...comingSoonProducts]
+
+  if (loading && allProducts.length === 0) {
+    return (
+      <div className="men-page">
+        <div className="men-loading">
+          <div className="loading-spinner"></div>
+          <p>Loading products...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error && allProducts.length === 0) {
+    return (
+      <div className="men-page">
+        <div className="men-error">
+          <h2>Error loading products</h2>
+          <p>{error}</p>
+          <button className="retry-button" onClick={() => window.location.reload()}>
+            Try Again
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="mens-page">
-      <div className="mens-page-content">
-        <h1 className="mens-page-title">Mens Collection</h1> {/* Fixed apostrophe */}
-        {renderContent()}
+    <div className="men-page">
+      {/* Hero Section */}
+      <div className="men-hero">
+        <div className="men-hero-content">
+          <h1 className="men-hero-title">Men&apos;s Collection</h1>
+          <p className="men-hero-subtitle">Discover our premium selection of clothing and upcoming products</p>
+          <div className="men-hero-stats">
+            <span className="product-count">{allClothingProducts.length} clothing items available</span>
+            <span className="coming-soon-count">{comingSoonProducts.length} items coming soon</span>
+          </div>
+        </div>
+        <div className="men-hero-image">
+          <img
+            src="/placeholder.svg?height=400&width=600&text=Men's+Fashion"
+            alt="Men's Fashion Collection"
+            className="hero-image"
+          />
+        </div>
       </div>
-    </div>
-  );
-};
 
-export default MensPage;
+      {/* Categories Section */}
+      <div className="men-categories">
+        <div className="container">
+          <h2 className="section-title">Shop by Category</h2>
+          <div className="category-grid">
+            <div className="category-card">
+              <img
+                src="/placeholder.svg?height=200&width=300&text=Men's+Clothing"
+                alt="Men's Clothing"
+                className="category-image"
+              />
+              <h3>Men&apos;s Clothing</h3>
+              <p>Premium men&apos;s fashion</p>
+              <span className="category-count">
+                {allClothingProducts.filter((p) => p.category === "men's clothing").length} items
+              </span>
+            </div>
+            <div className="category-card">
+              <img
+                src="/placeholder.svg?height=200&width=300&text=Women's+Clothing"
+                alt="Women's Clothing"
+                className="category-image"
+              />
+              <h3>Women&apos;s Clothing</h3>
+              <p>Stylish women&apos;s fashion</p>
+              <span className="category-count">
+                {allClothingProducts.filter((p) => p.category === "women's clothing").length} items
+              </span>
+            </div>
+            <div className="category-card coming-soon-card">
+              <img
+                src="/placeholder.svg?height=200&width=300&text=Coming+Soon"
+                alt="Coming Soon"
+                className="category-image"
+              />
+              <h3>More Categories</h3>
+              <p>Electronics & Jewelry coming soon</p>
+              <span className="category-count">{comingSoonProducts.length} items</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Available Clothing Section */}
+      <div className="men-products">
+        <div className="container">
+          <h2 className="section-title">Available Clothing</h2>
+          {allClothingProducts.length > 0 ? (
+            <ProductGrid products={allClothingProducts} loading={false} />
+          ) : (
+            <div className="no-products">
+              <h3>No clothing items found</h3>
+              <p>Check back later for new arrivals.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Coming Soon Section */}
+      {comingSoonProducts.length > 0 && (
+        <div className="coming-soon-section">
+          <div className="container">
+            <h2 className="section-title">Coming Soon</h2>
+            <p className="section-subtitle">These exciting products will be available soon!</p>
+            <ProductGrid products={comingSoonProducts} loading={false} />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default MenPage
