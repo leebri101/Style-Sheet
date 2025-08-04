@@ -20,8 +20,6 @@ const ProductGrid = ({ products, loading = false }) => {
           return (a.price || 0) - (b.price || 0)
         case "price-high":
           return (b.price || 0) - (a.price || 0)
-        case "rating":
-          return (b.rating?.rate || 0) - (a.rating?.rate || 0)
         case "name":
         default:
           return a.name.localeCompare(b.name)
@@ -62,7 +60,6 @@ const ProductGrid = ({ products, loading = false }) => {
             <option value="all">All Categories</option>
             <option value="men's clothing">Men&apos;s Clothing</option>
             <option value="women's clothing">Women&apos;s Clothing</option>
-            <option value="electronics">Coming Soon</option>
             <option value="jewelry">Coming Soon</option>
           </select>
         </div>
@@ -73,7 +70,6 @@ const ProductGrid = ({ products, loading = false }) => {
             <option value="name">Name (A-Z)</option>
             <option value="price-low">Price (Low to High)</option>
             <option value="price-high">Price (High to Low)</option>
-            <option value="rating">Rating (High to Low)</option>
           </select>
         </div>
       </div>
@@ -114,7 +110,7 @@ const ProductGrid = ({ products, loading = false }) => {
       {sortedClothingProducts.length === 0 && sortedComingSoonProducts.length === 0 && (
         <div className="empty-state">
           <h3>No products found</h3>
-          <p>Try adjusting your filters or check back later for new arrivals.</p>
+          <p>Try adjusting your filters or check back later.</p>
         </div>
       )}
     </div>

@@ -108,17 +108,6 @@ const ProductCard = ({ product }) => {
             : product.description || "No description available"}
         </p>
 
-        {/* Rating Display */}
-        {product.rating && product.rating.rate > 0 && !product.comingSoon && (
-          <div className="product-rating">
-            <span className="rating-stars" aria-label={`Rating: ${product.rating.rate} out of 5`}>
-              {"★".repeat(Math.floor(product.rating.rate))}
-              {"☆".repeat(5 - Math.floor(product.rating.rate))}
-            </span>
-            <span className="rating-count">({product.rating.count})</span>
-          </div>
-        )}
-
         {/* Action Buttons */}
         <div className="product-actions">
           {!product.comingSoon && product.price !== null ? (
@@ -168,10 +157,6 @@ ProductCard.propTypes = {
     description: PropTypes.string,
     category: PropTypes.string,
     inWishlist: PropTypes.bool,
-    rating: PropTypes.shape({
-      rate: PropTypes.number,
-      count: PropTypes.number
-    })
   }).isRequired
 };
 
