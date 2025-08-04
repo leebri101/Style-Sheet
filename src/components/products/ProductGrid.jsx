@@ -1,4 +1,4 @@
-
+"use client"
 import PropTypes from "prop-types"
 import { useState } from "react"
 import ProductCard from "./ProductCard"
@@ -60,10 +60,10 @@ const ProductGrid = ({ products, loading = false }) => {
             className="filter-select"
           >
             <option value="all">All Categories</option>
-            <option value="men's clothing">Men's Clothing</option>
-            <option value="women's clothing">Women's Clothing</option>
-            <option value="electronics">Electronics</option>
-            <option value="jewelery">Jewelry</option>
+            <option value="men's clothing">Men&apos;s Clothing</option>
+            <option value="women's clothing">Women&apos;s Clothing</option>
+            <option value="electronics">Coming Soon</option>
+            <option value="jewelry">Coming Soon</option>
           </select>
         </div>
 
