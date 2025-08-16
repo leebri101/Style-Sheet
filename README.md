@@ -1,5 +1,5 @@
-<!--# **Style-Sheet**
-Front-End Plus Project 3(Final):- E-commerce site with AI Chat bot capabilities 
+**Style-Sheet**
+Front-End Plus Project 3(Final):- E-commerce site with (mimic of popular site Uniqlo/END)
 ## **Site Preview**
 ### Live link
 (https://leebri101.github.io/Style-Sheet/)
@@ -32,27 +32,28 @@ Front-End Plus Project 3(Final):- E-commerce site with AI Chat bot capabilities
 
 ## **Project Planning**
 ### **Target Audiences:**
-* For users who want to be able to enjoy a short quiz.
-* For users who enjoy a short interactive game.
+* For users who want to be able purchase items off a makeshift website.
+* For users who want to look new fashionable items of clothing.
 
 ### **Site Objectives:**
 * Allowing users to easily interact with the page without any technical or difficult complications. 
-* To create a simple, effective and user-friendly quiz page which anyone can use or take inspiration from.
+* To create a simple, effective and user-friendly page which anyone can use or take inspiration from.
 
 ### **User Stories:**
 * As a user I want to be able to navigate the site with ease.
-* As a user I want to enjoy being able to do a short quiz that doesn't make it long or boring.
-* As the owner I want to be able to see a simple but smooth transition in animations used in the quiz. 
+* As a user I want to purchase/save/store items with ease.
+
+* As the owner I want to be able to see a simple but smooth transition with a minimalistic look to  
 * As the owner I want to be able to allow users to feel comfortable with interacting with the simple commands. 
 
 ### **Wire-Frames:**
-* To prevent any digressions towards the project aims & objectives I have made a basic but extensive wire-frame via [Figma](https://www.figma.com/board/vHAspXeCOVMmQAK0wSd84j/StyleSheet?node-id=0-1&node-type=CANVAS&t=HRVwgh8QWqaWblSD-0) to refer back to in case of any major changes to the project. 
+* To prevent any digressions towards the project aims & objectives I have made a basic but extensive wire-frame via [Figma](https://www.figma.com/board/vHAspXeCOVMmQAK0wSd84j/StyleSheet?node-id=0-1&t=f6pCRmivWInjDJDm-1) to refer back to in case of any major changes to the project. 
 
-[Wireframes](doc/wireframes/) were all designed in Figma for a more simple but effective design. 
-* [Landing-Page](doc/wireframes/landing-page.png)
-* [Placeholder-name](doc/wireframes/placeholder-name.png)
-* [Q&A Section](doc/wireframes/q-and-a.png)
-* [Results-section](doc/wireframes/feedback.png)
+[Wireframes] (docs/wireframes) were all designed in Figma for a standard structure and guidelines for main design. 
+* [](doc/wireframes)
+* [](doc/wireframes/placeholder-name.png)
+* [](doc/wireframes/q-and-a.png)
+* [](doc/wireframes/feedback.png)
 
 There have been some considerable cosmetic changes to the static site to improve the UX, however most of design was kept to original plan on the wire-frames. Some of these changes may include:-
 * An interactive CTA(Call-To-Action) button for the user to use.
@@ -75,7 +76,7 @@ There have been some considerable cosmetic changes to the static site to improve
 ####  **Home-Page:**
 * The home-page will have multiple unique features which the user can do upon navigating which will contain these most notable features:
 
-### *Title:*
+### *Logo-Icon*
 * The Title will include some unique features:-
     * The main title of the page includes a two tone text to keep within theme of a restaurant.
     * Upon loading a animation with the title will appear and shifts the letters of the title.
@@ -83,13 +84,13 @@ There have been some considerable cosmetic changes to the static site to improve
 
 ![Title](doc/screenshots/title.png)
 
-### *Call To Action Button:*
+### **
 * A hover-over design to be able at which users can interact with , which instantly grabs the users attention.
 ![Home-page](doc/screenshots/main-page.png) 
-    * A simple but clean hover over effect where it transitions into a dark navy blue to match the theme of the page.
-    * An active page navigation where it allows the user to hover over the different page links and show which page they are currently on.  
-    * Direct web-links where it take the user to my GitHub so that they can manually view each of my projects. 
-    
+    * 
+    *   
+    * 
+
     
 * Mobile version of home page with title, icon, buttons and web-links.
 ![Mobile-version of CTA](doc/screenshots/mobile-cta.png)
