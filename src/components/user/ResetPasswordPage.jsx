@@ -1,162 +1,104 @@
-"use client"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { 
-  resetPassword, 
-  clearAuthState, 
-  selectIsAuthenticated, 
-  selectPasswordResetStatus, 
-  selectAuthError 
+  requestPasswordReset,
+  resetPassword,
+  selectPasswordResetState,
+  resetPasswordState
 } from '../../store/authSlice';
-import { Eye, EyeOff } from 'lucide-react';
-import "./ResetPasswordPage.css";
 
-const ResetPasswordPage = () => {
+function ResetPasswordPage({ mode = "request" }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isLoading = useSelector(selectIsAuthenticated);
-  const passwordResetSuccess = useSelector(selectPasswordResetStatus);
-  const error = useSelector(selectAuthError);
+  const { loading, error, success, emailSent } = useSelector(selectPasswordResetState);
+  const [email, setEmail] = useState('');
+  const [token, setToken] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
-  const [formData, setFormData] = useState({
-    newPassword: '',
-    confirmPassword: '',
-  });
-  const [showPassword, setShowPassword] = useState({
-    new: false,
-    confirm: false,
-  });
-  const [validationError, setValidationError] = useState("");
+  const handleRequestReset = (e) => {
+    e.preventDefault();
+    dispatch(requestPasswordReset(email));
+  };
 
-  const token = new URLSearchParams(location.search).get("token");
+  const handleConfirmReset = (e) => {
+    e.preventDefault();
+    dispatch(resetPassword({ token, newPassword }));
+  };
 
+  // Reset state when component unmounts
   useEffect(() => {
-    return () => {
-      dispatch(clearAuthState());
-    };
+    return () => dispatch(resetPasswordState());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (passwordResetSuccess) {
-      const timer = setTimeout(() => {
-        navigate('/login');
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [passwordResetSuccess, navigate]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-    setValidationError("");
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (formData.newPassword !== formData.confirmPassword) {
-      setValidationError("Passwords do not match");
-      return;
-    }
-
-    if (formData.newPassword.length < 8) {
-      setValidationError("Password must be at least 8 characters long");
-      return;
-    }
-
-    dispatch(resetPassword({ 
-      token, 
-      newPassword: formData.newPassword 
-    }));
-  };
-
   return (
-    <div className="reset-password-page">
-      <div className="reset-password-container">
-        <h2 className="reset-password-title">Reset Your Password</h2>
-
-        {passwordResetSuccess ? (
-          <div className="success-message">
-            <p>Your password has been successfully reset!</p>
-            <p>Redirecting to the Login Page...</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="reset-password-form">
-            {!token && (
-              <div className="error-message">
-                Invalid or missing reset token. Please request a new password reset link.
-              </div>
-            )}
-            {error && <div className="error-message">{error}</div>}
-            {validationError && <div className="error-message">{validationError}</div>}
-
-            <div className="form-group">
-              <label htmlFor="newPassword">New Password</label>
-              <div className="password-input-container">
+    <div className="password-reset-container">
+      {mode === "request" ? (
+        <>
+          <h2>Reset Password</h2>
+          {emailSent ? (
+            <div className="success-message">
+              Reset link sent to {email}. Please check your email.
+            </div>
+          ) : (
+            <form onSubmit={handleRequestReset}>
+              <div className="form-group">
+                <label>Email Address</label>
                 <input
-                  type={showPassword.new ? "text" : "password"}
-                  id="newPassword"
-                  name="newPassword"
-                  value={formData.newPassword}
-                  onChange={handleChange}
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
-                  disabled={isLoading || !token}
-                  className="form-input"
+                />
+              </div>
+              <button type="submit" disabled={loading}>
+                {loading ? 'Sending...' : 'Send Reset Link'}
+              </button>
+              {error && <div className="error-message">{error}</div>}
+            </form>
+          )}
+        </>
+      ) : (
+        <>
+          <h2>Set New Password</h2>
+          {success ? (
+            <div className="success-message">
+              Password reset successfully! You can now login.
+            </div>
+          ) : (
+            <form onSubmit={handleConfirmReset}>
+              <div className="form-group">
+                <label>Reset Token</label>
+                <input
+                  type="text"
+                  value={token}
+                  onChange={(e) => setToken(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>New Password</label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
                   minLength="8"
                 />
-                <button
-                  type="button"
-                  className="password-toggle"
-                  onClick={() => setShowPassword(prev => ({ ...prev, new: !prev.new }))}
-                  disabled={isLoading || !token}
-                >
-                  {showPassword.new ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
               </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <div className="password-input-container">
-                <input
-                  type={showPassword.confirm ? "text" : "password"}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                  disabled={isLoading || !token}
-                  className="form-input"
-                  minLength="8"
-                />
-                <button
-                  type="button"
-                  className="password-toggle"
-                  onClick={() => setShowPassword(prev => ({ ...prev, confirm: !prev.confirm }))}
-                  disabled={isLoading || !token}
-                >
-                  {showPassword.confirm ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-            </div>
-
-            <button 
-              type="submit" 
-              className="submit-button" 
-              disabled={isLoading || !token}
-            >
-              {isLoading ? "Resetting..." : "Reset Password"}
-            </button>
-          </form>
-        )}
-      </div>
+              <button type="submit" disabled={loading}>
+                {loading ? 'Resetting...' : 'Reset Password'}
+              </button>
+              {error && <div className="error-message">{error}</div>}
+            </form>
+          )}
+        </>
+      )}
     </div>
   );
+}
+
+ResetPasswordPage.propTypes = {
+  mode: PropTypes.oneOf(['request', 'confirm']),
 };
 
 export default ResetPasswordPage;
