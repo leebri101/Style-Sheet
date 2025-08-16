@@ -1,26 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Provider } from "react-redux"
 import store from "./store"
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-import HomePage from "./pages/HomePage"
-import ProductPage from "./pages/ProductPage"
-import CategoryPage from "./pages/CategoryPage"
-import MenPage from "./pages/MenPage"
-import WomenPage from "./pages/WomenPage"
-import KidsPage from "./pages/KidsPage"
-import SearchPage from "./pages/SearchPage"
-import SearchResultsPage from "./pages/SearchResultsPage"
-import WishlistPage from "./pages/WishlistPage"
-import AuthPage from "./pages/AuthPage"
-import LoginPage from "./pages/LoginPage"
-import RegistrationForm from "./components/RegistrationForm"
-import ProfilePage from "./pages/ProfilePage"
-import LogoutPage from "./pages/LogoutPage"
-import ForgotPasswordPage from "./pages/ForgotPasswordPage"
-import ResetPasswordPage from "./pages/ResetPasswordPage"
-import MockApiInitializer from "./components/MockApiInitializer"
-import "./index.css"
+import Header from "./components/layout/Header"
+import Footer from "./components/layout/Footer"
+import HomePage from "./components/pages/HomePage"
+import ProductPage from "./components/pages/ProductsPage"
+import CategoryPage from "./components/pages/CategorySection"
+import MenPage from "./components/pages/MensPage"
+import WomenPage from "./components/pages/WomensPage"
+import KidsPage from "./components/pages/KidsPage"
+import SearchResultsPage from "./components/pages/SearchResultsPage"
+import WishlistPage from "./components/pages/WishlistPage"
+import AuthPage from "./components/user/AuthPage"
+import LoginPage from "./components/user/LoginPage"
+import RegistrationPage from "./components/user/RegistrationPage"
+import ProfilePage from "./components/user/ProfilePage"
+import LogoutPage from "./components/user/LogoutPage"
+import ForgotPasswordPage from "./components/user/ForgotPasswordPage"
+import ResetPasswordPage from "./components/user/ResetPasswordPage"
+import MockApiInitializer from "./components/layout/MockApiInitializer"
+import "./App.css"
 
 function App() {
   return (
@@ -53,7 +52,7 @@ function App() {
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegistrationForm />} />
+              <Route path="/register" element={<RegistrationPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/logout" element={<LogoutPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
