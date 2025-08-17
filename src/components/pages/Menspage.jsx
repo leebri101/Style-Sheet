@@ -138,7 +138,7 @@ const MenPage = () => {
         </div>
         <div className="men-hero-image">
           <img
-            src="/placeholder.svg?height=400&width=600&text=Men's+Fashion"
+            src="src\assets\docs\images\plain-white-shirt.jpg"
             alt="Men's Fashion Collection"
             className="hero-image"
           />
