@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import PropTypes from 'prop-types'
-import { login, register, selectAuthLoading, selectAuthError } from "../../store/authSlice"
+import { loginUser, registerUser, selectAuthLoading, selectAuthError } from "../../store/authSlice"
 
 const AuthPage = ({ mode = "login" }) => {
   const dispatch = useDispatch()
@@ -36,25 +36,25 @@ const AuthPage = ({ mode = "login" }) => {
       }
 
       const result = await dispatch(
-        register({
+        registerUser({
           email: formData.email,
           password: formData.password,
           name: formData.name,
         }),
       )
 
-      if (register.fulfilled.match(result)) {
+      if (registerUser.fulfilled.match(result)) {
         navigate("/")
       }
     } else {
       const result = await dispatch(
-        login({
+        loginUser({
           email: formData.email,
           password: formData.password,
         }),
       )
 
-      if (login.fulfilled.match(result)) {
+      if (loginUser.fulfilled.match(result)) {
         navigate("/")
       }
     }

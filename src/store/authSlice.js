@@ -10,11 +10,39 @@ const UsersAPI = {
     const { password: _, ...userWithoutPassword } = user;
     return userWithoutPassword;
   },
-  getByEmail: async (email) => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const users = JSON.parse(localStorage.getItem('mockUsers') || '[]')
-    return users.find(u => u.email === email);
+
+  requestPasswordReset: async (email) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
+    const user = users.find(u => u.email === email);
+    
+    if (!user) {
+      throw new Error("No user found with that email");
+    }
+    
+    // Generate and store a reset token (in real app this would be sent via email)
+    user.resetToken = Math.random().toString(36).substring(2, 15);
+    localStorage.setItem('mockUsers', JSON.stringify(users));
+    
+    return { success: true };
   },
+
+  confirmPasswordReset: async (token, newPassword) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
+    const userIndex = users.findIndex(u => u.resetToken === token);
+
+    if (userIndex === -1) {
+      throw new Error("Invalid or expired token");
+    }
+
+    users[userIndex].password = newPassword;
+    delete users[userIndex].resetToken;
+    localStorage.setItem('mockUsers', JSON.stringify(users));
+
+    return { success: true };
+  },
+
   register: async (userData) => {
     await new Promise(resolve => setTimeout(resolve, 1500));
     const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
@@ -36,33 +64,7 @@ const UsersAPI = {
     localStorage.setItem('mockUsers', JSON.stringify([...users, newUser]));
     const { password: _, ...userWithoutPassword } = newUser;
     return userWithoutPassword;
-  },
-  update: async (userId, updates) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
-    const userIndex = users.findIndex(u => u.id === userId);
-    if (userIndex === -1) throw new Error("User not found");
-    const updatedUser = { ...users[userIndex], ...updates };
-    users[userIndex] = updatedUser;
-    localStorage.setItem('mockUsers', JSON.stringify(users));
-    const { password: _, ...userWithoutPassword } = updatedUser;
-    return userWithoutPassword;
   }
-};
-
-// Helper functions
-const getUserFromStorage = () => {
-  try {
-    const userData = localStorage.getItem("userData");
-    return userData ? JSON.parse(userData) : null;
-  } catch (error) {
-    console.error("Error parsing user data:", error);
-    return null;
-  }
-};
-
-const getTokenFromStorage = () => {
-  return localStorage.getItem("userToken") || null;
 };
 
 // Initial state
@@ -71,18 +73,17 @@ const initialState = {
   isAuthenticated: !!localStorage.getItem("userToken"),
   loading: false,
   error: null,
-  status: 'idle',
-  loginAttempts: 0,
-  lastLoginAttempt: null,
-  sessionExpiry: null,
-  passwordResetSuccess: false,
-  passwordResetLoading: false,
-  passwordResetError: null
+  passwordReset: {
+    loading: false,
+    success: false,
+    error: null,
+    emailSent: false
+  }
 };
 
 // Async Thunks
 export const loginUser = createAsyncThunk(
-  "auth/login",
+  "auth/loginUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const user = await UsersAPI.authenticate(email, password);
@@ -113,11 +114,29 @@ export const registerUser = createAsyncThunk(
 
 export const updateUserProfile = createAsyncThunk(
   "auth/updateUserProfile",
-  async ({ userId, updates }, { rejectWithValue }) => {
+  async (updatedData, { getState, rejectWithValue }) => {
     try {
-      const user = await UsersAPI.update(userId, updates);
-      localStorage.setItem("userData", JSON.stringify(user));
-      return user;
+      const { auth } = getState();
+      const currentUser = auth.user;
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const updatedUser = { ...currentUser, ...updatedData };
+      localStorage.setItem("userData", JSON.stringify(updatedUser));
+      
+      return updatedUser;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const requestPasswordReset = createAsyncThunk(
+  "auth/requestPasswordReset",
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await UsersAPI.requestPasswordReset(email);
+      return response;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -128,22 +147,11 @@ export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async ({ token, newPassword }, { rejectWithValue }) => {
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      // In a real app, verify token and update password
-      return { success: true };
+      const response = await UsersAPI.confirmPasswordReset(token, newPassword);
+      return response;
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
-);
-
-export const logoutUser = createAsyncThunk(
-  "auth/logoutUser",
-  async (_, { dispatch }) => {
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userData");
-    dispatch(authSlice.actions.clearAuthState());
-    return { success: true };
   }
 );
 
@@ -151,27 +159,32 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    clearError: (state) => {
-      state.error = null;
-      state.passwordResetError = null;
-    },
-    clearAuthState: (state) => {
+    logout: (state) => {
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userData");
       state.user = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.error = null;
-      state.passwordResetSuccess = false;
-      state.passwordResetLoading = false;
-      state.passwordResetError = null;
     },
-    setSessionExpiry: (state, action) => {
-      state.sessionExpiry = action.payload;
+    clearError: (state) => {
+      state.error = null;
     },
     updateUser: (state, action) => {
-      if (state.user) {
-        state.user = { ...state.user, ...action.payload };
-        localStorage.setItem("userData", JSON.stringify(state.user));
-      }
+      state.user = { ...state.user, ...action.payload };
+      localStorage.setItem("userData", JSON.stringify(state.user));
+    },
+    clearAuthState: (state) => {
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userData");
+      state.user = null;
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.error = null;
+      state.passwordReset = initialState.passwordReset;
+    },
+    resetPasswordState: (state) => {
+      state.passwordReset = initialState.passwordReset;
     }
   },
   extraReducers: (builder) => {
@@ -185,15 +198,12 @@ const authSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
-        state.sessionExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        state.loginAttempts += 1;
-        state.lastLoginAttempt = new Date().toISOString();
       })
-
+      
       // Registration
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
@@ -203,13 +213,12 @@ const authSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
-        state.sessionExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
-
+      
       // Update Profile
       .addCase(updateUserProfile.pending, (state) => {
         state.loading = true;
@@ -223,48 +232,58 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-
-      // Password Reset
+      
+      // Password Reset Request
+      .addCase(requestPasswordReset.pending, (state) => {
+        state.passwordReset.loading = true;
+        state.passwordReset.error = null;
+        state.passwordReset.emailSent = false;
+      })
+      .addCase(requestPasswordReset.fulfilled, (state) => {
+        state.passwordReset.loading = false;
+        state.passwordReset.success = true;
+        state.passwordReset.emailSent = true;
+      })
+      .addCase(requestPasswordReset.rejected, (state, action) => {
+        state.passwordReset.loading = false;
+        state.passwordReset.error = action.payload;
+      })
+      
+      // Password Reset Confirmation
       .addCase(resetPassword.pending, (state) => {
-        state.passwordResetLoading = true;
-        state.passwordResetError = null;
+        state.passwordReset.loading = true;
+        state.passwordReset.error = null;
       })
       .addCase(resetPassword.fulfilled, (state) => {
-        state.passwordResetLoading = false;
-        state.passwordResetSuccess = true;
+        state.passwordReset.loading = false;
+        state.passwordReset.success = true;
       })
       .addCase(resetPassword.rejected, (state, action) => {
-        state.passwordResetLoading = false;
-        state.passwordResetError = action.payload;
-      })
-
-      // Logout
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.user = null;
-        state.isAuthenticated = false;
-        state.sessionExpiry = null;
+        state.passwordReset.loading = false;
+        state.passwordReset.error = action.payload;
       });
   }
 });
 
 // Selectors
-export const selectUser = (state) => state.auth.user;
-export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectAuthLoading = (state) => state.auth.loading;
 export const selectAuthError = (state) => state.auth.error;
-export const selectPasswordResetStatus = (state) => ({
-  success: state.auth.passwordResetSuccess,
-  loading: state.auth.passwordResetLoading,
-  error: state.auth.passwordResetError
-});
-export const selectSessionExpiry = (state) => state.auth.sessionExpiry;
+export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
+export const selectCurrentUser = (state) => state.auth.user;
+export const selectPasswordResetState = (state) => state.auth.passwordReset;
+export const selectUser = (state) => state.auth.user;
 
-export const {
-  clearError,
-  clearAuthState,
-  setSessionExpiry,
+// Action aliases
+export const login = loginUser;
+export const register = registerUser;
+
+// Actions
+export const { 
+  logout, 
+  clearError, 
+  clearAuthState, 
   updateUser,
-  logout
+  resetPasswordState 
 } = authSlice.actions;
 
 export default authSlice.reducer;

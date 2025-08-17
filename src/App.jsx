@@ -1,32 +1,31 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { Provider } from "react-redux"
-import store from "./store"
-import Header from "./components/layout/Header"
-import Footer from "./components/layout/Footer"
-import HomePage from "./components/pages/HomePage"
-import ProductPage from "./components/pages/ProductsPage"
-import CategoryPage from "./components/pages/CategorySection"
-import MenPage from "./components/pages/MensPage"
-import WomenPage from "./components/pages/WomensPage"
-import KidsPage from "./components/pages/KidsPage"
-import SearchResultsPage from "./components/pages/SearchResultsPage"
-import WishlistPage from "./components/pages/WishlistPage"
-import AuthPage from "./components/user/AuthPage"
-import LoginPage from "./components/user/LoginPage"
-import RegistrationPage from "./components/user/RegistrationPage"
-import ProfilePage from "./components/user/ProfilePage"
-import LogoutPage from "./components/user/LogoutPage"
-import ForgotPasswordPage from "./components/user/ForgotPasswordPage"
-import ResetPasswordPage from "./components/user/ResetPasswordPage"
-import MockApiInitializer from "./components/layout/MockApiInitializer"
-import "./App.css"
+import { Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import HomePage from "./components/pages/HomePage";
+import ProductPage from "./components/pages/ProductsPage";
+import CategoryPage from "./components/pages/CategorySection";
+import MenPage from "./components/pages/MensPage";
+import WomenPage from "./components/pages/WomensPage";
+import KidsPage from "./components/pages/KidsPage";
+import SearchResultsPage from "./components/pages/SearchResultsPage";
+import WishlistPage from "./components/pages/WishlistPage";
+import AuthPage from "./components/user/AuthPage";
+import LoginPage from "./components/user/LoginPage";
+import RegistrationPage from "./components/user/RegistrationPage";
+import ProfilePage from "./components/user/ProfilePage";
+import LogoutPage from "./components/user/LogoutPage";
+import ForgotPasswordPage from "./components/user/ForgotPasswordPage";
+import ResetPasswordPage from "./components/user/ResetPasswordPage";
+import MockApiInitializer from "./components/layout/MockApiInitializer";
+import "./App.css";
 
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <div className="App">
-          <MockApiInitializer />
+      <div className="App">
+        <MockApiInitializer>
           <Header />
           <main className="main-content">
             <Routes>
@@ -45,7 +44,6 @@ function App() {
               <Route path="/jewelry" element={<CategoryPage />} />
 
               {/* Search Routes */}
-              <Route path="/search" element={<SearchPage />} />
               <Route path="/search-results" element={<SearchResultsPage />} />
 
               {/* User Routes */}
@@ -63,10 +61,10 @@ function App() {
             </Routes>
           </main>
           <Footer />
-        </div>
-      </Router>
+        </MockApiInitializer>
+      </div>
     </Provider>
-  )
+  );
 }
 
-export default App
+export default App;
