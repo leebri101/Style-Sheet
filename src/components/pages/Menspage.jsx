@@ -151,38 +151,13 @@ const MenPage = () => {
           <h2 className="section-title">Shop by Category</h2>
           <div className="category-grid">
             <div className="category-card">
-              <img
-                src="/placeholder.svg?height=200&width=300&text=Men's+Clothing"
-                alt="Men's Clothing"
-                className="category-image"
-              />
               <h3>Men&apos;s Clothing</h3>
-              <p>Premium fashion</p>
-              <span className="category-count">
-                {allClothingProducts.filter((p) => p.category === "men's clothing").length} items
-              </span>
             </div>
             <div className="category-card">
-              <img
-                src="/placeholder.svg?height=200&width=300&text=Women's+Clothing"
-                alt="Women's Clothing"
-                className="category-image"
-              />
               <h3>Women&apos;s Clothing</h3>
-              <p>Stylish women&apos;s fashion</p>
-              <span className="category-count">
-                {allClothingProducts.filter((p) => p.category === "women's clothing").length} items
-              </span>
             </div>
             <div className="category-card coming-soon-card">
-              <img
-                src="/placeholder.svg?height=200&width=300&text=Coming+Soon"
-                alt="Coming Soon"
-                className="category-image"
-              />
-              <h3>More Categories</h3>
-              <p>Electronics & Jewelry coming soon</p>
-              <span className="category-count">{comingSoonProducts.length} items</span>
+              <h3>More Categories(Coming soon)</h3>
             </div>
           </div>
         </div>

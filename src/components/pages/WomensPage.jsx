@@ -151,16 +151,8 @@ const WomenPage = () => {
           <h2 className="section-title">Shop by Style</h2>
           <div className="category-grid">
             <div className="category-card">
-              <img
-                src="/placeholder.svg?height=200&width=300&text=Women's+Clothing"
-                alt="Women's Clothing"
-                className="category-image"
-              />
               <h3>Women&apos;s Fashion</h3>
               <p>Elegant and stylish clothing</p>
-              <span className="category-count">
-                {allClothingProducts.filter((p) => p.category === "women's clothing").length} items
-              </span>
             </div>
             <div className="category-card">
               <img
