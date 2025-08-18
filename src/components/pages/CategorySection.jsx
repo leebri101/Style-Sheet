@@ -7,13 +7,13 @@ import "./CategorySection.css";
 const mainCategories = [
   {
     name: "Men's",
-    route: "/mens",
+    route: "/men",
     description: "Discover your threads",
     available: true,
   },
   {
     name: "Women's",
-    route: "/womens",
+    route: "/women",
     description: "Find your perfect fit",
     available: true,
   },

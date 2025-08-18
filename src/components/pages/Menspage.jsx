@@ -66,9 +66,9 @@ const MenPage = () => {
           price: null, // No price for coming soon items
           description: "Coming Soon - Stay tuned for availability",
           category: product.category,
-          image: product.image, // Use real API image
-          imageUrl: product.image, // Use real API image
-          images: [product.image], // Use real API image
+          image: product.image, //API image
+          imageUrl: product.image, 
+          images: [product.image], 
           rating: {
             rate: 0,
             count: 0,
@@ -138,7 +138,7 @@ const MenPage = () => {
         </div>
         <div className="men-hero-image">
           <img
-            src="src\assets\docs\images\plain-white-shirt.jpg"
+            src=""
             alt="Men's Fashion Collection"
             className="hero-image"
           />
