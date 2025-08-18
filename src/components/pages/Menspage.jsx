@@ -153,7 +153,11 @@ const MenPage = () => {
               <h3>Women&apos;s Clothing</h3>
             </div>
             <div className="category-card coming-soon-card">
-              <h3>(Coming soon)</h3>
+             <img
+                src="src\assets\docs\images\construction-gif.gif"
+                alt="Coming Soon"
+                className="category-image"
+              />
             </div>
           </div>
         </div>
@@ -180,7 +184,6 @@ const MenPage = () => {
           <div className="container">
             <h2 className="section-title">Coming Soon</h2>
             <p className="section-subtitle">These exciting products will be available soon!</p>
-            <ProductGrid products={comingSoonProducts} loading={false} />
           </div>
         </div>
       )}

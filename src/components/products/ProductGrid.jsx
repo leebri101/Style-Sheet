@@ -75,24 +75,6 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
               onClick={isComingSoon ? (e) => e.preventDefault() : undefined}
             >
               <div className="product-image-container">
-                {/* Product image with real API image */}
-                <img
-                  src={product.image || product.imageUrl || "/placeholder.svg?height=400&width=300"}
-                  alt={product.name}
-                  className="product-image"
-                  loading="lazy"
-                  onError={(e) => {
-                    e.target.src = "/placeholder.svg?height=400&width=300&text=Image+Not+Found";
-                  }}
-                />
-
-                {/* Coming Soon Overlay */}
-                {isComingSoon && (
-                  <div className="coming-soon-overlay">
-                    <span>Stay Tuned</span>
-                  </div>
-                )}
-
                 {/* Wishlist Button */}
                 <button
                   className={`wishlist-icon-button ${isInWishlist ? "in-wishlist" : ""} ${isComingSoon ? "disabled" : ""}`}

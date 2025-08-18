@@ -130,15 +130,11 @@ const WomenPage = () => {
       <div className="women-hero">
         <div className="women-hero-content">
           <h1 className="women-hero-title">Women&apos;s Collection</h1>
-          <p className="women-hero-subtitle">Explore our curated selection of fashion and upcoming products</p>
-          <div className="women-hero-stats">
-            <span className="product-count">{allClothingProducts.length} clothing items available</span>
-            <span className="coming-soon-count">{comingSoonProducts.length} Coming soon</span>
-          </div>
+          <p className="women-hero-subtitle">Explore our elegant selection of pieces</p>
         </div>
         <div className="women-hero-image">
           <img
-            src="/placeholder.svg?height=400&width=600&text=Women's+Fashion"
+            src="src\assets\docs\images\product-images\womens-clothing\woman-shopping.jpg"
             alt="Women's Fashion Collection"
             className="hero-image"
           />
@@ -151,25 +147,17 @@ const WomenPage = () => {
           <h2 className="section-title">Shop by Style</h2>
           <div className="category-grid">
             <div className="category-card">
-              <h3>Women&apos;s Fashion</h3>
-              <p>Elegant and stylish clothing</p>
+              <h3>Kids&apos;s Fashion</h3>
             </div>
             <div className="category-card">
-              <img
-                src="/placeholder.svg?height=200&width=300&text=Men's+Clothing"
-                alt="Men's Clothing"
-                className="category-image"
-              />
+              <h3>Men&apos;s Fashion</h3>
             </div>
             <div className="category-card coming-soon-card">
               <img
-                src="/placeholder.svg?height=200&width=300&text=Coming+Soon"
+                src="src\assets\docs\images\construction-gif.gif"
                 alt="Coming Soon"
                 className="category-image"
               />
-              <h3>Accessories & More</h3>
-              <p>Jewelry soon</p>
-              <span className="category-count">{comingSoonProducts.length} items</span>
             </div>
           </div>
         </div>
@@ -196,7 +184,6 @@ const WomenPage = () => {
           <div className="container">
             <h2 className="section-title">Coming Soon</h2>
             <p className="section-subtitle">These products will be coming soon!</p>
-            <ProductGrid products={comingSoonProducts} loading={false} />
           </div>
         </div>
       )}
