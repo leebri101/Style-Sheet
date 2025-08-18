@@ -130,11 +130,7 @@ const MenPage = () => {
       <div className="men-hero">
         <div className="men-hero-content">
           <h1 className="men-hero-title">Men&apos;s Collection</h1>
-          <p className="men-hero-subtitle">Discover our premium selection of clothing and upcoming products</p>
-          <div className="men-hero-stats">
-            <span className="product-count">{allClothingProducts.length} clothing items available</span>
-            <span className="coming-soon-count">{comingSoonProducts.length} items coming soon</span>
-          </div>
+          <p className="men-hero-subtitle">Discover our premium selection of clothing</p>
         </div>
         <div className="men-hero-image">
           <img
@@ -157,7 +153,7 @@ const MenPage = () => {
               <h3>Women&apos;s Clothing</h3>
             </div>
             <div className="category-card coming-soon-card">
-              <h3>More Categories(Coming soon)</h3>
+              <h3>(Coming soon)</h3>
             </div>
           </div>
         </div>

@@ -105,11 +105,6 @@
   line-height: 1.5;
 }
 
-.men-hero-stats {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-}
 
 .product-count,
 .coming-soon-count {
@@ -127,7 +122,10 @@
 }
 
 .hero-image {
-  width: 465px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Categories Section */
@@ -208,16 +206,6 @@
   line-height: 1.5;
 }
 
-.category-count {
-  display: inline-block;
-  background: #2c5aa0;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin: 0 20px 20px;
-}
 
 .coming-soon-card .category-count {
   background: #856404;
