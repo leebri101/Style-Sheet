@@ -102,17 +102,6 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
                     <span className={`category-tag ${isComingSoon ? "coming-soon-tag" : ""}`}>{product.category}</span>
                   </p>
                 )}
-
-                {/* Rating Display */}
-                {product.rating && product.rating.rate > 0 && !isComingSoon && (
-                  <div className="product-rating">
-                    <div className="rating-stars">
-                      {"★".repeat(Math.floor(product.rating.rate))}
-                      {"☆".repeat(5 - Math.floor(product.rating.rate))}
-                    </div>
-                    <span className="rating-count">({product.rating.count})</span>
-                  </div>
-                )}
               </div>
             </Link>
           </div>
