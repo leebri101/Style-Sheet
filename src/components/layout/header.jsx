@@ -68,6 +68,11 @@ const Header = () => {
                     <Link to="/kids" className="header-link">
                     Kids
                     </Link>
+                    {user && user.role === "admin" && (
+                        <Link to="/admin/products" className="nav-link admin-link">
+                            Manage Products
+                        </Link>
+                    )}
                 </div>
                 {/*Desktop Search*/}
                 <form className="header-search" onSubmit={handleSearch}>
