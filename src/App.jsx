@@ -43,7 +43,6 @@ function App() {
               <Route path="/men" element={<MenPage />} />
               <Route path="/women" element={<WomenPage />} />
               <Route path="/kids" element={<KidsPage />} />
-              <Route path="/electronics" element={<CategoryPage />} />
               <Route path="/jewelry" element={<CategoryPage />} />
 
               {/* Search Routes */}
