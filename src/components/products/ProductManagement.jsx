@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Plus, Edit, Trash2, Upload, LinkIcon, X, Save } from "lucide-react"
-import { addCustomProduct, updateCustomProduct, deleteCustomProduct, selectCustomProducts }  from "../../store/productSlice"
 import productService from "../../services/productService"
 import "./ProductManagement.css"
 
 const ProductManagement = () => {
   const dispatch = useDispatch()
-  const customProducts = useSelector(selectCustomProducts)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null)
   const [imagePreview, setImagePreview] = useState("")
   const [imageUploadMethod, setImageUploadMethod] = useState("url") // 'url' or 'file'
+  const [customProducts, setCustomProducts] = useState([])
 
   const [formData, setFormData] = useState({
     name: "",
@@ -31,6 +30,10 @@ const ProductManagement = () => {
   ]
 
   useEffect(() => {
+    loadCustomProducts()
+  }, [])
+
+  useEffect(() => {
     if (editingProduct) {
       setFormData({
         name: editingProduct.name || editingProduct.title || "",
@@ -44,6 +47,11 @@ const ProductManagement = () => {
       setImagePreview(editingProduct.image || "")
     }
   }, [editingProduct])
+
+  const loadCustomProducts = () => {
+    const products = productService.getCustomProducts()
+    setCustomProducts(products)
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -73,28 +81,34 @@ const ProductManagement = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const productData = {
       ...formData,
-      title: formData.name,
+      title: formData.name, 
       price: Number.parseFloat(formData.price),
       stockQuantity: Number.parseInt(formData.stockQuantity) || 0,
       sizes: formData.sizes ? formData.sizes.split(",").map((size) => size.trim()) : [],
       id: editingProduct ? editingProduct.id : Date.now(),
       inStock: true,
-      images: [formData.image, formData.image, formData.image], // Create array for consistency
+      images: [formData.image, formData.image, formData.image],
     }
 
-    if (editingProduct) {
-      dispatch(updateCustomProduct(productData))
-    } else {
-      dispatch(addCustomProduct(productData))
+    try {
+      if (editingProduct) {
+        await productService.updateCustomProduct(productData)
+      } else {
+        await productService.createCustomProduct(productData)
+      }
+      
+      loadCustomProducts()
+      resetForm()
+      setIsModalOpen(false)
+      alert(editingProduct ? "Product updated successfully!" : "Product added successfully!")
+    } catch (error) {
+      alert("Error saving product: " + error.message)
     }
-
-    resetForm()
-    setIsModalOpen(false)
   }
 
   const handleEdit = (product) => {
@@ -102,9 +116,15 @@ const ProductManagement = () => {
     setIsModalOpen(true)
   }
 
-  const handleDelete = (productId) => {
+  const handleDelete = async (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
-      dispatch(deleteCustomProduct(productId))
+      try {
+        await productService.deleteCustomProduct(productId)
+        loadCustomProducts()
+        alert("Product deleted successfully!")
+      } catch (error) {
+        alert("Error deleting product: " + error.message)
+      }
     }
   }
 
