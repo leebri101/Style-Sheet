@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux"
 import { fetchProducts } from "../../store/productSlice"
 import productService from "../../services/productService"
 import "./ProductManagement.css"
-import { use } from "react"
 
 const ProductManagement = () => {
     const dispatch = useDispatch()
@@ -50,11 +49,11 @@ const ProductManagement = () => {
                 }))
                 setImagePreview(imageUrl)
             }
-            reader,readAsDataURL(file)
+            reader.readAsDataURL(file)
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const productData = {
@@ -153,7 +152,7 @@ const ProductManagement = () => {
                                     <button className="edit-btn" onClick={() => handleEdit(product)}>
                                     Edit
                                     </button>
-                                    <button onCLick={() => handleDelete(product.id)} className="delete-btn">
+                                    <button onClick={() => handleDelete(product.id)} className="delete-btn">
                                         Delete
                                     </button>
                                 </div>
@@ -174,7 +173,7 @@ const ProductManagement = () => {
                         </div>
 
                         <form onSubmit={handleSubmit} className="product-form">
-                            <div className="form-Row">
+                            <div className="form-row">
                                 <div className="form-group">
                                     <label>Product Name:</label>
                                     <input
@@ -223,8 +222,8 @@ const ProductManagement = () => {
                                     <input
                                     type="url"
                                     name="image"
-                                    vale={formData.image}
-                                    onChange={handleInputChange}
+                                    value={formData.image}
+                                    onChange={handleImageChange}
                                     placeholder="Or enter image URL"
                                     />
                                     {imagePreview && (
@@ -260,7 +259,7 @@ const ProductManagement = () => {
                                         Cancel
                                     </button>
                                     <button type="submit" className="submit-btn">
-                                        {editing ? "Update Product" : "Add Product"}
+                                        {editingProduct ? "Update Product" : "Add Product"}
                                     </button>
                                 </div>
                             </div>
