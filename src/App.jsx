@@ -18,6 +18,7 @@ import ProfilePage from "./components/user/ProfilePage";
 import LogoutPage from "./components/user/LogoutPage";
 import ForgotPasswordPage from "./components/user/ForgotPasswordPage";
 import ResetPasswordPage from "./components/user/ResetPasswordPage";
+import ProductManagement from "./components/products/ProductManagement";
 import MockApiInitializer from "./components/layout/MockApiInitializer";
 import "./App.css";
 
@@ -34,7 +35,9 @@ function App() {
 
               {/* Product Routes */}
               <Route path="/product/:id" element={<ProductPage />} />
-
+              {/* Product Management Route */}
+              <Route path="/admin/products" element={<ProductManagement />} />
+              
               {/* Category Routes - Updated for FakeStore API categories */}
               <Route path="/category/:category" element={<CategoryPage />} />
               <Route path="/men" element={<MenPage />} />
