@@ -54,6 +54,7 @@ a:hover {
 }
 
 body {
+  display: flex;
   min-height: 100vh;
   background-color: #f8fafc;
 }
