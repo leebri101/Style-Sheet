@@ -14,7 +14,6 @@ const RegistrationForm = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    agreeToTerms: false,
   })
   const [errors, setErrors] = useState({})
 
@@ -36,7 +35,6 @@ const RegistrationForm = () => {
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match"
     }
-    if (!formData.agreeToTerms) newErrors.agreeToTerms = "You must agree to the terms"
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -117,24 +115,6 @@ const RegistrationForm = () => {
           />
           {errors.confirmPassword && <span className="form-error">{errors.confirmPassword}</span>}
         </div>
-
-        <div className="form-group checkbox-group">
-          <input
-            type="checkbox"
-            name="agreeToTerms"
-            checked={formData.agreeToTerms}
-            onChange={handleChange}
-            className="form-checkbox"
-          />
-          <label className="checkbox-label">
-            I agree to the{" "}
-            <a href="/terms" className="terms-link">
-              Terms and Conditions
-            </a>
-          </label>
-          {errors.agreeToTerms && <span className="form-error">{errors.agreeToTerms}</span>}
-        </div>
-
         <button type="submit" className="registration-button">
           Create Account
         </button>
