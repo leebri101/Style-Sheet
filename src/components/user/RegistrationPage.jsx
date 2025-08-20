@@ -6,134 +6,138 @@ import './RegistrationPage.css';
 
 // Register component for user registration
 const RegistrationForm = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
+    agreeToTerms: false,
   })
   const [errors, setErrors] = useState({})
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-    // Clear error when user starts typing
-    if (errors[e.target.name]) {
-      setErrors({
-        ...errors,
-        [e.target.name]: "",
-      })
-    }
+    const { name, value, type, checked } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }))
   }
 
   const validateForm = () => {
     const newErrors = {}
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required"
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password is required"
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters"
-    }
-
+    if (!formData.firstName) newErrors.firstName = "First name is required"
+    if (!formData.lastName) newErrors.lastName = "Last name is required"
+    if (!formData.email) newErrors.email = "Email is required"
+    if (!formData.password) newErrors.password = "Password is required"
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match"
     }
+    if (!formData.agreeToTerms) newErrors.agreeToTerms = "You must agree to the terms"
 
-    return newErrors
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newErrors = validateForm()
-
-    if (Object.keys(newErrors).length === 0) {
-      // Simulate successful registration
-      const userData = {
-        id: Date.now(),
-        name: formData.name,
-        email: formData.email,
-      }
-
-      dispatch(loginUser(userData))
+    if (validateForm()) {
+      dispatch(
+        login({
+          id: Date.now(),
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+        }),
+      )
       navigate("/")
-    } else {
-      setErrors(newErrors)
     }
   }
-  // Render the registration form
+
   return (
     <div className="registration-form-container">
-      <form onSubmit={handleSubmit} className="registration-form">
-        <h2>Create Account</h2>
+      <form className="registration-form" onSubmit={handleSubmit}>
+        <h2 className="registration-title">Create Account</h2>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label className="form-label">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              className="form-input"
+            />
+            {errors.firstName && <span className="form-error">{errors.firstName}</span>}
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              className="form-input"
+            />
+            {errors.lastName && <span className="form-error">{errors.lastName}</span>}
+          </div>
+        </div>
 
         <div className="form-group">
-          <label htmlFor="name">Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={errors.name ? "error" : ""}
-          />
-          {errors.name && <span className="error-message">{errors.name}</span>}
+          <label className="form-label">Email</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-input" />
+          {errors.email && <span className="form-error">{errors.email}</span>}
         </div>
+
         <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? "error" : ""}
-          />
-          {errors.email && <span className="error-message">{errors.email}</span>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label className="form-label">Password</label>
           <input
             type="password"
-            id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className={errors.password ? "error" : ""}
+            className="form-input"
           />
-          {errors.password && <span className="error-message">{errors.password}</span>}
+          {errors.password && <span className="form-error">{errors.password}</span>}
         </div>
+
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+          <label className="form-label">Confirm Password</label>
           <input
             type="password"
-            id="confirmPassword"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className={errors.confirmPassword ? "error" : ""}
+            className="form-input"
           />
-          {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
+          {errors.confirmPassword && <span className="form-error">{errors.confirmPassword}</span>}
         </div>
-        <button type="submit" className="register-button">
+
+        <div className="form-group checkbox-group">
+          <input
+            type="checkbox"
+            name="agreeToTerms"
+            checked={formData.agreeToTerms}
+            onChange={handleChange}
+            className="form-checkbox"
+          />
+          <label className="checkbox-label">
+            I agree to the{" "}
+            <a href="/terms" className="terms-link">
+              Terms and Conditions
+            </a>
+          </label>
+          {errors.agreeToTerms && <span className="form-error">{errors.agreeToTerms}</span>}
+        </div>
+
+        <button type="submit" className="registration-button">
           Create Account
         </button>
-        <div className="registration-form-login-link">
-          Already have an account? <Link to="/login">Sign in</Link>
-        </div>
       </form>
     </div>
   )
