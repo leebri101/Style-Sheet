@@ -111,11 +111,13 @@ class ProductService {
   // Get all products with optional filtering
   async getAllProducts(filters = {}) {
     try {
+      const customProducts = this.getCustomProducts()
       const products = await fakeStoreFetch("/products")
       const transformedProducts = products.map(transformFakeStoreProduct)
 
-      // Apply client-side filtering if needed
-      let filteredProducts = transformedProducts
+      const allProducts = [...transformedProducts, ...customProducts]
+
+      let filteredProducts = allProducts
 
       if (filters.category) {
         filteredProducts = filteredProducts.filter(
@@ -135,24 +137,33 @@ class ProductService {
         filteredProducts = filteredProducts.filter((product) => product.inStock)
       }
 
-      console.log("✅ Products fetched and transformed from FakeStore API:", filteredProducts.length)
+      console.log("✅ Products fetched and transformed (including custom):", filteredProducts.length)
       return filteredProducts
     } catch (error) {
       console.error("❌ Failed to fetch products:", error)
-      throw new Error("Unable to fetch products from FakeStore API")
+      throw new Error("Unable to fetch products")
     }
   }
 
   // Get product by ID
   async getProductById(id) {
     try {
+      if (id.toString().startsWith("custom_")) {
+        const customProducts = this.getCustomProducts()
+        const customProduct = customProducts.find((p) => p.id === id)
+        if (customProduct) {
+          console.log("✅ Custom product fetched:", customProduct.name)
+          return customProduct
+        }
+      }
+
       const product = await fakeStoreFetch(`/products/${id}`)
       const transformedProduct = transformFakeStoreProduct(product)
       console.log("✅ Product fetched from FakeStore API:", transformedProduct.name)
       return transformedProduct
     } catch (error) {
       console.error(`❌ Failed to fetch product ${id}:`, error)
-      throw new Error(`Unable to fetch product ${id} from FakeStore API`)
+      throw new Error(`Unable to fetch product ${id}`)
     }
   }
 
@@ -161,8 +172,14 @@ class ProductService {
     try {
       const products = await fakeStoreFetch(`/products/category/${encodeURIComponent(category)}`)
       const transformedProducts = products.map(transformFakeStoreProduct)
-      console.log(`✅ ${category} products fetched from FakeStore API:`, transformedProducts.length)
-      return transformedProducts
+
+      const customProducts = this.getCustomProducts()
+      const customCategoryProducts = customProducts.filter((p) => p.category.toLowerCase() === category.toLowerCase())
+
+      const filteredProducts = [...transformedProducts, ...customCategoryProducts]
+
+      console.log(`✅ ${category} products fetched from FakeStore API:`, filteredProducts.length)
+      return filteredProducts
     } catch (error) {
       console.error(`❌ Failed to fetch products for category ${category}:`, error)
       throw new Error(`Unable to fetch products for category ${category} from FakeStore API`)
@@ -172,20 +189,26 @@ class ProductService {
   // Search products (client-side implementation)
   async searchProducts(searchTerm, filters = {}) {
     try {
-      // Get all products and perform client-side search
+      const customProducts = this.getCustomProducts()
       const allProducts = await fakeStoreFetch("/products")
       const transformedProducts = allProducts.map(transformFakeStoreProduct)
 
-      // Perform search across multiple fields
-      const searchResults = transformedProducts.filter((product) => {
-        const searchFields = [product.name, product.description, product.category, product.brand, ...product.tags]
+      const combinedProducts = [...transformedProducts, ...customProducts]
+
+      const searchResults = combinedProducts.filter((product) => {
+        const searchFields = [
+          product.name,
+          product.description,
+          product.category,
+          product.brand,
+          ...(product.tags || []),
+        ]
           .join(" ")
           .toLowerCase()
 
         return searchFields.includes(searchTerm.toLowerCase())
       })
 
-      // Apply additional filters
       let filteredResults = searchResults
 
       if (filters.category) {
@@ -202,11 +225,11 @@ class ProductService {
         filteredResults = filteredResults.filter((product) => product.price <= filters.maxPrice)
       }
 
-      console.log(`✅ Found ${filteredResults.length} products for "${searchTerm}" in FakeStore API`)
+      console.log(`✅ Found ${filteredResults.length} products for "${searchTerm}" (including custom)`)
       return filteredResults
     } catch (error) {
       console.error(`❌ Search failed for "${searchTerm}":`, error)
-      throw new Error(`Unable to search for "${searchTerm}" in FakeStore API`)
+      throw new Error(`Unable to search for "${searchTerm}"`)
     }
   }
 
@@ -216,13 +239,16 @@ class ProductService {
       const categories = await fakeStoreFetch("/products/categories")
       const transformedCategories = categories.map(transformFakeStoreCategory)
 
-      // Get product counts for each category
       const allProducts = await fakeStoreFetch("/products")
+      const customProducts = this.getCustomProducts()
       transformedCategories.forEach((category) => {
         const categoryProducts = allProducts.filter(
           (product) => product.category.toLowerCase() === category.name.toLowerCase().replace("'s", "'s"),
         )
-        category.productCount = categoryProducts.length
+        const customCategoryProducts = customProducts.filter(
+          (p) => p.category.toLowerCase() === category.name.toLowerCase(),
+        )
+        category.productCount = categoryProducts.length + customCategoryProducts.length
       })
 
       console.log("✅ Categories fetched from FakeStore API:", transformedCategories.length)
@@ -236,12 +262,11 @@ class ProductService {
   // Get featured products
   async getFeaturedProducts() {
     try {
-      // Get all products and select featured ones
       const allProducts = await fakeStoreFetch("/products")
       const transformedProducts = allProducts.map(transformFakeStoreProduct)
 
-      // Get products with high ratings as featured
-      const featuredProducts = transformedProducts
+      const customProducts = this.getCustomProducts()
+      const featuredProducts = [...transformedProducts, ...customProducts]
         .filter((product) => product.rating.rate >= 4.0)
         .sort((a, b) => b.rating.rate - a.rating.rate)
         .slice(0, 6)
@@ -312,6 +337,99 @@ class ProductService {
   async deleteProduct(id) {
     throw new Error("Product deletion is not supported by FakeStore API")
   }
+
+  // **NEW CODE: Custom Product Management**
+  // Local storage key for custom products
+  static CUSTOM_PRODUCTS_KEY = "ecommerce_custom_products"
+
+  // Get custom products from localStorage
+  getCustomProducts() {
+    try {
+      const customProducts = localStorage.getItem(ProductService.CUSTOM_PRODUCTS_KEY)
+      return customProducts ? JSON.parse(customProducts) : []
+    } catch (error) {
+      console.error("❌ Failed to get custom products:", error)
+      return []
+    }
+  }
+
+  // Save custom products to localStorage
+  saveCustomProducts(products) {
+    try {
+      localStorage.setItem(ProductService.CUSTOM_PRODUCTS_KEY, JSON.stringify(products))
+      console.log("✅ Custom products saved to localStorage")
+    } catch (error) {
+      console.error("❌ Failed to save custom products:", error)
+      throw new Error("Unable to save custom products")
+    }
+  }
+
+  // Add custom product
+  async addCustomProduct(productData) {
+    try {
+      const customProducts = this.getCustomProducts()
+      const newProduct = {
+        id: `custom_${Date.now()}`,
+        ...productData,
+        isCustom: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+
+      customProducts.push(newProduct)
+      this.saveCustomProducts(customProducts)
+
+      console.log("✅ Custom product added:", newProduct.name)
+      return newProduct
+    } catch (error) {
+      console.error("❌ Failed to add custom product:", error)
+      throw new Error("Unable to add custom product")
+    }
+  }
+
+  // Update custom product
+  async updateCustomProduct(id, productData) {
+    try {
+      const customProducts = this.getCustomProducts()
+      const productIndex = customProducts.findIndex((p) => p.id === id)
+
+      if (productIndex === -1) {
+        throw new Error("Custom product not found")
+      }
+
+      customProducts[productIndex] = {
+        ...customProducts[productIndex],
+        ...productData,
+        updatedAt: new Date().toISOString(),
+      }
+
+      this.saveCustomProducts(customProducts)
+      console.log("✅ Custom product updated:", customProducts[productIndex].name)
+      return customProducts[productIndex]
+    } catch (error) {
+      console.error("❌ Failed to update custom product:", error)
+      throw new Error("Unable to update custom product")
+    }
+  }
+
+  // Delete custom product
+  async deleteCustomProduct(id) {
+    try {
+      const customProducts = this.getCustomProducts()
+      const filteredProducts = customProducts.filter((p) => p.id !== id)
+
+      if (filteredProducts.length === customProducts.length) {
+        throw new Error("Custom product not found")
+      }
+
+      this.saveCustomProducts(filteredProducts)
+      console.log("✅ Custom product deleted:", id)
+      return true
+    } catch (error) {
+      console.error("❌ Failed to delete custom product:", error)
+      throw new Error("Unable to delete custom product")
+    }
+  }
 }
 
 // Export singleton instance
@@ -332,4 +450,8 @@ export const {
   createProduct,
   updateProduct,
   deleteProduct,
+  addCustomProduct,
+  updateCustomProduct,
+  deleteCustomProduct,
+  getCustomProducts,
 } = productService
