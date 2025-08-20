@@ -16,20 +16,6 @@
   flex: 1;
 }
 
-.admin-link {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white !important;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.admin-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
 .header-logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -223,6 +209,46 @@
 .mobile-search-button:hover {
   background-color: #374151;
 }
+
+/* Admin Link Styles** */
+.admin-link {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  border-radius: 6px;
+  padding: 8px 16px !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.admin-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+}
+
+.mobile-nav-link.admin-link {
+  margin-top: 8px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.desktop-nav .admin-link {
+  margin-left: 12px;
+}
+
+/* Admin link responsive adjustments */
+@media (max-width: 768px) {
+  .mobile-nav-link.admin-link {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 8px 0;
+  }
+}
+
 
 @media (min-width: 1024px) {
   .mobile-menu-button-container {
