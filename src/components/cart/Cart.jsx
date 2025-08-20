@@ -3,7 +3,8 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Dialog, DialogPanel, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import { ShoppingCart, Trash2, Plus, Minus, X } from "lucide-react";
 import { 
   removeFromCart, 
@@ -16,11 +17,12 @@ import {
 } from "../../store/cartSlice.js";
 import "./Cart.css";
 
+
 const Cart = () => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
-  const totalAmount = useSelector(selectCartTotalAmount);
-  const isOpen = useSelector(selectCartIsOpen);
+  const dispatch = useDispatch()
+  const cartItems = useSelector(selectCartItems)
+  const totalAmount = useSelector(selectCartTotalAmount)
+  const isOpen = useSelector(selectCartIsOpen)
 
   const handleRemoveItem = (item) => {
     dispatch(
@@ -29,12 +31,12 @@ const Cart = () => {
         size: item.size,
         color: item.color,
       }),
-    );
-  };
+    )
+  }
 
   const handleUpdateQuantity = (item, newQuantity) => {
     if (newQuantity <= 0) {
-      handleRemoveItem(item);
+      handleRemoveItem(item)
     } else {
       dispatch(
         updateQuantity({
@@ -43,17 +45,17 @@ const Cart = () => {
           color: item.color,
           quantity: newQuantity,
         }),
-      );
+      )
     }
-  };
+  }
 
   const handleClearCart = () => {
-    dispatch(clearCart());
-  };
+    dispatch(clearCart())
+  }
 
   const handleCheckout = () => {
-    alert("Checkout functionality coming soon!");
-  };
+    alert("Checkout functionality coming soon!")
+  }
 
   return (
     <Transition show={isOpen} as={Fragment}>
@@ -86,7 +88,7 @@ const Cart = () => {
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
-                        <h2 className="text-lg font-medium text-gray-900">Shopping Cart</h2>
+                        <Dialog className="text-lg font-medium text-gray-900">Shopping Cart</Dialog>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
@@ -129,7 +131,7 @@ const Cart = () => {
                                     <div>
                                       <div className="flex justify-between text-base font-medium text-gray-900">
                                         <h3>{item.name}</h3>
-                                        <p className="ml-4">£{(item.price * item.quantity).toFixed(2)}</p>
+                                        <p className="ml-4">£{item.price.toFixed(2)}</p>
                                       </div>
                                       <p className="mt-1 text-sm text-gray-500">
                                         Size: {item.size} | Color: {item.color}
@@ -218,7 +220,7 @@ const Cart = () => {
         </div>
       </Dialog>
     </Transition>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart
