@@ -1,237 +1,364 @@
 .kids-page {
   min-height: 100vh;
-  background-color: #f9fafb;
-  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 2rem 1rem;
 }
 
 .kids-page-content {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
-.kids-page-title {
-  font-size: 1.875rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 2rem;
+.kids-page-header {
   text-align: center;
+  margin-bottom: 3rem;
+}
+
+.kids-page-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.kids-page-subtitle {
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Kids Carousel Styles */
 .kids-carousel {
   margin-bottom: 4rem;
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #f59e0b 100%);
+  border-radius: 1.5rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
 }
 
-.kids-carousel .carousel-container {
+.kids-carousel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+    repeat;
+  pointer-events: none;
+}
+
+.carousel-container {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.kids-carousel .carousel-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111827;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.kids-carousel .carousel-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.kids-carousel .carousel-content {
-  flex: 1;
-  overflow: hidden;
-  border-radius: 0.75rem;
-}
-
-.kids-carousel .carousel-slide {
-  display: none;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.kids-carousel .carousel-slide.active {
-  display: block;
-}
-
-.kids-carousel .carousel-slide-content {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  background: white;
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.kids-carousel .carousel-image-container {
-  position: relative;
-  flex-shrink: 0;
-  width: 250px;
-  height: 250px;
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
-
-.kids-carousel .carousel-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.kids-carousel .discount-badge {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  background-color: #f59e0b;
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 600;
   z-index: 1;
 }
 
-.kids-carousel .carousel-details {
+.carousel-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.carousel-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-subtitle {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.carousel-content {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.carousel-slide {
+  display: none;
+  animation: slideIn 0.6s ease-in-out;
+}
+
+.carousel-slide.active {
+  display: block;
+}
+
+.carousel-slide-content {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  background: white;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-image-container {
+  position: relative;
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-image-container:hover .carousel-image {
+  transform: scale(1.05);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  z-index: 2;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.wishlist-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wishlist-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.wishlist-button.active {
+  color: #ef4444;
+}
+
+.carousel-details {
   flex: 1;
 }
 
-.kids-carousel .carousel-product-title {
-  font-size: 1.5rem;
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.rating-text {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.carousel-product-title {
+  font-size: 1.75rem;
   font-weight: 700;
   color: #111827;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.kids-carousel .carousel-product-description {
+.carousel-product-description {
   color: #6b7280;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   line-height: 1.6;
+  font-size: 1.1rem;
 }
 
-.kids-carousel .carousel-price-container {
-  margin-bottom: 1rem;
+.product-options {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.kids-carousel .carousel-original-price {
+.size-selector,
+.color-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.size-selector label,
+.color-selector label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.size-selector select,
+.color-selector select {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: white;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.size-selector select:focus,
+.color-selector select:focus {
+  outline: none;
+  border-color: #f59e0b;
+}
+
+.carousel-price-container {
+  margin-bottom: 2rem;
+}
+
+.carousel-original-price {
   text-decoration: line-through;
   color: #9ca3af;
-  margin-right: 0.75rem;
-  font-size: 1rem;
+  margin-right: 1rem;
+  font-size: 1.1rem;
 }
 
-.kids-carousel .carousel-discounted-price {
-  font-size: 1.25rem;
+.carousel-discounted-price {
+  font-size: 1.5rem;
   font-weight: 700;
   color: #f59e0b;
 }
 
-.kids-carousel .carousel-actions {
+.carousel-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.carousel-add-to-cart {
+  background: linear-gradient(135deg, #111827 0%, #374151 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-add-to-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-arrow {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-arrow:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  transform: scale(1.05);
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.carousel-dots {
   display: flex;
   gap: 0.75rem;
 }
 
-.kids-carousel .carousel-add-to-cart {
-  background-color: #111827;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.kids-carousel .carousel-add-to-cart:hover {
-  background-color: #374151;
-}
-
-.kids-carousel .carousel-add-to-wishlist {
-  background-color: white;
-  color: #f59e0b;
-  border: 2px solid #f59e0b;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.kids-carousel .carousel-add-to-wishlist:hover {
-  background-color: #f59e0b;
-  color: white;
-}
-
-.kids-carousel .carousel-arrow {
-  background-color: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #374151;
-  transition: all 0.2s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.kids-carousel .carousel-arrow:hover {
-  background-color: #f3f4f6;
-  border-color: #d1d5db;
-}
-
-.kids-carousel .carousel-controls {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-.kids-carousel .carousel-dots {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.kids-carousel .carousel-dot {
-  width: 0.75rem;
-  height: 0.75rem;
+.carousel-dot {
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   border: none;
-  background-color: #d1d5db;
+  background-color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
-.kids-carousel .carousel-dot.active {
-  background-color: #f59e0b;
+.carousel-dot.active {
+  background-color: white;
+  transform: scale(1.2);
 }
 
 .kids-products-grid {
-  margin-top: 3rem;
+  margin-top: 4rem;
+}
+
+.grid-header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .grid-title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #111827;
-  margin-bottom: 2rem;
-  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
-@keyframes fadeIn {
+.grid-subtitle {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+@keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(30px);
   }
   to {
     opacity: 1;
@@ -239,25 +366,72 @@
   }
 }
 
-@media (max-width: 768px) {
-  .kids-carousel .carousel-slide-content {
+@media (max-width: 1024px) {
+  .carousel-slide-content {
     flex-direction: column;
     text-align: center;
+    gap: 2rem;
   }
 
-  .kids-carousel .carousel-image-container {
-    width: 200px;
-    height: 200px;
+  .carousel-image-container {
+    width: 250px;
+    height: 250px;
   }
 
-  .kids-carousel .carousel-wrapper {
+  .product-options {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .kids-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .kids-page-title {
+    font-size: 2.5rem;
+  }
+
+  .kids-carousel {
+    padding: 2rem 1rem;
+  }
+
+  .carousel-wrapper {
     flex-direction: column;
     gap: 1rem;
   }
 
-  .kids-carousel .carousel-arrow {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1rem;
+  .carousel-arrow {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .carousel-image-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .product-options {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .kids-page-title {
+    font-size: 2rem;
+  }
+
+  .carousel-title {
+    font-size: 1.5rem;
+  }
+
+  .carousel-slide-content {
+    padding: 1.5rem;
+  }
+
+  .carousel-image-container {
+    width: 180px;
+    height: 180px;
   }
 }
