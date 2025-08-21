@@ -15,7 +15,7 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
 
   // Use props products if provided, otherwise use store products
   const products = propProducts || storeProducts;
-  const loading = propLoading || status === "loading";
+  const loading = propLoading !== undefined ? propLoading : status === "loading";
 
   useEffect(() => {
     // Only fetch products if we're using store products and they haven't been loaded
@@ -26,6 +26,7 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
 
   const handleWishlist = (e, product) => {
     e.preventDefault(); // Prevent navigation to product detail
+    e.stopPropagation(); // Prevent event bubbling
 
     // Don't add coming soon items to wishlist
     if (product.comingSoon || product.price === null) {
@@ -37,8 +38,35 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
     if (isInWishlist) {
       dispatch(removeFromWishlist(product.id));
     } else {
-      dispatch(addToWishlist(product));
+      // Ensure we have the required fields for wishlist
+      const wishlistItem = {
+        id: product.id,
+        name: product.name || product.title,
+        price: product.price,
+        image: product.image || product.imageUrl,
+        category: product.category,
+      };
+      dispatch(addToWishlist(wishlistItem));
     }
+  };
+
+  const renderRatingStars = (rating) => {
+    if (!rating || !rating.rate) return null;
+    
+    const stars = [];
+    const fullStars = Math.floor(rating.rate);
+    const hasHalfStar = rating.rate % 1 !== 0;
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars.push("★");
+      } else if (i === fullStars && hasHalfStar) {
+        stars.push("☆");
+      } else {
+        stars.push("☆");
+      }
+    }
+    return stars.join("");
   };
 
   if (loading) {
@@ -50,12 +78,25 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
     );
   }
 
-  if (error) {
-    return <div className="product-grid-error">Error loading products: {error}</div>;
+  if (error && !products?.length) {
+    return (
+      <div className="product-grid-error">
+        <h3>Error loading products</h3>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()} className="retry-btn">
+          Try Again
+        </button>
+      </div>
+    );
   }
 
   if (!products?.length) {
-    return <div className="product-grid-empty">No products found.</div>;
+    return (
+      <div className="product-grid-empty">
+        <h3>No products found</h3>
+        <p>Try adjusting your search or check back later for new arrivals.</p>
+      </div>
+    );
   }
 
   return (
@@ -63,6 +104,8 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
       {products.map((product) => {
         const isInWishlist = wishlistItems.some((item) => item.id === product.id);
         const isComingSoon = product.comingSoon || product.price === null;
+        const productName = product.name || product.title;
+        const productImage = product.image || product.imageUrl;
 
         return (
           <div key={product.id} className={`product-card ${isComingSoon ? "coming-soon-card" : ""}`}>
@@ -75,6 +118,22 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
               onClick={isComingSoon ? (e) => e.preventDefault() : undefined}
             >
               <div className="product-image-container">
+                <img
+                  src={productImage || "/placeholder.svg"}
+                  alt={productName}
+                  className="product-image"
+                  onError={(e) => {
+                    e.target.src = "/placeholder.svg";
+                  }}
+                />
+                
+                {/* Coming Soon Overlay */}
+                {isComingSoon && (
+                  <div className="coming-soon-overlay">
+                    <span>Coming Soon</span>
+                  </div>
+                )}
+
                 {/* Wishlist Button */}
                 <button
                   className={`wishlist-icon-button ${isInWishlist ? "in-wishlist" : ""} ${isComingSoon ? "disabled" : ""}`}
@@ -87,7 +146,9 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
               </div>
 
               <div className="product-details">
-                <h3 className="product-name">{product.name}</h3>
+                <h3 className="product-name" title={productName}>
+                  {productName}
+                </h3>
 
                 {/* Price Display */}
                 {product.price !== null && !isComingSoon ? (
@@ -98,9 +159,32 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
 
                 {/* Category */}
                 {product.category && (
-                  <p className="product-category">
-                    <span className={`category-tag ${isComingSoon ? "coming-soon-tag" : ""}`}>{product.category}</span>
-                  </p>
+                  <div className="product-category">
+                    <span className={`category-tag ${isComingSoon ? "coming-soon-tag" : ""}`}>
+                      {product.category}
+                    </span>
+                  </div>
+                )}
+
+                {/* Rating */}
+                {product.rating && product.rating.rate && !isComingSoon && (
+                  <div className="product-rating">
+                    <div className="rating-stars">
+                      {renderRatingStars(product.rating)}
+                    </div>
+                    <span className="rating-count">({product.rating.count})</span>
+                  </div>
+                )}
+
+                {/* Stock Status */}
+                {product.stockQuantity !== undefined && !isComingSoon && (
+                  <div className="stock-status">
+                    {product.stockQuantity > 0 ? (
+                      <span className="in-stock">In Stock ({product.stockQuantity})</span>
+                    ) : (
+                      <span className="out-of-stock">Out of Stock</span>
+                    )}
+                  </div>
                 )}
               </div>
             </Link>
@@ -115,7 +199,8 @@ ProductGrid.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      name: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      title: PropTypes.string,
       price: PropTypes.number,
       image: PropTypes.string,
       imageUrl: PropTypes.string,
@@ -124,7 +209,8 @@ ProductGrid.propTypes = {
       rating: PropTypes.shape({
         rate: PropTypes.number,
         count: PropTypes.number
-      })
+      }),
+      stockQuantity: PropTypes.number
     })
   ),
   loading: PropTypes.bool
