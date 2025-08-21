@@ -9,7 +9,7 @@
 .header-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 1rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -52,8 +52,8 @@
 
 .header-links {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  align-items:safe;
+  gap: 0.25rem;
 }
 
 .header-link {
