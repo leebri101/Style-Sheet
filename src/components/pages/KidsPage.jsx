@@ -254,7 +254,7 @@ const KidsPage = () => {
 
         <div className="kids-products-grid">
           <div className="grid-header">
-            <h2 className="grid-title">More Kids' Clothing</h2>
+            <h2 className="grid-title">More Kids Clothing</h2>
           </div>
           <ProductGrid products={gridProducts} />
         </div>
