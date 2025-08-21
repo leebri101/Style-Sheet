@@ -26,6 +26,7 @@ const Header = () => {
     if (searchTerm.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`)
       setSearchTerm("")
+      setIsMobileMenuOpen(false)
     }
   }
 
@@ -53,10 +54,10 @@ const Header = () => {
         <div className="mobile-menu-button-container">
           <button
             className="mobile-menu-button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => setIsMobileMenuOpen(true)}
             aria-label="Toggle Menu"
           >
-            {isMobileMenuOpen ? <X className="menu-icon" /> : <Menu className="menu-icon" />}
+            <Menu className="menu-icon" />
           </button>
         </div>
         {/*Desktop Navigation*/}
@@ -111,12 +112,12 @@ const Header = () => {
           )}
         </div>
         {/*Mobile Menu Dialog*/}
-        <Dialog open={isMobileMenuOpen} onClose={setIsMobileMenuOpen}>
-          <div className="mobile-menu-backdrop" aria-hidden="true">
-            <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+        <Dialog open={isMobileMenuOpen} onClose={setIsMobileMenuOpen} className="relative z-50">
+          <div className="mobile-menu-backdrop">
+            <div className="mobile-menu-dialog">
               <DialogPanel className="mobile-menu-panel">
                 <div className="mobile-menu-header">
-                  <Link to="/" className="header-logo">
+                  <Link to="/" className="header-logo" onClick={() => setIsMobileMenuOpen(false)}>
                     STYLE-SHEET
                   </Link>
                   <button
@@ -133,7 +134,7 @@ const Header = () => {
                       Mens
                     </Link>
                     <Link to="/women" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      Women
+                      Womens
                     </Link>
                     <Link to="/kids" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
                       Kids

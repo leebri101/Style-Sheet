@@ -9,7 +9,7 @@
 .header-nav {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 1rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -52,7 +52,7 @@
 
 .header-links {
   display: flex;
-  align-items:safe;
+  align-items: center;
   gap: 0.25rem;
 }
 
@@ -70,16 +70,16 @@
   transform: translateY(-1px);
 }
 
-/* **NEW CODE: Admin Link Styling** */
+/* Fixed Admin Link Styling */
 .admin-link {
-  background: linear-gradient(135deg,  #cb8524 0%, #e37114 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
   color: white !important;
   font-weight: 600;
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
 }
 
 .admin-link:hover {
-  background: linear-gradient(135deg, #cb8524 0%, #e37114 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
 }
@@ -172,16 +172,30 @@
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.mobile-menu-dialog {
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .mobile-menu-panel {
   background: white;
   border-radius: 12px;
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 90%;
+  width: 100%;
   max-height: 80vh;
   overflow-y: auto;
+  margin-top: 2rem;
 }
 
 .mobile-menu-header {
@@ -192,6 +206,9 @@
   border-bottom: 1px solid #e5e7eb;
   background: linear-gradient(135deg, #cb8524 0%, #e37114 100%);
   border-radius: 12px 12px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .mobile-menu-header .header-logo {
@@ -206,6 +223,9 @@
   padding: 0.5rem;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mobile-menu-close-button:hover {
@@ -235,6 +255,7 @@
   text-align: left;
   cursor: pointer;
   font-size: 1rem;
+  display: block;
 }
 
 .mobile-menu-link:hover {
@@ -242,7 +263,7 @@
   color: #1f2937;
 }
 
-/* **NEW CODE: Mobile Admin Link Styling** */
+/* Fixed Mobile Admin Link Styling */
 .mobile-menu-link.admin-link {
   background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
   color: white !important;
@@ -261,6 +282,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 25px;
   padding: 0.5rem;
+  margin-top: 1rem;
 }
 
 .mobile-search-input {
@@ -297,6 +319,7 @@
 @media (max-width: 768px) {
   .header-nav {
     padding: 1rem;
+    justify-content: space-between;
   }
 
   .mobile-menu-button-container {
@@ -319,8 +342,13 @@
     padding: 0.75rem;
   }
 
+  .mobile-menu-backdrop {
+    padding: 0.5rem;
+  }
+  
   .mobile-menu-panel {
-    width: 95%;
+    width: 100%;
+    max-height: 90vh;
   }
 
   .mobile-menu-header,
