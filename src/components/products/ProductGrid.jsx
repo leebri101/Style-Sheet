@@ -118,14 +118,6 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
               onClick={isComingSoon ? (e) => e.preventDefault() : undefined}
             >
               <div className="product-image-container">
-                <img
-                  src={productImage || "/placeholder.svg"}
-                  alt={productName}
-                  className="product-image"
-                  onError={(e) => {
-                    e.target.src = "/placeholder.svg";
-                  }}
-                />
                 
                 {/* Coming Soon Overlay */}
                 {isComingSoon && (
@@ -173,17 +165,6 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
                       {renderRatingStars(product.rating)}
                     </div>
                     <span className="rating-count">({product.rating.count})</span>
-                  </div>
-                )}
-
-                {/* Stock Status */}
-                {product.stockQuantity !== undefined && !isComingSoon && (
-                  <div className="stock-status">
-                    {product.stockQuantity > 0 ? (
-                      <span className="in-stock">In Stock ({product.stockQuantity})</span>
-                    ) : (
-                      <span className="out-of-stock">Out of Stock</span>
-                    )}
                   </div>
                 )}
               </div>
