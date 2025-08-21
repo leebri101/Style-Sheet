@@ -1,53 +1,176 @@
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux"
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { ArrowLeft } from "lucide-react";
 import ProductDetails from "../products/ProductDetails";
 import ProductGrid from "../products/ProductGrid";
 import { fetchProductById, fetchProductsByCategory } from "../../store/productSlice";
 import './ProductsPage.css';
 
-
 const ProductsPage = () => {
-    const { id } = useParams()
-    const dispatch = useDispatch()
-    const {selectedProduct, items: relatedProducts, status, error } = useSelector((state) => state.products)
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { selectedProduct, items: relatedProducts, status, error } = useSelector((state) => state.products);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        dispatch(fetchProductById(id))
-    }, [id, dispatch])
+        const loadProduct = async () => {
+            setIsLoading(true);
+            try {
+                // Check if we have a valid product ID
+                if (!id) {
+                    navigate('/');
+                    return;
+                }
+
+                // Try to fetch product from API first
+                try {
+                    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+                    if (response.ok) {
+                        const productData = await response.json();
+                        
+                        // Transform API data to match our format
+                        const transformedProduct = {
+                            id: productData.id,
+                            name: productData.title,
+                            title: productData.title,
+                            price: productData.price,
+                            description: productData.description,
+                            category: productData.category,
+                            image: productData.image,
+                            imageUrl: productData.image,
+                            images: [productData.image],
+                            rating: productData.rating || { rate: 0, count: 0 },
+                            stockQuantity: Math.floor(Math.random() * 100) + 10,
+                            inStock: true,
+                            sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+                            colors: ["Black", "White", "Navy", "Gray", "Red"],
+                            brand: "Fashion Brand",
+                            tags: [productData.category],
+                        };
+
+                        // Dispatch the product to store
+                        dispatch({
+                            type: 'products/setSelectedProduct',
+                            payload: transformedProduct
+                        });
+
+                        // Fetch related products
+                        dispatch(fetchProductsByCategory(productData.category));
+                    } else {
+                        // Fallback to Redux action
+                        await dispatch(fetchProductById(id)).unwrap();
+                    }
+                } catch (apiError) {
+                    console.log('API fetch failed, trying Redux action:', apiError);
+                    // Fallback to Redux action
+                    await dispatch(fetchProductById(id)).unwrap();
+                }
+            } catch (err) {
+                console.error('Error loading product:', err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadProduct();
+    }, [id, dispatch, navigate]);
 
     useEffect(() => {
-        if(selectedProduct?.category){
-            dispatch(fetchProductsByCategory(selectedProduct.category))
+        if (selectedProduct?.category) {
+            dispatch(fetchProductsByCategory(selectedProduct.category));
         }
-    }, [selectedProduct?.category,dispatch])
+    }, [selectedProduct?.category, dispatch]);
 
-    if (status === "loading" && !selectedProduct) {
-        return <div className="product-page-loading">Loading...
-        </div>
+    const handleBackClick = () => {
+        navigate(-1); // Go back to previous page
+    };
+
+    if (isLoading || (status === "loading" && !selectedProduct)) {
+        return (
+            <div className="product-page">
+                <div className="product-page-loading">
+                    <div className="loading-spinner"></div>
+                    <p>Loading product...</p>
+                </div>
+            </div>
+        );
     }
-    if (status === "failed") {
-        return <div className="product-page-error">Error: {error}
-        </div>
+
+    if (status === "failed" && !selectedProduct) {
+        return (
+            <div className="product-page">
+                <div className="product-page-error">
+                    <h2>Error loading product</h2>
+                    <p>{error}</p>
+                    <div className="error-actions">
+                        <button onClick={handleBackClick} className="back-btn">
+                            <ArrowLeft size={20} />
+                            Go Back
+                        </button>
+                        <button onClick={() => window.location.reload()} className="retry-btn">
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
     }
+
     if (!selectedProduct) {
-        return <div className="product-page-not-found">Products not found...
-        </div>
+        return (
+            <div className="product-page">
+                <div className="product-page-not-found">
+                    <h2>Product not found</h2>
+                    <p>The product you're looking for doesn't exist or has been removed.</p>
+                    <button onClick={handleBackClick} className="back-btn">
+                        <ArrowLeft size={20} />
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        );
     }
 
-    const filteredRelatedProducts = relatedProducts.filter(product => product.id !== selectedProduct.id)
+    const filteredRelatedProducts = relatedProducts.filter(product => product.id !== selectedProduct.id);
+
     return (
         <div className="product-page">
+            {/* Back Navigation */}
+            <div className="product-page-header">
+                <button onClick={handleBackClick} className="back-btn">
+                    <ArrowLeft size={20} />
+                    Back
+                </button>
+                <nav className="breadcrumb">
+                    <span>Home</span>
+                    {selectedProduct.category && (
+                        <>
+                            <span> / </span>
+                            <span className="category-crumb">{selectedProduct.category}</span>
+                        </>
+                    )}
+                    <span> / </span>
+                    <span className="current-crumb">{selectedProduct.name || selectedProduct.title}</span>
+                </nav>
+            </div>
+
+            {/* Product Details */}
             <ProductDetails product={selectedProduct} />
+
+            {/* Related Products */}
             {filteredRelatedProducts.length > 0 && (
                 <div className="related-products">
-                    <h2 className="related-products-title">Related Products</h2>
-                    <ProductGrid products={filteredRelatedProducts} />
+                    <h2 className="related-products-title">
+                        Related Products
+                        <span className="related-count">({filteredRelatedProducts.length})</span>
+                    </h2>
+                    <ProductGrid products={filteredRelatedProducts.slice(0, 8)} loading={false} />
                 </div>
             )}
         </div>
     );
-}
+};
 
 export default ProductsPage;
-// This code defines a ProductsPage component that fetches and displays product details and related products based on the selected product's category.
