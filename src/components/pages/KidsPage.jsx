@@ -6,93 +6,6 @@ import { addToWishlist,removeFromWishlist,selectWishlistItems } from "../../stor
 import ProductGrid from "../products/ProductGrid";
 import './KidsPage.css';
 
-const kidsProducts = [
-  {
-    id: "kids-1",
-    name: "Kids' Adventure Tee",
-    price: 18.99,
-    originalPrice: 24.99,
-    discount: 24,
-    imageUrl: "/placeholder.svg?height=300&width=300&text=Kids+Adventure+Tee",
-    description: "Comfortable cotton t-shirt perfect for playground adventures",
-    category: "kids",
-    sizes: ["XS", "S", "M", "L"],
-    colors: ["Blue", "Red", "Green"],
-    rating: 4.5,
-    reviews: 128
-  },
-  {
-    id: "kids-2",
-    name: "Cozy Kids Hoodie",
-    price: 32.99,
-    originalPrice: 39.99,
-    discount: 18,
-    imageUrl: "/placeholder.svg?height=300&width=300&text=Cozy+Kids+Hoodie",
-    description: "Super soft hoodie to keep little ones warm and stylish",
-    category: "kids",
-    sizes: ["XS", "S", "M", "L"],
-    colors: ["Pink", "Gray", "Navy"],
-    rating: 4.2,
-    reviews: 87
-  },
-  {
-    id: "kids-3",
-    name: "Durable Play Jeans",
-    price: 28.99,
-    originalPrice: 34.99,
-    discount: 17,
-    imageUrl: "/placeholder.svg?height=300&width=300&text=Durable+Play+Jeans",
-    description: "Reinforced denim jeans built for active kids",
-    category: "kids",
-    sizes: ["XS", "S", "M", "L"],
-    colors: ["Blue", "Black", "Light Blue"],
-    rating: 4.3,
-    reviews: 64
-  },
-  {
-    id: "kids-4",
-    name: "Sport Sneakers",
-    price: 39.99,
-    originalPrice: 49.99,
-    discount: 20,
-    imageUrl: "/placeholder.svg?height=300&width=300&text=Sport+Sneakers",
-    description: "Lightweight sneakers perfect for running and playing",
-    category: "kids",
-    sizes: ["28", "30", "32", "34", "36"],
-    colors: ["Black", "White", "Red"],
-    rating: 4.7,
-    reviews: 142
-  },
-  {
-    id: "kids-5",
-    name: "Dreamy Pajama Set",
-    price: 22.99,
-    originalPrice: 27.99,
-    discount: 18,
-    imageUrl: "/placeholder.svg?height=300&width=300&text=Dreamy+Pajama+Set",
-    description: "Ultra-soft pajama set for the sweetest dreams",
-    category: "kids",
-    sizes: ["XS", "S", "M", "L"],
-    colors: ["Pink", "Blue", "Purple"],
-    rating: 4.8,
-    reviews: 93
-  },
-  {
-    id: "kids-6",
-    name: "School Backpack",
-    price: 24.99,
-    originalPrice: 29.99,
-    discount: 17,
-    imageUrl: "/placeholder.svg?height=300&width=300&text=School+Backpack",
-    description: "Spacious and durable backpack for school and adventures",
-    category: "kids",
-    sizes: ["One Size"],
-    colors: ["Black", "Blue", "Red"],
-    rating: 4.6,
-    reviews: 116
-  },
-]
-
 const KidsPage = () => {
   const dispatch = useDispatch()
   const wishlistItems = useSelector(selectWishlistItems)
@@ -100,6 +13,82 @@ const KidsPage = () => {
   const [selectedSize, setSelectedSize] = useState({})
   const [selectedColor, setSelectedColor] = useState({})
   const autoPlayRef = useRef(null)
+
+  // Kids clothing products with simplified format
+  const kidsProducts = [
+    {
+      name: "Kids Adventure T-Shirt",
+      price: 18.99,
+      description: "Comfortable cotton t-shirt perfect for playground adventures",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Kids+Adventure+Tee",
+      stockQuantity: 45,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
+    },
+    {
+      name: "Cozy Kids Hoodie",
+      price: 32.99,
+      description: "Super soft hoodie to keep little ones warm and stylish",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Cozy+Kids+Hoodie",
+      stockQuantity: 38,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
+    },
+    {
+      name: "Durable Play Jeans",
+      price: 28.99,
+      description: "Reinforced denim jeans built for active kids",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Durable+Play+Jeans",
+      stockQuantity: 52,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
+    },
+    {
+      name: "Kids Sport Sneakers",
+      price: 39.99,
+      description: "Lightweight sneakers perfect for running and playing",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Sport+Sneakers",
+      stockQuantity: 29,
+      sizes: ["10", "11", "12", "13", "1", "2", "3", "4", "5"],
+    },
+    {
+      name: "Dreamy Pajama Set",
+      price: 22.99,
+      description: "Ultra-soft pajama set for the sweetest dreams",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Dreamy+Pajama+Set",
+      stockQuantity: 41,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
+    },
+    {
+      name: "Kids Denim Jacket",
+      price: 35.99,
+      description: "Classic denim jacket perfect for layering",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Kids+Denim+Jacket",
+      stockQuantity: 33,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10"],
+    },
+    {
+      name: "Rainbow Stripe Dress",
+      price: 26.99,
+      description: "Colorful striped dress that's perfect for any occasion",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Rainbow+Stripe+Dress",
+      stockQuantity: 47,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
+    },
+    {
+      name: "Kids Cargo Shorts",
+      price: 19.99,
+      description: "Comfortable cargo shorts with plenty of pockets",
+      category: "kids",
+      image: "/placeholder.svg?height=300&width=300&text=Kids+Cargo+Shorts",
+      stockQuantity: 56,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
+    },
+  ]
 
   // Get featured kids products for carousel (first 4 products)
   const featuredProducts = kidsProducts.slice(0, 4)
@@ -134,42 +123,40 @@ const KidsPage = () => {
   }
 
   const handleAddToCart = (product) => {
-    const size = selectedSize[product.id] || product.sizes[0]
-    const color = selectedColor[product.id] || (product.colors ? product.colors[0] : "Default")
+    const size = selectedSize[product.name] || product.sizes[0]
 
     dispatch(
       addToCart({
-        id: product.id,
+        id: product.name,
         name: product.name,
         price: product.price,
-        image: product.imageUrl,
+        image: product.image,
         size,
-        color,
         quantity: 1,
       }),
     )
   }
 
   const handleWishlistToggle = (product) => {
-    const isInWishlist = wishlistItems.some((item) => item.id === product.id)
+    const isInWishlist = wishlistItems.some((item) => item.name === product.name)
 
     if (isInWishlist) {
-      dispatch(removeFromWishlist(product.id))
+      dispatch(removeFromWishlist(product.name))
     } else {
       dispatch(
         addToWishlist({
-          id: product.id,
+          id: product.name,
           name: product.name,
           price: product.price,
-          image: product.imageUrl,
+          image: product.image,
           category: product.category,
         }),
       )
     }
   }
 
-  const isInWishlist = (productId) => {
-    return wishlistItems.some((item) => item.id === productId)
+  const isInWishlist = (productName) => {
+    return wishlistItems.some((item) => item.name === productName)
   }
 
   return (
@@ -178,6 +165,10 @@ const KidsPage = () => {
         <div className="kids-page-header">
           <h1 className="kids-page-title">Kids' Collection</h1>
           <p className="kids-page-subtitle">Fun, comfortable, and durable clothing for active kids</p>
+          <div className="kids-stats">
+            <span className="product-count">{kidsProducts.length} products available</span>
+            <span className="age-range">Ages 2-12 years</span>
+          </div>
         </div>
 
         {/* Kids Featured Carousel */}
@@ -185,7 +176,7 @@ const KidsPage = () => {
           <div className="carousel-container">
             <div className="carousel-header">
               <h2 className="carousel-title">Featured Kids' Items</h2>
-              <p className="carousel-subtitle">Special deals on our most popular kids' products</p>
+              <p className="carousel-subtitle">Special deals on our most popular kids' clothing</p>
             </div>
 
             <div className="carousel-wrapper">
@@ -199,40 +190,19 @@ const KidsPage = () => {
 
               <div className="carousel-content">
                 {featuredProducts.map((product, index) => (
-                  <div key={product.id} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
+                  <div key={product.name} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
                     <div className="carousel-slide-content">
                       <div className="carousel-image-container">
-                        {product.discount && (
-                          <div className="discount-badge">-{product.discount}%</div>
-                        )}
                         <button
-                          className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                          className={`wishlist-button ${isInWishlist(product.name) ? "active" : ""}`}
                           onClick={() => handleWishlistToggle(product)}
                         >
-                          <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+                          <Heart size={20} fill={isInWishlist(product.name) ? "currentColor" : "none"} />
                         </button>
-                        <img
-                          src={product.imageUrl || "/placeholder.svg"}
-                          alt={product.name}
-                          className="carousel-image"
-                        />
+                        <img src={product.image || "/placeholder.svg"} alt={product.name} className="carousel-image" />
                       </div>
 
                       <div className="carousel-details">
-                        <div className="product-rating">
-                          <div className="stars">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                size={16}
-                                fill={i < Math.floor(product.rating || 0) ? "#fbbf24" : "none"}
-                                color="#fbbf24"
-                              />
-                            ))}
-                          </div>
-                          <span className="rating-text">({product.reviews || 0} reviews)</span>
-                        </div>
-
                         <h3 className="carousel-product-title">{product.name}</h3>
                         <p className="carousel-product-description">{product.description}</p>
 
@@ -240,8 +210,8 @@ const KidsPage = () => {
                           <div className="size-selector">
                             <label>Size:</label>
                             <select
-                              value={selectedSize[product.id] || product.sizes[0]}
-                              onChange={(e) => setSelectedSize((prev) => ({ ...prev, [product.id]: e.target.value }))}
+                              value={selectedSize[product.name] || product.sizes[0]}
+                              onChange={(e) => setSelectedSize((prev) => ({ ...prev, [product.name]: e.target.value }))}
                             >
                               {product.sizes.map((size) => (
                                 <option key={size} value={size}>
@@ -250,29 +220,11 @@ const KidsPage = () => {
                               ))}
                             </select>
                           </div>
-
-                          {product.colors && (
-                            <div className="color-selector">
-                              <label>Color:</label>
-                              <select
-                                value={selectedColor[product.id] || product.colors[0]}
-                                onChange={(e) => setSelectedColor((prev) => ({ ...prev, [product.id]: e.target.value }))}
-                              >
-                                {product.colors.map((color) => (
-                                  <option key={color} value={color}>
-                                    {color}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          )}
                         </div>
 
                         <div className="carousel-price-container">
-                          {product.originalPrice && (
-                            <span className="carousel-original-price">£{product.originalPrice}</span>
-                          )}
-                          <span className="carousel-discounted-price">£{product.price}</span>
+                          <span className="carousel-price">£{product.price}</span>
+                          <span className="stock-info">{product.stockQuantity} in stock</span>
                         </div>
 
                         <div className="carousel-actions">
@@ -309,8 +261,8 @@ const KidsPage = () => {
 
         <div className="kids-products-grid">
           <div className="grid-header">
-            <h2 className="grid-title">More Kids' Products</h2>
-            <p className="grid-subtitle">Discover our complete collection of kids' clothing and accessories</p>
+            <h2 className="grid-title">More Kids' Clothing</h2>
+            <p className="grid-subtitle">Discover our complete collection of kids' clothing</p>
           </div>
           <ProductGrid products={gridProducts} />
         </div>
