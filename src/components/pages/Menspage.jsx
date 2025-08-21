@@ -26,7 +26,7 @@ const MenPage = () => {
           price: 29.99,
           description: "Comfortable and stylish cotton t-shirt perfect for everyday wear",
           category: "men's clothing",
-          image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+          image: "",
           stockQuantity: 45,
           sizes: ["XS", "S", "M", "L", "XL", "XXL"],
         },
@@ -36,7 +36,7 @@ const MenPage = () => {
           price: 89.99,
           description: "Timeless denim jacket with a modern fit and premium quality",
           category: "men's clothing",
-          image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
+          image: "",
           stockQuantity: 23,
           sizes: ["S", "M", "L", "XL", "XXL"],
         },
@@ -46,7 +46,7 @@ const MenPage = () => {
           price: 59.99,
           description: "Versatile slim-fit chinos perfect for both casual and semi-formal occasions",
           category: "men's clothing",
-          image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+          image: "",
           stockQuantity: 67,
           sizes: ["28", "30", "32", "34", "36", "38"],
         },
@@ -56,7 +56,7 @@ const MenPage = () => {
           price: 45.99,
           description: "Comfortable button-down shirt with a relaxed fit for everyday style",
           category: "men's clothing",
-          image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+          image: "",
           stockQuantity: 34,
           sizes: ["S", "M", "L", "XL", "XXL"],
         },
@@ -66,7 +66,7 @@ const MenPage = () => {
           price: 39.99,
           description: "Comfortable athletic joggers perfect for workouts and casual wear",
           category: "men's clothing",
-          image: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+          image: "",
           stockQuantity: 78,
           sizes: ["S", "M", "L", "XL", "XXL"],
         },
@@ -76,7 +76,7 @@ const MenPage = () => {
           price: 55.99,
           description: "Crisp formal dress shirt perfect for business and special occasions",
           category: "men's clothing",
-          image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+          image: "",
           stockQuantity: 29,
           sizes: ["14.5", "15", "15.5", "16", "16.5", "17"],
         },
@@ -102,7 +102,7 @@ const MenPage = () => {
 
   useEffect(() => {
     if (featuredProducts.length > 0) {
-      const interval = setInterval(nextSlide, 5000)
+      const interval = setInterval(nextSlide, 6000)
       return () => clearInterval(interval)
     }
   }, [featuredProducts.length])
@@ -139,9 +139,6 @@ const MenPage = () => {
         <div className="men-hero-content">
           <h1 className="men-hero-title">Men's Collection</h1>
           <p className="men-hero-subtitle">Discover our premium selection of clothing for every occasion</p>
-          <div className="men-hero-stats">
-            <span className="product-count">{allClothingProducts.length} clothing items available</span>
-          </div>
         </div>
         <div className="men-hero-image">
           <img
