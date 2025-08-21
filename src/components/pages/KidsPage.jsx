@@ -17,38 +17,38 @@ const KidsPage = () => {
   // Kids clothing products with simplified format
   const kidsProducts = [
     {
-      name: "Kids Adventure T-Shirt",
+      name: "Mickey Mouse T-shirt",
       price: 18.99,
-      description: "Comfortable cotton t-shirt perfect for playground adventures",
+      description: "Everyone's favorite cartoon mouse",
       category: "kids",
-      image: "/placeholder.svg?height=300&width=300&text=Kids+Adventure+Tee",
+      image: "src/assets/docs/images/product-images/kids-clothing/mickey-mouse-tee.jpg",
       stockQuantity: 45,
-      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
+      sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      name: "Cozy Kids Hoodie",
+      name: "Basic Grey Sweatshirt",
       price: 32.99,
-      description: "Super soft hoodie to keep little ones warm and stylish",
+      description: "Simple and stylish",
       category: "kids",
-      image: "/placeholder.svg?height=300&width=300&text=Cozy+Kids+Hoodie",
+      image: "src/assets/docs/images/product-images/kids-clothing/basic-grey-sweatshirt.jpg",
       stockQuantity: 38,
-      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
+      sizes:["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      name: "Durable Play Jeans",
+      name: "Denim Overalls",
       price: 28.99,
-      description: "Reinforced denim jeans built for active kids",
+      description: "Dress like a minion",
       category: "kids",
-      image: "/placeholder.svg?height=300&width=300&text=Durable+Play+Jeans",
+      image: "src/assets/docs/images/product-images/kids-clothing/teens-denim-overalls.jpg",
       stockQuantity: 52,
-      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
+      sizes: ["2", "3", "4", "5", "6", "7", "8", "10", "12"],
     },
     {
-      name: "Kids Sport Sneakers",
+      name: "Yellow Jumper",
       price: 39.99,
-      description: "Lightweight sneakers perfect for running and playing",
+      description: "Summer, cheerful and cute",
       category: "kids",
-      image: "/placeholder.svg?height=300&width=300&text=Sport+Sneakers",
+      image: "src/assets/docs/images/product-images/kids-clothing/kids-yellow-sweatshirt.jpg",
       stockQuantity: 29,
       sizes: ["10", "11", "12", "13", "1", "2", "3", "4", "5"],
     },
@@ -57,9 +57,9 @@ const KidsPage = () => {
       price: 22.99,
       description: "Ultra-soft pajama set for the sweetest dreams",
       category: "kids",
-      image: "/placeholder.svg?height=300&width=300&text=Dreamy+Pajama+Set",
+      image: "src/assets/docs/images/product-images/kids-clothing/basic-green-hoodie.jpg",
       stockQuantity: 41,
-      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
+      sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
       name: "Kids Denim Jacket",
@@ -101,7 +101,7 @@ const KidsPage = () => {
       setCurrentSlide((prev) => (prev === featuredProducts.length - 1 ? 0 : prev + 1))
     }
 
-    autoPlayRef.current = setInterval(play, 5000)
+    autoPlayRef.current = setInterval(play, 6000)
 
     return () => {
       if (autoPlayRef.current) {
@@ -165,10 +165,6 @@ const KidsPage = () => {
         <div className="kids-page-header">
           <h1 className="kids-page-title">Kids' Collection</h1>
           <p className="kids-page-subtitle">Fun, comfortable, and durable clothing for active kids</p>
-          <div className="kids-stats">
-            <span className="product-count">{kidsProducts.length} products available</span>
-            <span className="age-range">Ages 2-12 years</span>
-          </div>
         </div>
 
         {/* Kids Featured Carousel */}
@@ -185,7 +181,7 @@ const KidsPage = () => {
                 onClick={goToPrevSlide}
                 aria-label="Previous slide"
               >
-                <ChevronLeft size={24} />
+                <ChevronLeft size={20} />
               </button>
 
               <div className="carousel-content">
@@ -221,15 +217,13 @@ const KidsPage = () => {
                             </select>
                           </div>
                         </div>
-
                         <div className="carousel-price-container">
                           <span className="carousel-price">£{product.price}</span>
                           <span className="stock-info">{product.stockQuantity} in stock</span>
                         </div>
-
                         <div className="carousel-actions">
                           <button className="carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
-                            <ShoppingCart size={18} />
+                            <ShoppingCart size={25} />
                             Add to Cart
                           </button>
                         </div>
@@ -240,10 +234,9 @@ const KidsPage = () => {
               </div>
 
               <button className="carousel-arrow carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
-                <ChevronRight size={24} />
+                <ChevronRight size={20} />
               </button>
             </div>
-
             <div className="carousel-controls">
               <div className="carousel-dots">
                 {featuredProducts.map((_, index) => (
@@ -262,7 +255,6 @@ const KidsPage = () => {
         <div className="kids-products-grid">
           <div className="grid-header">
             <h2 className="grid-title">More Kids' Clothing</h2>
-            <p className="grid-subtitle">Discover our complete collection of kids' clothing</p>
           </div>
           <ProductGrid products={gridProducts} />
         </div>
