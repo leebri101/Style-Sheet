@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { addToCart } from "../../store/cartSlice";
 import { addToWishlist, removeFromWishlist, selectWishlistItems } from "../../store/wishlistSlice";
-import './KidsPage.css';
+import "./KidsPage.css";
 
 const KidsPage = () => {
   const dispatch = useDispatch();
@@ -12,11 +12,16 @@ const KidsPage = () => {
   const [selectedSize, setSelectedSize] = useState({});
   const autoPlayRef = useRef(null);
 
+  // Function to generate a unique ID based on product name
+  const generateId = (name) => {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  };
+
   // Kids clothing products with simplified format
   const kidsProducts = [
     {
-      id: "mickey-mouse-t-shirt-1",
-      name: "Mickey Mouse T-shirt",
+      id: generateId("Mickey Mouse T-Shirt"),
+      name: "Mickey Mouse T-Shirt",
       price: 18.99,
       description: "Everyone's favorite cartoon mouse",
       category: "kids",
@@ -25,17 +30,17 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      id: "basic-grey-sweatshirt-2",
+      id: generateId("Basic Grey Sweatshirt"),
       name: "Basic Grey Sweatshirt",
       price: 32.99,
       description: "Simple and stylish",
       category: "kids",
       image: "src/assets/docs/images/product-images/kids-clothing/basic-grey-sweatshirt.jpg",
       stockQuantity: 38,
-      sizes:["2", "3", "4", "5", "6", "7", "8"],
+      sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      id: "denim-overalls-3",
+      id: generateId("Denim Overalls"),
       name: "Denim Overalls",
       price: 28.99,
       description: "Dress like a minion",
@@ -45,7 +50,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8", "10", "12"],
     },
     {
-      id: "yellow-jumper-4",
+      id: generateId("Yellow Jumper"),
       name: "Yellow Jumper",
       price: 39.99,
       description: "Summer, cheerful and cute",
@@ -55,7 +60,7 @@ const KidsPage = () => {
       sizes: ["10", "11", "12", "13", "1", "2", "3", "4", "5"],
     },
     {
-      id: "green-hoodie-5",
+      id: generateId("Green Hoodie"),
       name: "Green Hoodie",
       price: 22.99,
       description: "Perfect for the colder weather",
@@ -65,7 +70,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      id: "kids-outdoor-coat-6",
+      id: generateId("Kids Outdoor Coat"),
       name: "Kids Outdoor Coat",
       price: 35.99,
       description: "For the great outdoors",
@@ -75,7 +80,7 @@ const KidsPage = () => {
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10"],
     },
     {
-      id: "pink-dress-7",
+      id: generateId("Pink Dress"),
       name: "Pink Dress",
       price: 26.99,
       description: "Pink and pretty",
@@ -85,8 +90,8 @@ const KidsPage = () => {
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
     },
     {
-      id: "kids-quarter-zip-8",
-      name: "Kids quarter zip",
+      id: generateId("Kids Quarter Zip"),
+      name: "Kids Quarter Zip",
       price: 19.99,
       description: "The little gentleman",
       category: "kids",
@@ -94,28 +99,8 @@ const KidsPage = () => {
       stockQuantity: 56,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
-    {
-      id: "graphic-t-shirt-9",
-      name: "Graphic T-shirt",
-      price: 19.99,
-      description: "Stylish and versatile",
-      category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/teens-denim-overalls.jpg",
-      stockQuantity: 56,
-      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
-    },
-    {
-      id: "girls-poncho-10",
-      name: "Girls Poncho",
-      price: 19.99,
-      description: "Great for school and to go out",
-      category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/kids-poncho.jpg",
-      stockQuantity: 56,
-      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
-    },
   ];
-
+  
   // Get featured kids products for carousel (first 4 products)
   const featuredProducts = kidsProducts.slice(0, 4);
   // Get remaining products for the grid
@@ -149,7 +134,7 @@ const KidsPage = () => {
   };
 
   const handleAddToCart = (product, size = null) => {
-    const selectedSizeValue = size || selectedSize[product.name] || product.sizes[0];
+    const selectedSizeValue = size || selectedSize[product.id] || product.sizes[0];
 
     dispatch(
       addToCart({
@@ -197,12 +182,12 @@ const KidsPage = () => {
     };
 
     return (
-      <div className="kids-product-grid">
+      <div className="product-grid">
         {products.map((product) => (
-          <div key={product.id} className="kids-product-card">
-            <div className="kids-product-image-container">
+          <div key={product.id} className="product-card">
+            <div className="product-image-container">
               <button
-                className={`kids-wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
                 onClick={() => handleWishlistToggle(product)}
               >
                 <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
@@ -210,19 +195,19 @@ const KidsPage = () => {
               <img 
                 src={product.image} 
                 alt={product.name}
-                className="kids-product-image"
+                className="product-image"
                 onError={(e) => {
                   e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
                 }}
               />
             </div>
             
-            <div className="kids-product-details">
-              <h3 className="kids-product-name">{product.name}</h3>
-              <p className="kids-product-description">{product.description}</p>
+            <div className="product-details">
+              <h3 className="product-name">{product.name}</h3>
+              <p className="product-description">{product.description}</p>
               
-              <div className="kids-product-options">
-                <div className="kids-size-selector">
+              <div className="product-options">
+                <div className="size-selector">
                   <label>Size:</label>
                   <select
                     value={sizeSelections[product.id] || product.sizes[0]}
@@ -237,14 +222,14 @@ const KidsPage = () => {
                 </div>
               </div>
               
-              <div className="kids-product-price-container">
-                <span className="kids-product-price">£{product.price}</span>
-                <span className="kids-stock-info">{product.stockQuantity} in stock</span>
+              <div className="product-price-container">
+                <span className="product-price">£{product.price}</span>
+                <span className="stock-info">{product.stockQuantity} in stock</span>
               </div>
               
-              <div className="kids-product-actions">
+              <div className="product-actions">
                 <button 
-                  className="kids-add-to-cart-btn"
+                  className="add-to-cart-btn"
                   onClick={() => handleAddToCart(product, sizeSelections[product.id])}
                 >
                   <ShoppingCart size={16} />
@@ -260,6 +245,24 @@ const KidsPage = () => {
 
   return (
     <div className="kids-page">
+      {/* Hero Section */}
+      <div className="kids-hero">
+        <div className="kids-hero-content">
+          <h1 className="kids-hero-title">Kids' Collection</h1>
+          <p className="kids-hero-subtitle">Discover our fun and colorful selection of clothing for kids</p>
+        </div>
+        <div className="kids-hero-image">
+          <img
+            src="src/assets/docs/images/product-images/kids-clothing/kids-group-photo.jpg"
+            alt="Kids Fashion Collection"
+            className="hero-image"
+            onError={(e) => {
+              e.target.src = "https://placehold.co/800x400/eee/aaa?text=Kids+Collection";
+            }}
+          />
+        </div>
+      </div>
+
       <div className="kids-page-content">
         <div className="kids-page-header">
           <h1 className="kids-page-title">Kids' Collection</h1>
@@ -312,8 +315,8 @@ const KidsPage = () => {
                           <div className="kids-carousel-size-selector">
                             <label>Size:</label>
                             <select
-                              value={selectedSize[product.name] || product.sizes[0]}
-                              onChange={(e) => setSelectedSize((prev) => ({ ...prev, [product.name]: e.target.value }))}
+                              value={selectedSize[product.id] || product.sizes[0]}
+                              onChange={(e) => setSelectedSize((prev) => ({ ...prev, [product.id]: e.target.value }))}
                             >
                               {product.sizes.map((size) => (
                                 <option key={size} value={size}>
@@ -359,8 +362,8 @@ const KidsPage = () => {
         </section>
 
         <div className="kids-products-grid">
-          <div className="kids-grid-header">
-            <h2 className="kids-grid-title">More Kids Clothing</h2>
+          <div className="grid-header">
+            <h2 className="grid-title">More Kids' Clothing</h2>
           </div>
           <KidsProductGrid products={gridProducts} />
         </div>
