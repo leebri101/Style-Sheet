@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Heart, ShoppingCart } from "lucide-react";
+import { HeartCrack, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { removeFromWishlist } from "../../store/wishlistSlice.js";
 import { addToCart, openCart } from "../../store/cartSlice.js";
@@ -38,7 +38,7 @@ const WishlistPage = () => {
                 
                 <div className="wishlist-empty">
                     <div className="empty-wishlist-container">
-                        <Heart className="empty-wishlist-icon" size={64} />
+                        <HeartCrack className="empty-wishlist-icon" size={64} />
                         <h2>Your wishlist is empty</h2>
                         <p>Save items you love by clicking the heart icon on any product.</p>
                         <Link to="/" className="continue-shopping-link">
