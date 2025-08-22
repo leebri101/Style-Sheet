@@ -49,9 +49,6 @@ a {
   font-weight: 500;
   text-decoration: inherit;
 }
-a:hover {
-  color: rgb(var(--color-two));
-}
 
 body {
   min-height: 100vh;
