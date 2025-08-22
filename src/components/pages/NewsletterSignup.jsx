@@ -1,55 +1,83 @@
-import "./NewsletterSignup.css"
+// NewsletterSignup Component
+import { useState } from "react";
+import { Mail, CheckCircle } from "lucide-react";
 
-const ComingSoonPage = () => {
-  return (
-    <div className="coming-soon-container">
-      {/* Animated background particles */}
-      <div className="particles">
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-      </div>
+const NewsletterSignup = () => {
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-      <div className="coming-soon-content">
-        {/* Main heading section */}
-        <div className="hero-section">
-          <h1 className="coming-soon-title">Coming Soon</h1>
-          <h2 className="coming-soon-subtitle">Something Amazing is on the Way</h2>
-          <p className="coming-soon-description">
-            We are working hard to bring you an incredible shopping experience. 
-          </p>
-        </div>
-        {/* Features preview */}
-        <div className="features-section">
-          <h3 className="features-title">What to Expect</h3>
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">🛍️</div>
-              <h4>Premium Products</h4>
-              <p>Curated collection of high-quality items</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🚚</div>
-              <h4>Fast Delivery</h4>
-              <p>Quick and reliable shipping worldwide</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">💎</div>
-              <h4>Exclusive Deals</h4>
-              <p>Special offers for early subscribers</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🔒</div>
-              <h4>Secure Shopping</h4>
-              <p>Safe and protected transactions</p>
-            </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setIsLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubscribed(true);
+      setIsLoading(false);
+      setEmail("");
+    }, 1000);
+  };
+
+  if (isSubscribed) {
+    return (
+      <div className="newsletter-signup">
+        <div className="newsletter-container">
+          <div className="newsletter-success">
+            <CheckCircle className="success-icon" size={48} />
+            <h2>Thank you for subscribing!</h2>
+            <p>You'll receive the latest updates and exclusive offers.</p>
+            <button 
+              onClick={() => setIsSubscribed(false)}
+              className="subscribe-again-btn"
+            >
+              Subscribe Another Email
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+    );
+  }
 
-export default ComingSoonPage
+  return (
+    <div className="newsletter-signup">
+      <div className="newsletter-container">
+        <div className="newsletter-content">
+          <Mail className="newsletter-icon" size={32} />
+          <h2 className="newsletter-title">Stay Updated</h2>
+          <p className="newsletter-description">
+            Get the latest news, exclusive offers, and style updates delivered to your inbox.
+          </p>
+          
+          <form onSubmit={handleSubmit} className="newsletter-form">
+            <div className="input-group">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                className="email-input"
+                required
+              />
+              <button 
+                type="submit" 
+                className="subscribe-btn"
+                disabled={isLoading || !email}
+              >
+                {isLoading ? "Subscribing..." : "Subscribe"}
+              </button>
+            </div>
+            
+            <p className="privacy-text">
+              We respect your privacy. Unsubscribe at any time.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NewsletterSignup;

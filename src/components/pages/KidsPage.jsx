@@ -1,22 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Heart, ShoppingCart, Star, ChevronLeft, ChevronRight } from "lucide-react"
+import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { addToCart } from "../../store/cartSlice";
-import { addToWishlist,removeFromWishlist,selectWishlistItems } from "../../store/wishlistSlice";
+import { addToWishlist, removeFromWishlist, selectWishlistItems } from "../../store/wishlistSlice";
 import ProductGrid from "../products/ProductGrid";
 import './KidsPage.css';
 
 const KidsPage = () => {
-  const dispatch = useDispatch()
-  const wishlistItems = useSelector(selectWishlistItems)
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [selectedSize, setSelectedSize] = useState({})
-  const [selectedColor, setSelectedColor] = useState({})
-  const autoPlayRef = useRef(null)
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector(selectWishlistItems);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedSize, setSelectedSize] = useState({});
+  const autoPlayRef = useRef(null);
+
+  // Function to generate a unique ID based on product name
+  const generateId = (name) => {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  };
 
   // Kids clothing products with simplified format
   const kidsProducts = [
     {
+      id: generateId("Mickey Mouse T-shirt"),
       name: "Mickey Mouse T-shirt",
       price: 18.99,
       description: "Everyone's favorite cartoon mouse",
@@ -26,6 +31,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
+      id: generateId("Basic Grey Sweatshirt"),
       name: "Basic Grey Sweatshirt",
       price: 32.99,
       description: "Simple and stylish",
@@ -35,6 +41,7 @@ const KidsPage = () => {
       sizes:["2", "3", "4", "5", "6", "7", "8"],
     },
     {
+      id: generateId("Denim Overalls"),
       name: "Denim Overalls",
       price: 28.99,
       description: "Dress like a minion",
@@ -44,6 +51,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8", "10", "12"],
     },
     {
+      id: generateId("Yellow Jumper"),
       name: "Yellow Jumper",
       price: 39.99,
       description: "Summer, cheerful and cute",
@@ -53,6 +61,7 @@ const KidsPage = () => {
       sizes: ["10", "11", "12", "13", "1", "2", "3", "4", "5"],
     },
     {
+      id: generateId("Green Hoodie"),
       name: "Green Hoodie",
       price: 22.99,
       description: "Perfect for the colder weather",
@@ -62,6 +71,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
+      id: generateId("Kids Outdoor Coat"),
       name: "Kids Outdoor Coat",
       price: 35.99,
       description: "For the great outdoors",
@@ -71,6 +81,7 @@ const KidsPage = () => {
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10"],
     },
     {
+      id: generateId("Pink Dress"),
       name: "Pink Dress",
       price: 26.99,
       description: "Pink and pretty",
@@ -80,6 +91,7 @@ const KidsPage = () => {
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
     },
     {
+      id: generateId("Kids quarter zip"),
       name: "Kids quarter zip",
       price: 19.99,
       description: "The little gentleman",
@@ -88,76 +100,76 @@ const KidsPage = () => {
       stockQuantity: 56,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
-  ]
+  ];
 
   // Get featured kids products for carousel (first 4 products)
-  const featuredProducts = kidsProducts.slice(0, 4)
+  const featuredProducts = kidsProducts.slice(0, 4);
   // Get remaining products for the grid
-  const gridProducts = kidsProducts.slice(4)
+  const gridProducts = kidsProducts.slice(4);
 
   // Auto-play functionality for carousel
   useEffect(() => {
     const play = () => {
-      setCurrentSlide((prev) => (prev === featuredProducts.length - 1 ? 0 : prev + 1))
-    }
+      setCurrentSlide((prev) => (prev === featuredProducts.length - 1 ? 0 : prev + 1));
+    };
 
-    autoPlayRef.current = setInterval(play, 6000)
+    autoPlayRef.current = setInterval(play, 6000);
 
     return () => {
       if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current)
+        clearInterval(autoPlayRef.current);
       }
-    }
-  }, [featuredProducts.length])
+    };
+  }, [featuredProducts.length]);
 
   const goToSlide = (index) => {
-    setCurrentSlide(index)
-  }
+    setCurrentSlide(index);
+  };
 
   const goToPrevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? featuredProducts.length - 1 : prev - 1))
-  }
+    setCurrentSlide((prev) => (prev === 0 ? featuredProducts.length - 1 : prev - 1));
+  };
 
   const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev === featuredProducts.length - 1 ? 0 : prev + 1))
-  }
+    setCurrentSlide((prev) => (prev === featuredProducts.length - 1 ? 0 : prev + 1));
+  };
 
   const handleAddToCart = (product) => {
-    const size = selectedSize[product.name] || product.sizes[0]
+    const size = selectedSize[product.name] || product.sizes[0];
 
     dispatch(
       addToCart({
-        id: product.name,
+        id: product.id,
         name: product.name,
         price: product.price,
         image: product.image,
         size,
         quantity: 1,
       }),
-    )
-  }
+    );
+  };
 
   const handleWishlistToggle = (product) => {
-    const isInWishlist = wishlistItems.some((item) => item.name === product.name)
+    const isInWishlist = wishlistItems.some((item) => item.id === product.id);
 
     if (isInWishlist) {
-      dispatch(removeFromWishlist(product.name))
+      dispatch(removeFromWishlist(product.id));
     } else {
       dispatch(
         addToWishlist({
-          id: product.name,
+          id: product.id,
           name: product.name,
           price: product.price,
           image: product.image,
           category: product.category,
         }),
-      )
+      );
     }
-  }
+  };
 
-  const isInWishlist = (productName) => {
-    return wishlistItems.some((item) => item.name === productName)
-  }
+  const isInWishlist = (productId) => {
+    return wishlistItems.some((item) => item.id === productId);
+  };
 
   return (
     <div className="kids-page">
@@ -186,16 +198,24 @@ const KidsPage = () => {
 
               <div className="carousel-content">
                 {featuredProducts.map((product, index) => (
-                  <div key={product.name} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
+                  <div key={product.id} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
                     <div className="carousel-slide-content">
                       <div className="carousel-image-container">
                         <button
-                          className={`wishlist-button ${isInWishlist(product.name) ? "active" : ""}`}
+                          className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
                           onClick={() => handleWishlistToggle(product)}
                         >
-                          <Heart size={20} fill={isInWishlist(product.name) ? "currentColor" : "none"} />
+                          <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
                         </button>
-                        <img src={product.image || "/placeholder.svg"} alt={product.name} className="carousel-image" />
+                        <img 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="carousel-image" 
+                          onError={(e) => {
+                            // Fallback to placeholder if image fails to load
+                            e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                          }}
+                        />
                       </div>
 
                       <div className="carousel-details">
@@ -260,7 +280,7 @@ const KidsPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default KidsPage
+export default KidsPage;

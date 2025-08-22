@@ -24,48 +24,69 @@ const ProductsPage = () => {
                     return;
                 }
 
-                // Try to fetch product from API first
-                try {
-                    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-                    if (response.ok) {
-                        const productData = await response.json();
-                        
-                        // Transform API data to match our format
-                        const transformedProduct = {
-                            id: productData.id,
-                            name: productData.title,
-                            title: productData.title,
-                            price: productData.price,
-                            description: productData.description,
-                            category: productData.category,
-                            image: productData.image,
-                            imageUrl: productData.image,
-                            images: [productData.image],
-                            rating: productData.rating || { rate: 0, count: 0 },
-                            stockQuantity: Math.floor(Math.random() * 100) + 10,
-                            inStock: true,
-                            sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-                            colors: ["Black", "White", "Navy", "Gray", "Red"],
-                            brand: "Fashion Brand",
-                            tags: [productData.category],
-                        };
-
-                        // Dispatch the product to store
+                // Check if this is a custom product ID
+                if (id.toString().startsWith("custom_") || isNaN(id)) {
+                    // Handle custom products directly from localStorage
+                    const customProducts = JSON.parse(localStorage.getItem("ecommerce_custom_products") || "[]");
+                    const customProduct = customProducts.find(p => p.id === id);
+                    
+                    if (customProduct) {
                         dispatch({
                             type: 'products/setSelectedProduct',
-                            payload: transformedProduct
+                            payload: customProduct
                         });
-
-                        // Fetch related products
-                        dispatch(fetchProductsByCategory(productData.category));
+                        
+                        // Fetch related products based on category
+                        if (customProduct.category) {
+                            dispatch(fetchProductsByCategory(customProduct.category));
+                        }
                     } else {
+                        throw new Error("Custom product not found");
+                    }
+                } else {
+                    // Try to fetch product from API for numeric IDs
+                    try {
+                        const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+                        if (response.ok) {
+                            const productData = await response.json();
+                            
+                            // Transform API data to match our format
+                            const transformedProduct = {
+                                id: productData.id,
+                                name: productData.title,
+                                title: productData.title,
+                                price: productData.price,
+                                description: productData.description,
+                                category: productData.category,
+                                image: productData.image,
+                                imageUrl: productData.image,
+                                images: [productData.image],
+                                rating: productData.rating || { rate: 0, count: 0 },
+                                stockQuantity: Math.floor(Math.random() * 100) + 10,
+                                inStock: true,
+                                sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+                                colors: ["Black", "White", "Navy", "Gray", "Red"],
+                                brand: "Fashion Brand",
+                                tags: [productData.category],
+                            };
+
+                            // Dispatch the product to store
+                            dispatch({
+                                type: 'products/setSelectedProduct',
+                                payload: transformedProduct
+                            });
+
+                            // Fetch related products
+                            dispatch(fetchProductsByCategory(productData.category));
+                        } else {
+                            // Fallback to Redux action
+                            await dispatch(fetchProductById(id)).unwrap();
+                        }
+                    } catch (apiError) {
+                        console.log('API fetch failed, trying Redux action:', apiError);
                         // Fallback to Redux action
                         await dispatch(fetchProductById(id)).unwrap();
                     }
-                } catch (apiError) {
-                    console.log('API fetch failed, trying Redux action:', apiError);
-                    // Fallback to Redux action
-                    await dispatch(fetchProductById(id)).unwrap();
                 }
             } catch (err) {
                 console.error('Error loading product:', err);

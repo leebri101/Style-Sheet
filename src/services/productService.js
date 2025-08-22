@@ -1,15 +1,23 @@
 // Product Service - FakeStore API Only
 const FAKESTORE_API_URL = "https://fakestoreapi.com"
 
-// FakeStore API functions with error handling and logging
+// Improved FakeStore API fetch function with better error handling
 const fakeStoreFetch = async (endpoint) => {
   try {
     console.log(`🔄 Fetching from FakeStore API: ${endpoint}`)
     const response = await fetch(`${FAKESTORE_API_URL}${endpoint}`)
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
-    const data = await response.json()
+    
+    // Check if response is empty
+    const text = await response.text()
+    if (!text.trim()) {
+      throw new Error('Empty response received from API')
+    }
+    
+    const data = JSON.parse(text)
     console.log(`✅ FakeStore API response received:`, Array.isArray(data) ? `${data.length} items` : "single item")
     return data
   } catch (error) {
@@ -22,7 +30,7 @@ const fakeStoreFetch = async (endpoint) => {
 const transformFakeStoreProduct = (product) => {
   // Generate additional properties for enhanced functionality
   const generateSizes = (category) => {
-    if (category.includes("clothing")) {
+    if (category && category.includes("clothing")) {
       return ["XS", "S", "M", "L", "XL", "XXL"]
     }
     if (category === "electronics") {
@@ -32,7 +40,7 @@ const transformFakeStoreProduct = (product) => {
   }
 
   const generateColors = (category) => {
-    if (category.includes("clothing")) {
+    if (category && category.includes("clothing")) {
       return ["Black", "White", "Navy", "Gray", "Red"]
     }
     if (category === "electronics") {
@@ -148,15 +156,18 @@ class ProductService {
   // Get product by ID
   async getProductById(id) {
     try {
-      if (id.toString().startsWith("custom_")) {
+      // Handle custom products first
+      if (id.toString().startsWith("custom_") || isNaN(id)) {
         const customProducts = this.getCustomProducts()
         const customProduct = customProducts.find((p) => p.id === id)
         if (customProduct) {
           console.log("✅ Custom product fetched:", customProduct.name)
           return customProduct
         }
+        throw new Error(`Custom product with ID ${id} not found`)
       }
 
+      // Handle numeric IDs for FakeStore API
       const product = await fakeStoreFetch(`/products/${id}`)
       const transformedProduct = transformFakeStoreProduct(product)
       console.log("✅ Product fetched from FakeStore API:", transformedProduct.name)
