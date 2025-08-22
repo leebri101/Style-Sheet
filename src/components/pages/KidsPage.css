@@ -1,3 +1,5 @@
+/* KidsPage.css - Isolated Kids Page Styling */
+
 .kids-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #df4738 100%);
@@ -5,7 +7,7 @@
 }
 
 .kids-page-content {
-  max-width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -36,8 +38,8 @@
   flex-wrap: wrap;
 }
 
-.product-count,
-.age-range {
+.kids-product-count,
+.kids-age-range {
   background: rgba(255, 255, 255, 0.2);
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -45,47 +47,47 @@
   backdrop-filter: blur(10px);
 }
 
-/* Carousel Styles */
+/* Kids Carousel Styles */
 .kids-carousel {
   margin-bottom: 4rem;
 }
 
-.carousel-container {
+.kids-carousel-container {
   background: white;
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.carousel-header {
+.kids-carousel-header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.carousel-title {
+.kids-carousel-title {
   font-size: 2rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 0.5rem;
 }
 
-.carousel-subtitle {
+.kids-carousel-subtitle {
   color: #666;
   font-size: 1rem;
 }
 
-.carousel-wrapper {
+.kids-carousel-wrapper {
   position: relative;
   overflow: hidden;
   border-radius: 15px;
 }
 
-.carousel-content {
+.kids-carousel-content {
   position: relative;
   height: 400px;
 }
 
-.carousel-slide {
+.kids-carousel-slide {
   position: absolute;
   top: 0;
   left: 0;
@@ -96,12 +98,12 @@
   transition: all 0.5s ease-in-out;
 }
 
-.carousel-slide.active {
+.kids-carousel-slide.active {
   opacity: 1;
   transform: translateX(0);
 }
 
-.carousel-slide-content {
+.kids-carousel-slide-content {
   display: flex;
   height: 100%;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -109,7 +111,7 @@
   overflow: hidden;
 }
 
-.carousel-image-container {
+.kids-carousel-image-container {
   flex: 1;
   position: relative;
   display: flex;
@@ -118,14 +120,14 @@
   padding: 2rem;
 }
 
-.carousel-image {
+.kids-carousel-image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   border-radius: 10px;
 }
 
-.wishlist-button {
+.kids-carousel-wishlist-button {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -143,17 +145,17 @@
   color: #666;
 }
 
-.wishlist-button:hover {
+.kids-carousel-wishlist-button:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.wishlist-button.active {
+.kids-carousel-wishlist-button.active {
   color: #e74c3c;
   background: #ffe6e6;
 }
 
-.carousel-details {
+.kids-carousel-details {
   flex: 1;
   padding: 2rem;
   display: flex;
@@ -161,35 +163,35 @@
   justify-content: center;
 }
 
-.carousel-product-title {
+.kids-carousel-product-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 1rem;
 }
 
-.carousel-product-description {
+.kids-carousel-product-description {
   color: #666;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
-.product-options {
+.kids-product-options {
   margin-bottom: 1.5rem;
 }
 
-.size-selector {
+.kids-carousel-size-selector {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.size-selector label {
+.kids-carousel-size-selector label {
   font-weight: 500;
   color: #333;
 }
 
-.size-selector select {
+.kids-carousel-size-selector select {
   padding: 0.5rem;
   border: 2px solid #ddd;
   border-radius: 8px;
@@ -198,35 +200,35 @@
   transition: border-color 0.3s ease;
 }
 
-.size-selector select:focus {
+.kids-carousel-size-selector select:focus {
   outline: none;
   border-color: #667eea;
 }
 
-.carousel-price-container {
+.kids-carousel-price-container {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.carousel-price {
+.kids-carousel-price {
   font-size: 1.5rem;
   font-weight: bold;
   color: #e74c3c;
 }
 
-.stock-info {
+.kids-carousel-stock-info {
   color: #27ae60;
   font-size: 0.9rem;
 }
 
-.carousel-actions {
+.kids-carousel-actions {
   display: flex;
   gap: 1rem;
 }
 
-.carousel-add-to-cart {
+.kids-carousel-add-to-cart {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
@@ -240,18 +242,19 @@
   transition: all 0.3s ease;
 }
 
-.carousel-add-to-cart:hover {
+.kids-carousel-add-to-cart:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
-.carousel-arrow {
+.kids-carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background: white;
   border: none;
   border-radius: 50%;
+  width: 50px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -262,31 +265,31 @@
   z-index: 10;
 }
 
-.carousel-arrow:hover {
+.kids-carousel-arrow:hover {
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.carousel-arrow-prev {
+.kids-carousel-arrow-prev {
   left: 15px;
 }
 
-.carousel-arrow-next {
+.kids-carousel-arrow-next {
   right: 15px;
 }
 
-.carousel-controls {
+.kids-carousel-controls {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
 }
 
-.carousel-dots {
+.kids-carousel-dots {
   display: flex;
   gap: 0.5rem;
 }
 
-.carousel-dot {
+.kids-carousel-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -296,16 +299,16 @@
   transition: all 0.3s ease;
 }
 
-.carousel-dot.active {
+.kids-carousel-dot.active {
   background: #667eea;
   transform: scale(1.2);
 }
 
-.carousel-dot:hover {
+.kids-carousel-dot:hover {
   background: #999;
 }
 
-/* Products Grid */
+/* Kids Products Grid */
 .kids-products-grid {
   background: white;
   border-radius: 20px;
@@ -313,21 +316,168 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.grid-header {
+.kids-grid-header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.grid-title {
+.kids-grid-title {
   font-size: 2rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 0.5rem;
 }
 
-.grid-subtitle {
+.kids-grid-subtitle {
   color: #666;
   font-size: 1rem;
+}
+
+/* Kids Product Grid Styles */
+.kids-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.kids-product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.kids-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.kids-product-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.kids-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.kids-product-card:hover .kids-product-image {
+  transform: scale(1.05);
+}
+
+.kids-wishlist-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.kids-wishlist-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.kids-wishlist-button.active {
+  color: #e74c3c;
+  background: #ffe6e6;
+}
+
+.kids-product-details {
+  padding: 1.5rem;
+}
+
+.kids-product-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.kids-product-description {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+.kids-size-selector {
+  margin-bottom: 1rem;
+}
+
+.kids-size-selector label {
+  display: block;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.kids-size-selector select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.kids-product-price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.kids-product-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e74c3c;
+}
+
+.kids-stock-info {
+  color: #27ae60;
+  font-size: 0.8rem;
+}
+
+.kids-product-actions {
+  display: flex;
+}
+
+.kids-add-to-cart-btn {
+  width: 100%;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.kids-add-to-cart-btn:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
 }
 
 /* Responsive Design */
@@ -344,38 +494,43 @@
     gap: 1rem;
   }
 
-  .carousel-container {
+  .kids-carousel-container {
     padding: 1rem;
   }
 
-  .carousel-slide-content {
+  .kids-carousel-slide-content {
     flex-direction: column;
     height: auto;
   }
 
-  .carousel-image-container {
+  .kids-carousel-image-container {
     height: 250px;
   }
 
-  .carousel-details {
+  .kids-carousel-details {
     padding: 1rem;
   }
 
-  .carousel-arrow {
+  .kids-carousel-arrow {
     width: 40px;
     height: 40px;
   }
 
-  .carousel-arrow-prev {
+  .kids-carousel-arrow-prev {
     left: -20px;
   }
 
-  .carousel-arrow-next {
+  .kids-carousel-arrow-next {
     right: -20px;
   }
 
   .kids-products-grid {
     padding: 1rem;
+  }
+
+  .kids-product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
   }
 }
 
@@ -384,15 +539,19 @@
     padding: 0 0.5rem;
   }
 
-  .carousel-title {
+  .kids-carousel-title {
     font-size: 1.5rem;
   }
 
-  .carousel-product-title {
+  .kids-carousel-product-title {
     font-size: 1.2rem;
   }
 
-  .carousel-arrow {
+  .kids-carousel-arrow {
     display: none;
+  }
+
+  .kids-product-grid {
+    grid-template-columns: 1fr;
   }
 }

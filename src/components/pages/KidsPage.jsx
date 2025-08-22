@@ -182,12 +182,12 @@ const KidsPage = () => {
     };
 
     return (
-      <div className="product-grid">
+      <div className="kids-product-grid">
         {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-container">
+          <div key={product.id} className="kids-product-card">
+            <div className="kids-product-image-container">
               <button
-                className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                className={`kids-wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
                 onClick={() => handleWishlistToggle(product)}
               >
                 <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
@@ -195,19 +195,19 @@ const KidsPage = () => {
               <img 
                 src={product.image} 
                 alt={product.name}
-                className="product-image"
+                className="kids-product-image"
                 onError={(e) => {
                   e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
                 }}
               />
             </div>
             
-            <div className="product-details">
-              <h3 className="product-name">{product.name}</h3>
-              <p className="product-description">{product.description}</p>
+            <div className="kids-product-details">
+              <h3 className="kids-product-name">{product.name}</h3>
+              <p className="kids-product-description">{product.description}</p>
               
-              <div className="product-options">
-                <div className="size-selector">
+              <div className="kids-product-options">
+                <div className="kids-size-selector">
                   <label>Size:</label>
                   <select
                     value={sizeSelections[product.id] || product.sizes[0]}
@@ -222,14 +222,14 @@ const KidsPage = () => {
                 </div>
               </div>
               
-              <div className="product-price-container">
-                <span className="product-price">£{product.price}</span>
-                <span className="stock-info">{product.stockQuantity} in stock</span>
+              <div className="kids-product-price-container">
+                <span className="kids-product-price">£{product.price}</span>
+                <span className="kids-stock-info">{product.stockQuantity} in stock</span>
               </div>
               
-              <div className="product-actions">
+              <div className="kids-product-actions">
                 <button 
-                  className="add-to-cart-btn"
+                  className="kids-add-to-cart-btn"
                   onClick={() => handleAddToCart(product, sizeSelections[product.id])}
                 >
                   <ShoppingCart size={16} />
@@ -253,28 +253,28 @@ const KidsPage = () => {
 
         {/* Kids Featured Carousel */}
         <section className="kids-carousel">
-          <div className="carousel-container">
-            <div className="carousel-header">
-              <h2 className="carousel-title">Featured Kids' Items</h2>
-              <p className="carousel-subtitle">Special deals on our most popular kids' clothing</p>
+          <div className="kids-carousel-container">
+            <div className="kids-carousel-header">
+              <h2 className="kids-carousel-title">Featured Kids' Items</h2>
+              <p className="kids-carousel-subtitle">Special deals on our most popular kids' clothing</p>
             </div>
 
-            <div className="carousel-wrapper">
+            <div className="kids-carousel-wrapper">
               <button
-                className="carousel-arrow carousel-arrow-prev"
+                className="kids-carousel-arrow kids-carousel-arrow-prev"
                 onClick={goToPrevSlide}
                 aria-label="Previous slide"
               >
                 <ChevronLeft size={20} />
               </button>
 
-              <div className="carousel-content">
+              <div className="kids-carousel-content">
                 {featuredProducts.map((product, index) => (
-                  <div key={product.id} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
-                    <div className="carousel-slide-content">
-                      <div className="carousel-image-container">
+                  <div key={product.id} className={`kids-carousel-slide ${index === currentSlide ? "active" : ""}`}>
+                    <div className="kids-carousel-slide-content">
+                      <div className="kids-carousel-image-container">
                         <button
-                          className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                          className={`kids-carousel-wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
                           onClick={() => handleWishlistToggle(product)}
                         >
                           <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
@@ -282,20 +282,19 @@ const KidsPage = () => {
                         <img 
                           src={product.image} 
                           alt={product.name} 
-                          className="carousel-image" 
+                          className="kids-carousel-image" 
                           onError={(e) => {
-                            // Fallback to placeholder if image fails to load
                             e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
                           }}
                         />
                       </div>
 
-                      <div className="carousel-details">
-                        <h3 className="carousel-product-title">{product.name}</h3>
-                        <p className="carousel-product-description">{product.description}</p>
+                      <div className="kids-carousel-details">
+                        <h3 className="kids-carousel-product-title">{product.name}</h3>
+                        <p className="kids-carousel-product-description">{product.description}</p>
 
-                        <div className="product-options">
-                          <div className="size-selector">
+                        <div className="kids-product-options">
+                          <div className="kids-carousel-size-selector">
                             <label>Size:</label>
                             <select
                               value={selectedSize[product.name] || product.sizes[0]}
@@ -309,12 +308,12 @@ const KidsPage = () => {
                             </select>
                           </div>
                         </div>
-                        <div className="carousel-price-container">
-                          <span className="carousel-price">£{product.price}</span>
-                          <span className="stock-info">{product.stockQuantity} in stock</span>
+                        <div className="kids-carousel-price-container">
+                          <span className="kids-carousel-price">£{product.price}</span>
+                          <span className="kids-carousel-stock-info">{product.stockQuantity} in stock</span>
                         </div>
-                        <div className="carousel-actions">
-                          <button className="carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
+                        <div className="kids-carousel-actions">
+                          <button className="kids-carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
                             <ShoppingCart size={25} />
                             Add to Cart
                           </button>
@@ -325,16 +324,16 @@ const KidsPage = () => {
                 ))}
               </div>
 
-              <button className="carousel-arrow carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
+              <button className="kids-carousel-arrow kids-carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
                 <ChevronRight size={20} />
               </button>
             </div>
-            <div className="carousel-controls">
-              <div className="carousel-dots">
+            <div className="kids-carousel-controls">
+              <div className="kids-carousel-dots">
                 {featuredProducts.map((_, index) => (
                   <button
                     key={index}
-                    className={`carousel-dot ${index === currentSlide ? "active" : ""}`}
+                    className={`kids-carousel-dot ${index === currentSlide ? "active" : ""}`}
                     onClick={() => goToSlide(index)}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -345,8 +344,8 @@ const KidsPage = () => {
         </section>
 
         <div className="kids-products-grid">
-          <div className="grid-header">
-            <h2 className="grid-title">More Kids Clothing</h2>
+          <div className="kids-grid-header">
+            <h2 className="kids-grid-title">More Kids Clothing</h2>
           </div>
           <KidsProductGrid products={gridProducts} />
         </div>
