@@ -249,7 +249,7 @@ const MenPage = () => {
                           alt={product.name} 
                           className="men-carousel-image" 
                           onError={(e) => {
-                            e.target.src = `https://placehold.co/500x500/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                            e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
                           }}
                         />
                       </div>
