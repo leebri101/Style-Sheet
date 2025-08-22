@@ -1,46 +1,44 @@
-"use client"
-
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { Menu, X, Search, ShoppingCart, Heart, User } from "lucide-react"
-import { selectCartItemsCount, selectCartIsOpen, toggleCart } from "../../store/cartSlice"
-import { selectWishlistTotalItems } from "../../store/wishlistSlice"
-import { selectIsAuthenticated, selectUser, logout } from "../../store/authSlice"
-import { Dialog, DialogPanel } from "@headlessui/react"
-import "./Header.css"
+// Header.jsx
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Menu, X, Search, ShoppingCart, Heart, User } from "lucide-react";
+import { selectCartItemsCount, toggleCart } from "../../store/cartSlice";
+import { selectWishlistTotalItems } from "../../store/wishlistSlice";
+import { selectIsAuthenticated, selectUser, logout } from "../../store/authSlice";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import "./Header.css";
 
 const Header = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [searchTerm, setSearchTerm] = useState("")
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const cartQuantity = useSelector(selectCartItemsCount)
-  const wishlistCount = useSelector(selectWishlistTotalItems)
-  const isAuthenticated = useSelector(selectIsAuthenticated)
-  const user = useSelector(selectUser)
-  const isCartOpen = useSelector(selectCartIsOpen)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const cartQuantity = useSelector(selectCartItemsCount);
+  const wishlistCount = useSelector(selectWishlistTotalItems);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
 
   const handleSearch = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchTerm.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`)
-      setSearchTerm("")
-      setIsMobileMenuOpen(false)
+      navigate(`/search-results?q=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchTerm("");
+      setIsMobileMenuOpen(false);
     }
-  }
+  };
 
   const handleLogout = () => {
-    dispatch(logout())
-    localStorage.removeItem("userToken")
-    localStorage.removeItem("userData")
-    navigate("/")
-    setIsMobileMenuOpen(false)
-  }
+    dispatch(logout());
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userData");
+    navigate("/");
+    setIsMobileMenuOpen(false);
+  };
 
   const handleCartToggle = () => {
-    dispatch(toggleCart())
-  }
+    dispatch(toggleCart());
+  };
 
   return (
     <header className="header">
@@ -50,6 +48,7 @@ const Header = () => {
             STYLE-SHEET
           </Link>
         </div>
+        
         {/* Mobile menu button */}
         <div className="mobile-menu-button-container">
           <button
@@ -60,7 +59,8 @@ const Header = () => {
             <Menu className="menu-icon" />
           </button>
         </div>
-        {/*Desktop Navigation*/}
+        
+        {/* Desktop Navigation */}
         <div className="header-links">
           <Link to="/men" className="header-link">
             Mens
@@ -71,14 +71,15 @@ const Header = () => {
           <Link to="/kids" className="header-link">
             Kids
           </Link>
-          {/*Admin Product Management Link*/}
+          {/* Admin Product Management Link */}
           {isAuthenticated && user && user.role === "admin" && (
             <Link to="/admin/products" className="header-link admin-link">
               Manage Products
             </Link>
           )}
         </div>
-        {/*Desktop Search*/}
+        
+        {/* Desktop Search */}
         <form className="header-search" onSubmit={handleSearch}>
           <input
             type="text"
@@ -91,16 +92,19 @@ const Header = () => {
             <Search size={16} />
           </button>
         </form>
-        {/*Desktop Icons*/}
+        
+        {/* Desktop Icons */}
         <div className="header-icons">
           <button className="header-icon-button" onClick={() => navigate("/wishlist")}>
             <Heart className="header-icon" />
             {wishlistCount > 0 && <span className="icon-count">{wishlistCount}</span>}
           </button>
-          <button className="header-icon-button" onClick={handleCartToggle}>
+          
+          <button className="header-icon-button" onClick={() => navigate("/cart")}>
             <ShoppingCart className="header-icon" />
             {cartQuantity > 0 && <span className="icon-count">{cartQuantity}</span>}
           </button>
+          
           {isAuthenticated ? (
             <button className="header-icon-button" onClick={() => navigate("/profile")}>
               <User className="header-icon" />
@@ -111,7 +115,8 @@ const Header = () => {
             </Link>
           )}
         </div>
-        {/*Mobile Menu Dialog*/}
+        
+        {/* Mobile Menu Dialog */}
         <Dialog open={isMobileMenuOpen} onClose={setIsMobileMenuOpen} className="relative z-50">
           <div className="mobile-menu-backdrop">
             <div className="mobile-menu-dialog">
@@ -128,6 +133,7 @@ const Header = () => {
                     <X size={24} />
                   </button>
                 </div>
+                
                 <div className="mobile-menu-content">
                   <div className="mobile-menu-links">
                     <Link to="/men" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
@@ -139,7 +145,13 @@ const Header = () => {
                     <Link to="/kids" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
                       Kids
                     </Link>
-                    {/*Admin Product Management Link in Mobile Menu*/}
+                    
+                    {/* Cart Link in Mobile Menu */}
+                    <Link to="/cart" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
+                      Cart ({cartQuantity})
+                    </Link>
+                    
+                    {/* Admin Product Management Link in Mobile Menu */}
                     {isAuthenticated && user && user.role === "admin" && (
                       <Link
                         to="/admin/products"
@@ -149,9 +161,11 @@ const Header = () => {
                         Manage Products
                       </Link>
                     )}
+                    
                     <Link to="/wishlist" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
                       Wishlist ({wishlistCount})
                     </Link>
+                    
                     {isAuthenticated ? (
                       <>
                         <Link to="/profile" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
@@ -172,7 +186,8 @@ const Header = () => {
                       </>
                     )}
                   </div>
-                  {/*Mobile Search*/}
+                  
+                  {/* Mobile Search */}
                   <form className="mobile-search" onSubmit={handleSearch}>
                     <input
                       type="text"
@@ -192,7 +207,7 @@ const Header = () => {
         </Dialog>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
