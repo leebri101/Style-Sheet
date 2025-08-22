@@ -235,7 +235,7 @@
 
 .men-carousel-price-container {
   display: flex;
-  align-items: center;
+  align-items: 1rem;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -356,7 +356,7 @@
   margin-bottom: 0.5rem;
 }
 
-/* Men's Product Grid Styles */
+/* Men's Product Grid Styles - Separate from carousel */
 .men-product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -370,6 +370,7 @@
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
 }
 
 .men-product-card:hover {
@@ -410,6 +411,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   color: #666;
+  z-index: 10;
 }
 
 .men-wishlist-button:hover {
@@ -458,6 +460,12 @@
   border-radius: 6px;
   background: white;
   cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.men-size-selector select:focus {
+  outline: none;
+  border-color: #2c5aa0;
 }
 
 .men-product-price-container {

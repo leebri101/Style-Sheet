@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
@@ -170,79 +171,6 @@ const MenPage = () => {
     return wishlistItems.some((item) => item.id === productId);
   };
 
-  // Simple Product Grid component for MenPage - Using the working version from your first code
-  const MenProductGrid = ({ products }) => {
-    const [sizeSelections, setSizeSelections] = useState({});
-
-    const handleSizeChange = (productId, size) => {
-      setSizeSelections(prev => ({
-        ...prev,
-        [productId]: size
-      }));
-    };
-
-    return (
-      <div className="product-grid">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-container">
-              <button
-                className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
-                onClick={() => handleWishlistToggle(product)}
-              >
-                <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
-              </button>
-              <img 
-                src={product.image} 
-                alt={product.name}
-                className="product-image"
-                onError={(e) => {
-                  e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
-                }}
-              />
-            </div>
-            
-            <div className="product-details">
-              <h3 className="product-name">{product.name}</h3>
-              <p className="product-description">{product.description}</p>
-              
-              <div className="product-options">
-                <div className="size-selector">
-                  <label>Size:</label>
-                  <select
-                    value={sizeSelections[product.id] || product.sizes[0]}
-                    onChange={(e) => handleSizeChange(product.id, e.target.value)}
-                  >
-                    {product.sizes.map((size) => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              
-              <div className="product-price-container">
-                <span className="product-price">£{product.price}</span>
-                <span className="stock-info">{product.stockQuantity} in stock</span>
-              </div>
-              
-              <div className="product-actions">
-                <button 
-                  className="add-to-cart-btn"
-                  onClick={() => handleAddToCart(product, sizeSelections[product.id])}
-                >
-                  <ShoppingCart size={16} />
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   return (
     <div className="men-page">
       {/* Hero Section */}
@@ -264,7 +192,12 @@ const MenPage = () => {
       </div>
 
       <div className="men-page-content">
-        {/* Men's Featured Carousel - Using the fluid carousel from second code */}
+        <div className="men-page-header">
+          <h1 className="men-page-title">Men's Collection</h1>
+          <p className="men-page-subtitle">Stylish, comfortable, and durable clothing for the modern man</p>
+        </div>
+
+        {/* Men's Featured Carousel */}
         <section className="men-carousel">
           <div className="men-carousel-container">
             <div className="men-carousel-header">
@@ -357,11 +290,68 @@ const MenPage = () => {
         </section>
 
         <div className="men-products-grid">
-          <div className="grid-header">
-            <h2 className="grid-title">More Men's Clothing</h2>
+          <div className="men-grid-header">
+            <h2 className="men-grid-title">More Men's Clothing</h2>
           </div>
-          {/* Using the working product grid from first code */}
-          <MenProductGrid products={gridProducts} />
+          {/* Product Grid */}
+          <div className="men-product-grid">
+            {gridProducts.map((product) => (
+              <div key={product.id} className="men-product-card">
+                <div className="men-product-image-container">
+                  <button
+                    className={`men-wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                    onClick={() => handleWishlistToggle(product)}
+                  >
+                    <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+                  </button>
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="men-product-image"
+                    onError={(e) => {
+                      e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                    }}
+                  />
+                </div>
+                
+                <div className="men-product-details">
+                  <h3 className="men-product-name">{product.name}</h3>
+                  <p className="men-product-description">{product.description}</p>
+                  
+                  <div className="men-product-options">
+                    <div className="men-size-selector">
+                      <label>Size:</label>
+                      <select
+                        value={selectedSize[product.id] || product.sizes[0]}
+                        onChange={(e) => setSelectedSize((prev) => ({ ...prev, [product.id]: e.target.value }))}
+                      >
+                        {product.sizes.map((size) => (
+                          <option key={size} value={size}>
+                            {size}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div className="men-product-price-container">
+                    <span className="men-product-price">£{product.price}</span>
+                    <span className="men-stock-info">{product.stockQuantity} in stock</span>
+                  </div>
+                  
+                  <div className="men-product-actions">
+                    <button 
+                      className="men-add-to-cart-btn"
+                      onClick={() => handleAddToCart(product, selectedSize[product.id])}
+                    >
+                      <ShoppingCart size={16} />
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
