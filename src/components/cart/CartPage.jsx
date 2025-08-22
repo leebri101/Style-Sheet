@@ -14,7 +14,7 @@ import {
   selectCartTotalAmount, 
   selectCartItems 
 } from "../../store/cartSlice.js";
-import "./Cart.css";
+import "./CartPage.css";
 
 const Cart = () => {
   const dispatch = useDispatch()
