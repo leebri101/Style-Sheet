@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { addToCart } from "../../store/cartSlice";
 import { addToWishlist, removeFromWishlist, selectWishlistItems } from "../../store/wishlistSlice";
-import './WomensPage.css';
+import "./WomensPage.css";
 
 const WomenPage = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const WomenPage = () => {
     return name.toLowerCase().replace(/\s+/g, '-');
   };
 
-  // Women's clothing products with simplified format (manual data like Kids page)
+  // Women's clothing products
   const womensProducts = [
     {
       id: generateId("Floral Summer Dress"),
@@ -102,36 +102,10 @@ const WomenPage = () => {
     },
   ];
 
-  // Coming soon products
-  const comingSoonProducts = [
-    {
-      id: generateId("Designer Handbag"),
-      name: "Designer Handbag",
-      price: null,
-      description: "Luxury handbag collection coming soon",
-      category: "accessories",
-      image: "src/assets/docs/images/product-images/accessories/designer-handbag.jpg",
-      stockQuantity: 0,
-      sizes: [],
-      comingSoon: true,
-    },
-    {
-      id: generateId("Pearl Necklace"),
-      name: "Pearl Necklace",
-      price: null,
-      description: "Elegant pearl jewelry collection",
-      category: "jewelry",
-      image: "src/assets/docs/images/product-images/jewelry/pearl-necklace.jpg",
-      stockQuantity: 0,
-      sizes: [],
-      comingSoon: true,
-    }
-  ];
-
   // Get featured women's products for carousel (first 4 products)
   const featuredProducts = womensProducts.slice(0, 4);
   // Get remaining products for the grid
-  const gridProducts = [...womensProducts.slice(4), ...comingSoonProducts];
+  const gridProducts = womensProducts.slice(4);
 
   // Auto-play functionality for carousel
   useEffect(() => {
@@ -161,9 +135,7 @@ const WomenPage = () => {
   };
 
   const handleAddToCart = (product, size = null) => {
-    if (product.comingSoon || product.price === null) return;
-    
-    const selectedSizeValue = size || selectedSize[product.id] || (product.sizes && product.sizes[0]) || "M";
+    const selectedSizeValue = size || selectedSize[product.id] || product.sizes[0];
 
     dispatch(
       addToCart({
@@ -178,8 +150,6 @@ const WomenPage = () => {
   };
 
   const handleWishlistToggle = (product) => {
-    if (product.comingSoon || product.price === null) return;
-    
     const isInWishlist = wishlistItems.some((item) => item.id === product.id);
 
     if (isInWishlist) {
@@ -201,113 +171,17 @@ const WomenPage = () => {
     return wishlistItems.some((item) => item.id === productId);
   };
 
-  // Simple Product Grid component for WomenPage
-  const WomenProductGrid = ({ products }) => {
-    const [sizeSelections, setSizeSelections] = useState({});
-
-    const handleSizeChange = (productId, size) => {
-      setSizeSelections(prev => ({
-        ...prev,
-        [productId]: size
-      }));
-    };
-
-    return (
-      <div className="product-grid">
-        {products.map((product) => {
-          const isComingSoon = product.comingSoon || product.price === null;
-          
-          return (
-            <div key={product.id} className={`product-card ${isComingSoon ? "coming-soon-card" : ""}`}>
-              {isComingSoon && <div className="coming-soon-badge">Coming Soon</div>}
-              
-              <div className="product-image-container">
-                {!isComingSoon && (
-                  <button
-                    className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
-                    onClick={() => handleWishlistToggle(product)}
-                  >
-                    <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
-                  </button>
-                )}
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="product-image"
-                  onError={(e) => {
-                    e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
-                  }}
-                />
-                {isComingSoon && (
-                  <div className="coming-soon-overlay">
-                    <span>Coming Soon</span>
-                  </div>
-                )}
-              </div>
-              
-              <div className="product-details">
-                <h3 className="product-name">{product.name}</h3>
-                <p className="product-description">{product.description}</p>
-                
-                {!isComingSoon && product.sizes && product.sizes.length > 0 && (
-                  <div className="product-options">
-                    <div className="size-selector">
-                      <label>Size:</label>
-                      <select
-                        value={sizeSelections[product.id] || product.sizes[0]}
-                        onChange={(e) => handleSizeChange(product.id, e.target.value)}
-                      >
-                        {product.sizes.map((size) => (
-                          <option key={size} value={size}>
-                            {size}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                )}
-                
-                <div className="product-price-container">
-                  {!isComingSoon ? (
-                    <span className="product-price">£{product.price}</span>
-                  ) : (
-                    <span className="product-price coming-soon-price">Coming Soon</span>
-                  )}
-                  {!isComingSoon && (
-                    <span className="stock-info">{product.stockQuantity} in stock</span>
-                  )}
-                </div>
-                
-                {!isComingSoon && (
-                  <div className="product-actions">
-                    <button 
-                      className="add-to-cart-btn"
-                      onClick={() => handleAddToCart(product, sizeSelections[product.id])}
-                    >
-                      <ShoppingCart size={16} />
-                      Add to Cart
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
   return (
     <div className="women-page">
       {/* Hero Section */}
       <div className="women-hero">
         <div className="women-hero-content">
           <h1 className="women-hero-title">Women's Collection</h1>
-          <p className="women-hero-subtitle">Explore our elegant selection of pieces</p>
+          <p className="women-hero-subtitle">Discover our elegant selection of clothing for every occasion</p>
         </div>
         <div className="women-hero-image">
           <img
-            src="src/assets/docs/images/product-images/womens-clothing/woman-shopping.jpg"
+            src="src/assets/docs/images/product-images/womens-clothing/womens-group-photo.jpg"
             alt="Women's Fashion Collection"
             className="hero-image"
             onError={(e) => {
@@ -318,30 +192,35 @@ const WomenPage = () => {
       </div>
 
       <div className="women-page-content">
+        <div className="women-page-header">
+          <h1 className="women-page-title">Women's Collection</h1>
+          <p className="women-page-subtitle">Stylish, comfortable, and elegant clothing for the modern woman</p>
+        </div>
+
         {/* Women's Featured Carousel */}
         <section className="women-carousel">
-          <div className="carousel-container">
-            <div className="carousel-header">
-              <h2 className="carousel-title">Featured Women's Items</h2>
-              <p className="carousel-subtitle">Special deals on our most popular women's clothing</p>
+          <div className="women-carousel-container">
+            <div className="women-carousel-header">
+              <h2 className="women-carousel-title">Featured Women's Items</h2>
+              <p className="women-carousel-subtitle">Special deals on our most popular women's clothing</p>
             </div>
 
-            <div className="carousel-wrapper">
+            <div className="women-carousel-wrapper">
               <button
-                className="carousel-arrow carousel-arrow-prev"
+                className="women-carousel-arrow women-carousel-arrow-prev"
                 onClick={goToPrevSlide}
                 aria-label="Previous slide"
               >
                 <ChevronLeft size={20} />
               </button>
 
-              <div className="carousel-content">
+              <div className="women-carousel-content">
                 {featuredProducts.map((product, index) => (
-                  <div key={product.id} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
-                    <div className="carousel-slide-content">
-                      <div className="carousel-image-container">
+                  <div key={product.id} className={`women-carousel-slide ${index === currentSlide ? "active" : ""}`}>
+                    <div className="women-carousel-slide-content">
+                      <div className="women-carousel-image-container">
                         <button
-                          className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                          className={`women-carousel-wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
                           onClick={() => handleWishlistToggle(product)}
                         >
                           <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
@@ -349,19 +228,19 @@ const WomenPage = () => {
                         <img 
                           src={product.image} 
                           alt={product.name} 
-                          className="carousel-image" 
+                          className="women-carousel-image" 
                           onError={(e) => {
                             e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
                           }}
                         />
                       </div>
 
-                      <div className="carousel-details">
-                        <h3 className="carousel-product-title">{product.name}</h3>
-                        <p className="carousel-product-description">{product.description}</p>
+                      <div className="women-carousel-details">
+                        <h3 className="women-carousel-product-title">{product.name}</h3>
+                        <p className="women-carousel-product-description">{product.description}</p>
 
-                        <div className="product-options">
-                          <div className="size-selector">
+                        <div className="women-product-options">
+                          <div className="women-carousel-size-selector">
                             <label>Size:</label>
                             <select
                               value={selectedSize[product.name] || product.sizes[0]}
@@ -375,12 +254,12 @@ const WomenPage = () => {
                             </select>
                           </div>
                         </div>
-                        <div className="carousel-price-container">
-                          <span className="carousel-price">£{product.price}</span>
-                          <span className="stock-info">{product.stockQuantity} in stock</span>
+                        <div className="women-carousel-price-container">
+                          <span className="women-carousel-price">£{product.price}</span>
+                          <span className="women-carousel-stock-info">{product.stockQuantity} in stock</span>
                         </div>
-                        <div className="carousel-actions">
-                          <button className="carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
+                        <div className="women-carousel-actions">
+                          <button className="women-carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
                             <ShoppingCart size={25} />
                             Add to Cart
                           </button>
@@ -391,16 +270,16 @@ const WomenPage = () => {
                 ))}
               </div>
 
-              <button className="carousel-arrow carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
+              <button className="women-carousel-arrow women-carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
                 <ChevronRight size={20} />
               </button>
             </div>
-            <div className="carousel-controls">
-              <div className="carousel-dots">
+            <div className="women-carousel-controls">
+              <div className="women-carousel-dots">
                 {featuredProducts.map((_, index) => (
                   <button
                     key={index}
-                    className={`carousel-dot ${index === currentSlide ? "active" : ""}`}
+                    className={`women-carousel-dot ${index === currentSlide ? "active" : ""}`}
                     onClick={() => goToSlide(index)}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -411,10 +290,68 @@ const WomenPage = () => {
         </section>
 
         <div className="women-products-grid">
-          <div className="grid-header">
-            <h2 className="grid-title">More Women's Clothing</h2>
+          <div className="women-grid-header">
+            <h2 className="women-grid-title">More Women's Clothing</h2>
           </div>
-          <WomenProductGrid products={gridProducts} />
+          {/* Product Grid */}
+          <div className="women-product-grid">
+            {gridProducts.map((product) => (
+              <div key={product.id} className="women-product-card">
+                <div className="women-product-image-container">
+                  <button
+                    className={`women-wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                    onClick={() => handleWishlistToggle(product)}
+                  >
+                    <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+                  </button>
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="women-product-image"
+                    onError={(e) => {
+                      e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                    }}
+                  />
+                </div>
+                
+                <div className="women-product-details">
+                  <h3 className="women-product-name">{product.name}</h3>
+                  <p className="women-product-description">{product.description}</p>
+                  
+                  <div className="women-product-options">
+                    <div className="women-size-selector">
+                      <label>Size:</label>
+                      <select
+                        value={selectedSize[product.id] || product.sizes[0]}
+                        onChange={(e) => setSelectedSize((prev) => ({ ...prev, [product.id]: e.target.value }))}
+                      >
+                        {product.sizes.map((size) => (
+                          <option key={size} value={size}>
+                            {size}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div className="women-product-price-container">
+                    <span className="women-product-price">£{product.price}</span>
+                    <span className="women-stock-info">{product.stockQuantity} in stock</span>
+                  </div>
+                  
+                  <div className="women-product-actions">
+                    <button 
+                      className="women-add-to-cart-btn"
+                      onClick={() => handleAddToCart(product, selectedSize[product.id])}
+                    >
+                      <ShoppingCart size={16} />
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
