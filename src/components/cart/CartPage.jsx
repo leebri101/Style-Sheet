@@ -28,23 +28,19 @@ const Cart = () => {
         id: item.id,
         size: item.size,
         color: item.color,
-      }),
+      })
     )
   }
 
   const handleUpdateQuantity = (item, newQuantity) => {
-    if (newQuantity <= 0) {
-      handleRemoveItem(item)
-    } else {
-      dispatch(
-        updateQuantity({
-          id: item.id,
-          size: item.size,
-          color: item.color,
-          quantity: newQuantity,
-        }),
-      )
-    }
+    dispatch(
+      updateQuantity({
+        id: item.id,
+        size: item.size,
+        color: item.color,
+        quantity: newQuantity,
+      })
+    )
   }
 
   const handleClearCart = () => {
@@ -54,7 +50,11 @@ const Cart = () => {
   }
 
   const handleCheckout = () => {
+    // You can implement your checkout logic here
     alert("Checkout functionality coming soon!")
+    // For a real implementation, you might redirect to a checkout page:
+    // navigate('/checkout');
+    // dispatch(closeCart());
   }
 
   const handleCloseCart = () => {
@@ -92,9 +92,9 @@ const Cart = () => {
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
-                        <Dialog className="text-lg font-medium text-gray-900">
+                        <h2 className="text-lg font-medium text-gray-900">
                           Shopping Cart ({cartItems.length})
-                        </Dialog>
+                        </h2>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
@@ -125,7 +125,7 @@ const Cart = () => {
                           <div className="flow-root">
                             <ul role="list" className="-my-6 divide-y divide-gray-200">
                               {cartItems.map((item) => (
-                                <li key={`${item.id}-${item.size || 'default'}-${item.color || 'default'}`} className="flex py-6">
+                                <li key={item.key} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
                                       src={item.image || "/placeholder.svg?height=96&width=96"}

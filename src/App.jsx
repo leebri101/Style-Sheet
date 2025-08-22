@@ -11,6 +11,7 @@ import WomenPage from "./components/pages/WomensPage";
 import KidsPage from "./components/pages/KidsPage";
 import SearchResultsPage from "./components/pages/SearchResultsPage";
 import WishlistPage from "./components/pages/WishlistPage";
+import Cart.jsx
 import AuthPage from "./components/user/AuthPage";
 import LoginPage from "./components/user/LoginPage";
 import RegistrationPage from "./components/user/RegistrationPage";
