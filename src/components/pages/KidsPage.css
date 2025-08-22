@@ -69,6 +69,7 @@
   font-weight: bold;
   color: #333;
   margin-bottom: 0.5rem;
+  
 }
 
 .kids-carousel-subtitle {
@@ -168,12 +169,14 @@
   font-weight: bold;
   color: #333;
   margin-bottom: 1rem;
+  text-align:left;
 }
 
 .kids-carousel-product-description {
   color: #666;
   margin-bottom: 1.5rem;
   line-height: 1.6;
+  text-align: left;
 }
 
 .kids-product-options {
