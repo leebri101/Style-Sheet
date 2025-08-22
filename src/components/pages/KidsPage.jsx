@@ -12,15 +12,15 @@ const KidsPage = () => {
   const [selectedSize, setSelectedSize] = useState({});
   const autoPlayRef = useRef(null);
 
-  // Function to generate a unique ID based on product name
-  const generateId = (name) => {
-    return name.toLowerCase().replace(/\s+/g, '-');
+  // Function to generate a unique ID based on product name with counter
+  const generateId = (name, index) => {
+    return `${name.toLowerCase().replace(/\s+/g, '-')}-${index}`;
   };
 
   // Kids clothing products with simplified format
   const kidsProducts = [
     {
-      id: generateId("Mickey Mouse T-shirt"),
+      id: "mickey-mouse-t-shirt-1",
       name: "Mickey Mouse T-shirt",
       price: 18.99,
       description: "Everyone's favorite cartoon mouse",
@@ -30,7 +30,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      id: generateId("Basic Grey Sweatshirt"),
+      id: "basic-grey-sweatshirt-2",
       name: "Basic Grey Sweatshirt",
       price: 32.99,
       description: "Simple and stylish",
@@ -40,7 +40,7 @@ const KidsPage = () => {
       sizes:["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      id: generateId("Denim Overalls"),
+      id: "denim-overalls-3",
       name: "Denim Overalls",
       price: 28.99,
       description: "Dress like a minion",
@@ -50,7 +50,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8", "10", "12"],
     },
     {
-      id: generateId("Yellow Jumper"),
+      id: "yellow-jumper-4",
       name: "Yellow Jumper",
       price: 39.99,
       description: "Summer, cheerful and cute",
@@ -60,7 +60,7 @@ const KidsPage = () => {
       sizes: ["10", "11", "12", "13", "1", "2", "3", "4", "5"],
     },
     {
-      id: generateId("Green Hoodie"),
+      id: "green-hoodie-5",
       name: "Green Hoodie",
       price: 22.99,
       description: "Perfect for the colder weather",
@@ -70,7 +70,7 @@ const KidsPage = () => {
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
     {
-      id: generateId("Kids Outdoor Coat"),
+      id: "kids-outdoor-coat-6",
       name: "Kids Outdoor Coat",
       price: 35.99,
       description: "For the great outdoors",
@@ -80,7 +80,7 @@ const KidsPage = () => {
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10"],
     },
     {
-      id: generateId("Pink Dress"),
+      id: "pink-dress-7",
       name: "Pink Dress",
       price: 26.99,
       description: "Pink and pretty",
@@ -90,12 +90,32 @@ const KidsPage = () => {
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
     },
     {
-      id: generateId("Kids quarter zip"),
+      id: "kids-quarter-zip-8",
       name: "Kids quarter zip",
       price: 19.99,
       description: "The little gentleman",
       category: "kids",
       image: "src/assets/docs/images/product-images/kids-clothing/boys-quarter-button-jumper.jpg",
+      stockQuantity: 56,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
+    },
+    {
+      id: "graphic-t-shirt-9",
+      name: "Graphic T-shirt",
+      price: 19.99,
+      description: "Stylish and versatile",
+      category: "kids",
+      image: "src/assets/docs/images/product-images/kids-clothing/teens-denim-overalls.jpg",
+      stockQuantity: 56,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
+    },
+    {
+      id: "girls-poncho-10",
+      name: "Girls Poncho",
+      price: 19.99,
+      description: "Great for school and to go out",
+      category: "kids",
+      image: "src/assets/docs/images/product-images/kids-clothing/kids-poncho.jpg",
       stockQuantity: 56,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
