@@ -100,6 +100,26 @@ const KidsPage = () => {
       stockQuantity: 56,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
+    {
+      id: generateId("Polka Dot Dress"),
+      name: "Polka Dot Dress",
+      price: 23,
+      description: "Cute and playful",
+      category: "kids",
+      image:"src/assets/docs/images/product-images/kids-clothing/polka-dot-dress.jpg",
+      stockQuantity: 22,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
+    },
+    {
+      id: generateId("Snuggly Sweatshirt"),
+      name: "Snuggly Sweatshirt",
+      price: 21.99,
+      description: "Warm, Soft and cute",
+      category: "kids",
+      image:"src/assets/docs/images/product-images/kids-clothing/kids-snuggly-sweatshirt.jpg", 
+      stockQuantity: 56,
+      sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
+    },
   ];
   
   // Get featured kids products for carousel (first 4 products)
