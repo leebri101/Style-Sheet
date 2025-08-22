@@ -21,72 +21,72 @@ const WomenPage = () => {
   // Women's clothing products
   const womensProducts = [
     {
-      id: generateId("Floral Summer Dress"),
-      name: "Floral Summer Dress",
+      id: generateId("Summer Set"),
+      name: " Summer",
       price: 45.99,
-      description: "Light and breezy floral print dress",
+      description: "Light and breezy",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/floral-summer-dress.jpg",
+      image: "src/assets/docs/images/product-images/womens-clothing/summer-set.jpg",
       stockQuantity: 32,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
     {
-      id: generateId("Classic White Blouse"),
-      name: "Classic White Blouse",
-      price: 35.50,
-      description: "Elegant white blouse for office or casual wear",
+      id: generateId("Linen Dress"),
+      name: "Linen Dress",
+      price: 35.55,
+      description: "Elegant for office or casual wear",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/white-blouse.jpg",
+      image: "src/assets/docs/images/product-images/womens-clothing/linen-dress.jpg",
       stockQuantity: 45,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
     {
-      id: generateId("Denim Jacket"),
-      name: "Denim Jacket",
+      id: generateId("Brown Overcoat"),
+      name: "Brown Overcoat",
       price: 65.99,
-      description: "Classic denim jacket for all seasons",
+      description: "Classic jacket for all seasons",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/denim-jacket.jpg",
+      image: "src/assets/docs/images/product-images/womens-clothing/brown-overcoat.jpg",
       stockQuantity: 28,
       sizes: ["S", "M", "L", "XL"],
     },
     {
-      id: generateId("Black Evening Gown"),
-      name: "Black Evening Gown",
-      price: 89.99,
-      description: "Elegant black gown for special occasions",
-      category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/black-gown.jpg",
-      stockQuantity: 18,
-      sizes: ["XS", "S", "M", "L"],
-    },
-    {
-      id: generateId("Casual Summer Top"),
-      name: "Casual Summer Top",
+      id: generateId("White Crop Top"),
+      name: "White Crop Top",
       price: 25.99,
       description: "Comfortable and stylish summer top",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/summer-top.jpg",
+      image: "src/assets/docs/images/product-images/womens-clothing/white-graphic-crop-top.jpg",
       stockQuantity: 56,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
     {
-      id: generateId("Professional Blazer"),
-      name: "Professional Blazer",
-      price: 75.00,
-      description: "Sharp blazer for professional settings",
+      id: generateId("Womens fitness wear"),
+      name: "Womens Fitness Wear",
+      price: 89.99,
+      description: "Great to break a sweat in",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/professional-blazer.jpg",
+      image: "src/assets/docs/images/product-images/womens-clothing/womens-fitness-wear.jpg",
+      stockQuantity: 18,
+      sizes: ["XS", "S", "M", "L"],
+    },
+    {
+      id: generateId("Linen Shirt"),
+      name: "Linen Shirt",
+      price: 25.99,
+      description: "Sharp & for any settings",
+      category: "women's clothing",
+      image: "src/assets/docs/images/product-images/womens-clothing/relaxed-linen-stripe-shirt.jpg",
       stockQuantity: 22,
       sizes: ["S", "M", "L", "XL"],
     },
     {
-      id: generateId("Knit Sweater"),
-      name: "Knit Sweater",
+      id: generateId("Blue Quarter Zip"),
+      name: "Blue Quarter Zip",
       price: 42.99,
-      description: "Cozy knit sweater for colder days",
+      description: "Cozy sweater for colder days",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/knit-sweater.jpg",
+      image: "src/assets/docs/images/product-images/womens-clothing/polyester-quarter-zip.jpg", 
       stockQuantity: 38,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
@@ -96,8 +96,28 @@ const WomenPage = () => {
       price: 38.50,
       description: "Flowy maxi skirt for a bohemian look",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/maxi-skirt.jpg",
+      image: "src/assets/docs/images/product-images/womens-clothing/white-skirt.jpg",
       stockQuantity: 41,
+      sizes: ["XS", "S", "M", "L"],
+    },
+    {
+      id: generateId("Denim Jeans"),
+      name: "Denim Jeans",
+      price: 50.55,
+      description: "Stylish, Versatile, Trendy",
+      category: "women's clothing",
+      image: "src/assets/docs/images/product-images/womens-clothing/flared-denim-jeans.jpg",
+      stockQuantity: 15,
+      sizes: ["XS", "S", "M", "L"],
+    },
+    {
+      id: generateId("Grey Turtle Neck"),
+      name: "Grey Turtle Neck",
+      price: 45.99,
+      description: "Subtle & great for the cold weather",
+      category: "women's clothing",
+      image: "src/assets/docs/images/product-images/womens-clothing/grey-turtle-neck.jpg",
+      stockQuantity: 25,
       sizes: ["XS", "S", "M", "L"],
     },
   ];
@@ -181,7 +201,7 @@ const WomenPage = () => {
         </div>
         <div className="women-hero-image">
           <img
-            src="src/assets/docs/images/product-images/womens-clothing/womens-group-photo.jpg"
+            src="src/assets/docs/images/product-images/womens-clothing/woman-shopping.jpg"
             alt="Women's Fashion Collection"
             className="hero-image"
             onError={(e) => {
@@ -193,8 +213,7 @@ const WomenPage = () => {
 
       <div className="women-page-content">
         <div className="women-page-header">
-          <h1 className="women-page-title">Women's Collection</h1>
-          <p className="women-page-subtitle">Stylish, comfortable, and elegant clothing for the modern woman</p>
+          <h1 className="women-page-title">Best Sellers</h1>
         </div>
 
         {/* Women's Featured Carousel */}
@@ -230,7 +249,7 @@ const WomenPage = () => {
                           alt={product.name} 
                           className="women-carousel-image" 
                           onError={(e) => {
-                            e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                            e.target.src = `https://placehold.co/500x500/eee/aaa?text=${encodeURIComponent(product.name)}`;
                           }}
                         />
                       </div>
