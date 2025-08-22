@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { addToCart } from "../../store/cartSlice";
 import { addToWishlist, removeFromWishlist, selectWishlistItems } from "../../store/wishlistSlice";
-import ProductGrid from "../products/ProductGrid";
 import './KidsPage.css';
 
 const KidsPage = () => {
@@ -134,8 +133,8 @@ const KidsPage = () => {
     setCurrentSlide((prev) => (prev === featuredProducts.length - 1 ? 0 : prev + 1));
   };
 
-  const handleAddToCart = (product) => {
-    const size = selectedSize[product.name] || product.sizes[0];
+  const handleAddToCart = (product, size = null) => {
+    const selectedSizeValue = size || selectedSize[product.name] || product.sizes[0];
 
     dispatch(
       addToCart({
@@ -143,7 +142,7 @@ const KidsPage = () => {
         name: product.name,
         price: product.price,
         image: product.image,
-        size,
+        size: selectedSizeValue,
         quantity: 1,
       }),
     );
@@ -169,6 +168,79 @@ const KidsPage = () => {
 
   const isInWishlist = (productId) => {
     return wishlistItems.some((item) => item.id === productId);
+  };
+
+  // Simple Product Grid component for KidsPage
+  const KidsProductGrid = ({ products }) => {
+    const [sizeSelections, setSizeSelections] = useState({});
+
+    const handleSizeChange = (productId, size) => {
+      setSizeSelections(prev => ({
+        ...prev,
+        [productId]: size
+      }));
+    };
+
+    return (
+      <div className="product-grid">
+        {products.map((product) => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-container">
+              <button
+                className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                onClick={() => handleWishlistToggle(product)}
+              >
+                <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+              </button>
+              <img 
+                src={product.image} 
+                alt={product.name}
+                className="product-image"
+                onError={(e) => {
+                  e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                }}
+              />
+            </div>
+            
+            <div className="product-details">
+              <h3 className="product-name">{product.name}</h3>
+              <p className="product-description">{product.description}</p>
+              
+              <div className="product-options">
+                <div className="size-selector">
+                  <label>Size:</label>
+                  <select
+                    value={sizeSelections[product.id] || product.sizes[0]}
+                    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+                  >
+                    {product.sizes.map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              
+              <div className="product-price-container">
+                <span className="product-price">£{product.price}</span>
+                <span className="stock-info">{product.stockQuantity} in stock</span>
+              </div>
+              
+              <div className="product-actions">
+                <button 
+                  className="add-to-cart-btn"
+                  onClick={() => handleAddToCart(product, sizeSelections[product.id])}
+                >
+                  <ShoppingCart size={16} />
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -276,7 +348,7 @@ const KidsPage = () => {
           <div className="grid-header">
             <h2 className="grid-title">More Kids Clothing</h2>
           </div>
-          <ProductGrid products={gridProducts} />
+          <KidsProductGrid products={gridProducts} />
         </div>
       </div>
     </div>
