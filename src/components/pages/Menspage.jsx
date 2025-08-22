@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { addToCart } from "../../store/cartSlice";
 import { addToWishlist, removeFromWishlist, selectWishlistItems } from "../../store/wishlistSlice";
-import './MensPage.css';
+import "./MensPage.css";
 
 const MenPage = () => {
   const dispatch = useDispatch();
@@ -134,7 +134,7 @@ const MenPage = () => {
   };
 
   const handleAddToCart = (product, size = null) => {
-    const selectedSizeValue = size || selectedSize[product.name] || product.sizes[0];
+    const selectedSizeValue = size || selectedSize[product.id] || product.sizes[0];
 
     dispatch(
       addToCart({
@@ -182,92 +182,189 @@ const MenPage = () => {
     };
 
     return (
+      <div className="product-grid">
+        {products.map((product) => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-container">
+              <button
+                className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                onClick={() => handleWishlistToggle(product)}
+              >
+                <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+              </button>
+              <img 
+                src={product.image} 
+                alt={product.name}
+                className="product-image"
+                onError={(e) => {
+                  e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                }}
+              />
+            </div>
+            
+            <div className="product-details">
+              <h3 className="product-name">{product.name}</h3>
+              <p className="product-description">{product.description}</p>
+              
+              <div className="product-options">
+                <div className="size-selector">
+                  <label>Size:</label>
+                  <select
+                    value={sizeSelections[product.id] || product.sizes[0]}
+                    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+                  >
+                    {product.sizes.map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              
+              <div className="product-price-container">
+                <span className="product-price">£{product.price}</span>
+                <span className="stock-info">{product.stockQuantity} in stock</span>
+              </div>
+              
+              <div className="product-actions">
+                <button 
+                  className="add-to-cart-btn"
+                  onClick={() => handleAddToCart(product, sizeSelections[product.id])}
+                >
+                  <ShoppingCart size={16} />
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
     <div className="men-page">
       {/* Hero Section */}
-      <div className="men-hero">
+      <div>
         <div className="men-hero-content">
-          <h1 className="men-hero-title">Men's Collection</h1>
-          <p className="men-hero-subtitle">Discover our premium selection of clothing for every occasion</p>
+          <h1>Men's Collection</h1>
+          <p>Discover our premium selection of clothing for every occasion</p>
         </div>
         <div className="men-hero-image">
           <img
             src="src/assets/docs/images/product-images/mens-clothing/mens-group-photo.jpg"
             alt="Men's Fashion Collection"
             className="hero-image"
+            onError={(e) => {
+              e.target.src = "https://placehold.co/800x400/eee/aaa?text=Men's+Collection";
+            }}
           />
         </div>
       </div>
 
-      {/* Featured Products Carousel */}
-      {featuredProducts.length > 0 && (
-        <div className="featured-carousel">
-          <div className="container">
-            <h2 className="section-title">Featured Products</h2>
-            <div className="carousel-container">
-              <button className="carousel-btn prev-btn" onClick={prevSlide}>
-                <ChevronLeft size={24} />
+      <div className="men-page-content">
+        {/* Men's Featured Carousel */}
+        <section className="men-carousel">
+          <div className="carousel-container">
+            <div className="carousel-header">
+              <h2 className="carousel-title">Featured Men's Items</h2>
+              <p className="carousel-subtitle">Special deals on our most popular men's clothing</p>
+            </div>
+
+            <div className="carousel-wrapper">
+              <button
+                className="carousel-arrow carousel-arrow-prev"
+                onClick={goToPrevSlide}
+                aria-label="Previous slide"
+              >
+                <ChevronLeft size={20} />
               </button>
 
               <div className="carousel-content">
-                <div className="carousel-track" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-                  {featuredProducts.map((product) => (
-                    <div key={product.id} className="carousel-slide">
-                      <div className="carousel-product">
-                        <div className="carousel-image">
-                          <img src={product.image || "/placeholder.svg"} alt={product.name} />
+                {featuredProducts.map((product, index) => (
+                  <div key={product.id} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
+                    <div className="carousel-slide-content">
+                      <div className="carousel-image-container">
+                        <button
+                          className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                          onClick={() => handleWishlistToggle(product)}
+                        >
+                          <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+                        </button>
+                        <img 
+                          src={product.image} 
+                          alt={product.name} 
+                          className="carousel-image" 
+                          onError={(e) => {
+                            e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                          }}
+                        />
+                      </div>
+
+                      <div className="carousel-details">
+                        <h3 className="carousel-product-title">{product.name}</h3>
+                        <p className="carousel-product-description">{product.description}</p>
+
+                        <div className="product-options">
+                          <div className="size-selector">
+                            <label>Size:</label>
+                            <select
+                              value={selectedSize[product.name] || product.sizes[0]}
+                              onChange={(e) => setSelectedSize((prev) => ({ ...prev, [product.name]: e.target.value }))}
+                            >
+                              {product.sizes.map((size) => (
+                                <option key={size} value={size}>
+                                  {size}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
                         </div>
-                        <div className="carousel-info">
-                          <h3>{product.name}</h3>
-                          <p className="carousel-price">£{product.price}</p>
-                          <p className="carousel-description">{product.description}</p>
-                          <div className="carousel-sizes">
-                            <span>Sizes: {product.sizes.join(", ")}</span>
-                          </div>
-                          <div className="carousel-stock">
-                            <span>Stock: {product.stockQuantity} items</span>
-                          </div>
+                        <div className="carousel-price-container">
+                          <span className="carousel-price">£{product.price}</span>
+                          <span className="stock-info">{product.stockQuantity} in stock</span>
+                        </div>
+                        <div className="carousel-actions">
+                          <button className="carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
+                            <ShoppingCart size={25} />
+                            Add to Cart
+                          </button>
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
 
-              <button className="carousel-btn next-btn" onClick={nextSlide}>
-                <ChevronRight size={24} />
+              <button className="carousel-arrow carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
+                <ChevronRight size={20} />
               </button>
             </div>
-
-            {/* Carousel Indicators */}
-            <div className="carousel-indicators">
-              {featuredProducts.map((_, index) => (
-                <button
-                  key={index}
-                  className={`indicator ${index === currentSlide ? "active" : ""}`}
-                  onClick={() => setCurrentSlide(index)}
-                />
-              ))}
+            <div className="carousel-controls">
+              <div className="carousel-dots">
+                {featuredProducts.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`carousel-dot ${index === currentSlide ? "active" : ""}`}
+                    onClick={() => goToSlide(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        </section>
 
-      {/* All Products Section */}
-      <div className="men-products">
-        <div className="container">
-          <h2 className="section-title">All Clothing Items</h2>
-          {allClothingProducts.length > 0 ? (
-            <ProductGrid products={allClothingProducts} loading={false} />
-          ) : (
-            <div className="no-products">
-              <h3>No clothing items found</h3>
-              <p>Check back later for new arrivals.</p>
-            </div>
-          )}
+        <div className="men-products-grid">
+          <div className="grid-header">
+            <h2 className="grid-title">More Men's Clothing</h2>
+          </div>
+          <MenProductGrid products={gridProducts} />
         </div>
       </div>
     </div>
-  )
-}
-}
-export default MenPage
+  );
+};
+
+export default MenPage;
