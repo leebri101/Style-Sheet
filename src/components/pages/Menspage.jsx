@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
-import ProductGrid from "../products/ProductGrid";
 import { addToCart } from "../../store/cartSlice";
 import { addToWishlist, removeFromWishlist, selectWishlistItems } from "../../store/wishlistSlice";
 import "./MensPage.css";
@@ -31,19 +30,19 @@ const MenPage = () => {
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     },
     {
-      id: generateId("Classic Denim Jacket"),
-      name: "Classic Denim Jacket",
-      price: 59.99,
-      description: "Timeless denim jacket",
+      id: generateId("Cream Dress Suit"),
+      name: "Cream Dress Suit",
+      price: 110.00,
+      description: "Crisp formal Suit perfect for business and special occasions",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/dark-denim-jacket.jpg",
-      stockQuantity: 23,
+      image: "src/assets/docs/images/product-images/mens-clothing/cream-dress-suit.jpg",
+      stockQuantity: 29,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
     {
       id: generateId("Brown Overcoat"),
       name: "Brown Overcoat",
-      price: 75.00,
+      price: 75.99,
       description: "Elegant and warm overcoat",
       category: "men's clothing",
       image: "src/assets/docs/images/product-images/mens-clothing/brown-over-coat.jpg",
@@ -71,16 +70,6 @@ const MenPage = () => {
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
     {
-      id: generateId("Cream Dress Suit"),
-      name: "Cream Dress Suit",
-      price: 110.00,
-      description: "Crisp formal Suit perfect for business and special occasions",
-      category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/cream-dress-suit.jpg",
-      stockQuantity: 29,
-      sizes: ["S", "M", "L", "XL", "XXL"],
-    },
-    {
       id: generateId("Graphic Gaming Hoodie"),
       name: "Graphic Gaming Hoodie",
       price: 50.00,
@@ -100,8 +89,18 @@ const MenPage = () => {
       stockQuantity: 29,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
+    {
+      id: generateId("Classic Denim Jacket"),
+      name: "Classic Denim Jacket",
+      price: 59.99,
+      description: "Timeless denim jacket",
+      category: "men's clothing",
+      image: "src/assets/docs/images/product-images/mens-clothing/dark-denim-jacket.jpg",
+      stockQuantity: 23,
+      sizes: ["S", "M", "L", "XL", "XXL"],
+    },
   ];
-
+  
   // Get featured men's products for carousel (first 4 products)
   const featuredProducts = mensProducts.slice(0, 4);
   // Get remaining products for the grid
@@ -134,8 +133,8 @@ const MenPage = () => {
     setCurrentSlide((prev) => (prev === featuredProducts.length - 1 ? 0 : prev + 1));
   };
 
-  const handleAddToCart = (product) => {
-    const size = selectedSize[product.name] || product.sizes[0];
+  const handleAddToCart = (product, size = null) => {
+    const selectedSizeValue = size || selectedSize[product.id] || product.sizes[0];
 
     dispatch(
       addToCart({
@@ -143,7 +142,7 @@ const MenPage = () => {
         name: product.name,
         price: product.price,
         image: product.image,
-        size,
+        size: selectedSizeValue,
         quantity: 1,
       }),
     );
@@ -169,6 +168,79 @@ const MenPage = () => {
 
   const isInWishlist = (productId) => {
     return wishlistItems.some((item) => item.id === productId);
+  };
+
+  // Simple Product Grid component for MenPage
+  const MenProductGrid = ({ products }) => {
+    const [sizeSelections, setSizeSelections] = useState({});
+
+    const handleSizeChange = (productId, size) => {
+      setSizeSelections(prev => ({
+        ...prev,
+        [productId]: size
+      }));
+    };
+
+    return (
+      <div className="product-grid">
+        {products.map((product) => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-container">
+              <button
+                className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                onClick={() => handleWishlistToggle(product)}
+              >
+                <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+              </button>
+              <img 
+                src={product.image} 
+                alt={product.name}
+                className="product-image"
+                onError={(e) => {
+                  e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                }}
+              />
+            </div>
+            
+            <div className="product-details">
+              <h3 className="product-name">{product.name}</h3>
+              <p className="product-description">{product.description}</p>
+              
+              <div className="product-options">
+                <div className="size-selector">
+                  <label>Size:</label>
+                  <select
+                    value={sizeSelections[product.id] || product.sizes[0]}
+                    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+                  >
+                    {product.sizes.map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              
+              <div className="product-price-container">
+                <span className="product-price">£{product.price}</span>
+                <span className="stock-info">{product.stockQuantity} in stock</span>
+              </div>
+              
+              <div className="product-actions">
+                <button 
+                  className="add-to-cart-btn"
+                  onClick={() => handleAddToCart(product, sizeSelections[product.id])}
+                >
+                  <ShoppingCart size={16} />
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -288,7 +360,7 @@ const MenPage = () => {
           <div className="grid-header">
             <h2 className="grid-title">More Men's Clothing</h2>
           </div>
-          <ProductGrid products={gridProducts} />
+          <MenProductGrid products={gridProducts} />
         </div>
       </div>
     </div>
