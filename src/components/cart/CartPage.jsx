@@ -83,7 +83,7 @@ const CartPage = () => {
                   {item.color && <span>Color: {item.color}</span>}
                   {item.size && <span>Size: {item.size}</span>}
                 </div>
-                <p className="cart-item-price">${item.price.toFixed(2)}</p>
+                <p className="cart-item-price">£{item.price.toFixed(2)}</p>
               </div>
               
               <div className="cart-item-controls">
@@ -121,7 +121,7 @@ const CartPage = () => {
             
             <div className="summary-row">
               <span>Subtotal</span>
-              <span>${totalAmount.toFixed(2)}</span>
+              <span>£{totalAmount.toFixed(2)}</span>
             </div>
             
             <div className="summary-row">
@@ -131,14 +131,14 @@ const CartPage = () => {
             
             <div className="summary-row">
               <span>Tax</span>
-              <span>${(totalAmount * 0.08).toFixed(2)}</span>
+              <span>£{(totalAmount * 0.08).toFixed(2)}</span>
             </div>
             
             <div className="summary-divider"></div>
             
             <div className="summary-row total">
               <span>Total</span>
-              <span>${(totalAmount * 1.08).toFixed(2)}</span>
+              <span>£{(totalAmount * 1.08).toFixed(2)}</span>
             </div>
             
             <button className="checkout-btn">
