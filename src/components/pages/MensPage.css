@@ -1,52 +1,37 @@
+/* MensPage.css - Isolated Men's Page Styling */
+
 .men-page {
   min-height: 100vh;
-  background-color: #f8fafc;
+  background: linear-gradient(135deg, #2c5aa0 0%, #01040a 100%);
+  padding: 2rem 0;
 }
 
-.men-loading,
-.men-error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh;
+.men-page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.men-page-header {
   text-align: center;
-}
-
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #e2e8f0;
-  border-top: 4px solid #3b82f6;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.retry-button {
-  background-color: #3b82f6;
+  margin-bottom: 3rem;
   color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
 }
 
-.retry-button:hover {
-  background-color: #2563eb;
+.men-page-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.men-page-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+/* Hero Section Styles */
 .men-hero {
   background: linear-gradient(135deg, #2c5aa0 0%, #01040a 75%);
   color: white;
@@ -75,21 +60,6 @@
   opacity: 0.9;
 }
 
-.men-hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.men-hero-stats span {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
 .men-hero-image {
   display: flex;
   justify-content: center;
@@ -103,114 +73,213 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+/* Men's Carousel Styles */
+.men-carousel {
+  margin-bottom: 4rem;
 }
 
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
+.men-carousel-container {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.men-carousel-header {
   text-align: center;
   margin-bottom: 2rem;
-  color: #1f2937;
 }
 
-/* Featured Carousel Styles */
-.featured-carousel {
-  padding: 4rem 0;
-  background: white;
+.men-carousel-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
-.carousel-container {
+.men-carousel-subtitle {
+  color: #666;
+  font-size: 1rem;
+}
+
+.men-carousel-wrapper {
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
   overflow: hidden;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }
 
-.carousel-content {
+.men-carousel-content {
   position: relative;
-  width: 100%;
   height: 400px;
 }
 
-.carousel-track {
+.men-carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.5s ease-in-out;
+}
+
+.men-carousel-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.men-carousel-slide-content {
   display: flex;
-  width: 400%;
   height: 100%;
-  transition: transform 0.5s ease-in-out;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 15px;
+  overflow: hidden;
 }
 
-.carousel-slide {
-  width: 25%;
-  flex-shrink: 0;
-}
-
-.carousel-product {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 100%;
-  background: white;
-}
-
-.carousel-image {
+.men-carousel-image-container {
+  flex: 1;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background: #f8fafc;
 }
 
-.carousel-image img {
+.men-carousel-image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  border-radius: 0.5rem;
+  border-radius: 10px;
 }
 
-.carousel-info {
+.men-carousel-wishlist-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.men-carousel-wishlist-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.men-carousel-wishlist-button.active {
+  color: #e74c3c;
+  background: #ffe6e6;
+}
+
+.men-carousel-details {
+  flex: 1;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.carousel-info h3 {
+.men-carousel-product-title {
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 1rem;
-  color: #1f2937;
+  text-align: left;
 }
 
-.carousel-price {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: #059669;
-  margin-bottom: 1rem;
-}
-
-.carousel-description {
-  color: #6b7280;
-  margin-bottom: 1rem;
+.men-carousel-product-description {
+  color: #666;
+  margin-bottom: 1.5rem;
   line-height: 1.6;
+  text-align: left;
 }
 
-.carousel-sizes,
-.carousel-stock {
-  font-size: 0.875rem;
-  color: #4b5563;
-  margin-bottom: 0.5rem;
+.men-product-options {
+  margin-bottom: 1.5rem;
 }
 
-.carousel-btn {
+.men-carousel-size-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.men-carousel-size-selector label {
+  font-weight: 500;
+  color: #333;
+}
+
+.men-carousel-size-selector select {
+  padding: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.men-carousel-size-selector select:focus {
+  outline: none;
+  border-color: #2c5aa0;
+}
+
+.men-carousel-price-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.men-carousel-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.men-carousel-stock-info {
+  color: #27ae60;
+  font-size: 0.9rem;
+}
+
+.men-carousel-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.men-carousel-add-to-cart {
+  background: linear-gradient(135deg, #2c5aa0 0%, #3b82f6 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.men-carousel-add-to-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(44, 90, 160, 0.4);
+}
+
+.men-carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -219,64 +288,309 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
 }
 
-.carousel-btn:hover {
-  background: white;
+.men-carousel-arrow:hover {
   transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.prev-btn {
-  left: 1rem;
+.men-carousel-arrow-prev {
+  left: 15px;
 }
 
-.next-btn {
-  right: 1rem;
+.men-carousel-arrow-next {
+  right: 15px;
 }
 
-.carousel-indicators {
+.men-carousel-controls {
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
 }
 
-.indicator {
+.men-carousel-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.men-carousel-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   border: none;
-  background-color: #cbd5e1;
+  background: #ddd;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.indicator.active {
-  background-color: #667eea;
+.men-carousel-dot.active {
+  background: #2c5aa0;
   transform: scale(1.2);
 }
 
-.indicator:hover {
-  background-color: #94a3b8;
+.men-carousel-dot:hover {
+  background: #999;
 }
 
-.men-products {
-  padding: 4rem 0;
+/* Men's Products Grid */
+.men-products-grid {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.no-products {
+.men-grid-header {
   text-align: center;
-  padding: 4rem 2rem;
-  color: #6b7280;
+  margin-bottom: 2rem;
 }
 
-.no-products h3 {
-  font-size: 1.5rem;
+.men-grid-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* Men's Product Grid Styles */
+.men-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.men-product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.men-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.men-product-image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.men-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.men-product-card:hover .men-product-image {
+  transform: scale(1.05);
+}
+
+.men-wishlist-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.men-wishlist-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.men-wishlist-button.active {
+  color: #e74c3c;
+  background: #ffe6e6;
+}
+
+.men-product-details {
+  padding: 1.5rem;
+}
+
+.men-product-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.men-product-description {
+  color: #666;
   margin-bottom: 1rem;
-  color: #374151;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+.men-size-selector {
+  margin-bottom: 1rem;
+}
+
+.men-size-selector label {
+  display: block;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.men-size-selector select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.men-product-price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.men-product-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e74c3c;
+}
+
+.men-stock-info {
+  color: #27ae60;
+  font-size: 0.8rem;
+}
+
+.men-product-actions {
+  display: flex;
+}
+
+.men-add-to-cart-btn {
+  width: 100%;
+  background: #2c5aa0;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.men-add-to-cart-btn:hover {
+  background: #1e3a8a;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .men-page {
+    padding: 1rem 0;
+  }
+
+  .men-page-title {
+    font-size: 2rem;
+  }
+
+  .men-carousel-container {
+    padding: 1rem;
+  }
+
+  .men-carousel-slide-content {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .men-carousel-image-container {
+    height: 250px;
+  }
+
+  .men-carousel-details {
+    padding: 1rem;
+  }
+
+  .men-carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .men-carousel-arrow-prev {
+    left: -20px;
+  }
+
+  .men-carousel-arrow-next {
+    right: -20px;
+  }
+
+  .men-products-grid {
+    padding: 1rem;
+  }
+
+  .men-product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Hero section responsive adjustments */
+  .men-hero {
+    padding: 2rem 0;
+  }
+  
+  .men-hero-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .men-page-content {
+    padding: 0 0.5rem;
+  }
+
+  .men-carousel-title {
+    font-size: 1.5rem;
+  }
+
+  .men-carousel-product-title {
+    font-size: 1.2rem;
+  }
+
+  .men-carousel-arrow {
+    display: none;
+  }
+
+  .men-product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hero section mobile adjustments */
+  .men-hero-content {
+    padding: 0 1rem;
+  }
+  
+  .men-hero-image {
+    padding: 0 1rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -287,40 +601,5 @@
 
   .men-hero-content {
     text-align: left;
-  }
-
-  .men-hero-stats {
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 768px) {
-  .men-hero-title {
-    font-size: 2rem;
-  }
-
-  .carousel-product {
-    grid-template-columns: 1fr;
-  }
-
-  .carousel-image {
-    padding: 1rem;
-  }
-
-  .carousel-info {
-    padding: 1rem;
-  }
-
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-  }
-
-  .prev-btn {
-    left: 0.5rem;
-  }
-
-  .next-btn {
-    right: 0.5rem;
   }
 }

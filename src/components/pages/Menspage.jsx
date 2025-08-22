@@ -170,7 +170,7 @@ const MenPage = () => {
     return wishlistItems.some((item) => item.id === productId);
   };
 
-  // Simple Product Grid component for MenPage
+  // Simple Product Grid component for MenPage - Using the working version from your first code
   const MenProductGrid = ({ products }) => {
     const [sizeSelections, setSizeSelections] = useState({});
 
@@ -246,10 +246,10 @@ const MenPage = () => {
   return (
     <div className="men-page">
       {/* Hero Section */}
-      <div>
+      <div className="men-hero">
         <div className="men-hero-content">
-          <h1>Men's Collection</h1>
-          <p>Discover our premium selection of clothing for every occasion</p>
+          <h1 className="men-hero-title">Men's Collection</h1>
+          <p className="men-hero-subtitle">Discover our premium selection of clothing for every occasion</p>
         </div>
         <div className="men-hero-image">
           <img
@@ -264,30 +264,35 @@ const MenPage = () => {
       </div>
 
       <div className="men-page-content">
-        {/* Men's Featured Carousel */}
+        <div className="men-page-header">
+          <h1 className="men-page-title">Men's Collection</h1>
+          <p className="men-page-subtitle">Stylish, comfortable, and durable clothing for the modern man</p>
+        </div>
+
+        {/* Men's Featured Carousel - Using the fluid carousel from second code */}
         <section className="men-carousel">
-          <div className="carousel-container">
-            <div className="carousel-header">
-              <h2 className="carousel-title">Featured Men's Items</h2>
-              <p className="carousel-subtitle">Special deals on our most popular men's clothing</p>
+          <div className="men-carousel-container">
+            <div className="men-carousel-header">
+              <h2 className="men-carousel-title">Featured Men's Items</h2>
+              <p className="men-carousel-subtitle">Special deals on our most popular men's clothing</p>
             </div>
 
-            <div className="carousel-wrapper">
+            <div className="men-carousel-wrapper">
               <button
-                className="carousel-arrow carousel-arrow-prev"
+                className="men-carousel-arrow men-carousel-arrow-prev"
                 onClick={goToPrevSlide}
                 aria-label="Previous slide"
               >
                 <ChevronLeft size={20} />
               </button>
 
-              <div className="carousel-content">
+              <div className="men-carousel-content">
                 {featuredProducts.map((product, index) => (
-                  <div key={product.id} className={`carousel-slide ${index === currentSlide ? "active" : ""}`}>
-                    <div className="carousel-slide-content">
-                      <div className="carousel-image-container">
+                  <div key={product.id} className={`men-carousel-slide ${index === currentSlide ? "active" : ""}`}>
+                    <div className="men-carousel-slide-content">
+                      <div className="men-carousel-image-container">
                         <button
-                          className={`wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
+                          className={`men-carousel-wishlist-button ${isInWishlist(product.id) ? "active" : ""}`}
                           onClick={() => handleWishlistToggle(product)}
                         >
                           <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
@@ -295,19 +300,19 @@ const MenPage = () => {
                         <img 
                           src={product.image} 
                           alt={product.name} 
-                          className="carousel-image" 
+                          className="men-carousel-image" 
                           onError={(e) => {
                             e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
                           }}
                         />
                       </div>
 
-                      <div className="carousel-details">
-                        <h3 className="carousel-product-title">{product.name}</h3>
-                        <p className="carousel-product-description">{product.description}</p>
+                      <div className="men-carousel-details">
+                        <h3 className="men-carousel-product-title">{product.name}</h3>
+                        <p className="men-carousel-product-description">{product.description}</p>
 
-                        <div className="product-options">
-                          <div className="size-selector">
+                        <div className="men-product-options">
+                          <div className="men-carousel-size-selector">
                             <label>Size:</label>
                             <select
                               value={selectedSize[product.name] || product.sizes[0]}
@@ -321,12 +326,12 @@ const MenPage = () => {
                             </select>
                           </div>
                         </div>
-                        <div className="carousel-price-container">
-                          <span className="carousel-price">£{product.price}</span>
-                          <span className="stock-info">{product.stockQuantity} in stock</span>
+                        <div className="men-carousel-price-container">
+                          <span className="men-carousel-price">£{product.price}</span>
+                          <span className="men-carousel-stock-info">{product.stockQuantity} in stock</span>
                         </div>
-                        <div className="carousel-actions">
-                          <button className="carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
+                        <div className="men-carousel-actions">
+                          <button className="men-carousel-add-to-cart" onClick={() => handleAddToCart(product)}>
                             <ShoppingCart size={25} />
                             Add to Cart
                           </button>
@@ -337,16 +342,16 @@ const MenPage = () => {
                 ))}
               </div>
 
-              <button className="carousel-arrow carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
+              <button className="men-carousel-arrow men-carousel-arrow-next" onClick={goToNextSlide} aria-label="Next slide">
                 <ChevronRight size={20} />
               </button>
             </div>
-            <div className="carousel-controls">
-              <div className="carousel-dots">
+            <div className="men-carousel-controls">
+              <div className="men-carousel-dots">
                 {featuredProducts.map((_, index) => (
                   <button
                     key={index}
-                    className={`carousel-dot ${index === currentSlide ? "active" : ""}`}
+                    className={`men-carousel-dot ${index === currentSlide ? "active" : ""}`}
                     onClick={() => goToSlide(index)}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -360,6 +365,7 @@ const MenPage = () => {
           <div className="grid-header">
             <h2 className="grid-title">More Men's Clothing</h2>
           </div>
+          {/* Using the working product grid from first code */}
           <MenProductGrid products={gridProducts} />
         </div>
       </div>
