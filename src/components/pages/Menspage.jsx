@@ -264,11 +264,6 @@ const MenPage = () => {
       </div>
 
       <div className="men-page-content">
-        <div className="men-page-header">
-          <h1 className="men-page-title">Men's Collection</h1>
-          <p className="men-page-subtitle">Stylish, comfortable, and durable clothing for the modern man</p>
-        </div>
-
         {/* Men's Featured Carousel - Using the fluid carousel from second code */}
         <section className="men-carousel">
           <div className="men-carousel-container">
