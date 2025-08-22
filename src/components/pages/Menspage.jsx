@@ -193,8 +193,7 @@ const MenPage = () => {
 
       <div className="men-page-content">
         <div className="men-page-header">
-          <h1 className="men-page-title">Men's Collection</h1>
-          <p className="men-page-subtitle">Stylish, comfortable, and durable clothing for the modern man</p>
+          <h1 className="men-page-title">Best Sellers</h1>
         </div>
 
         {/* Men's Featured Carousel */}
@@ -230,7 +229,7 @@ const MenPage = () => {
                           alt={product.name} 
                           className="men-carousel-image" 
                           onError={(e) => {
-                            e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                            e.target.src = `https://placehold.co/500x500/eee/aaa?text=${encodeURIComponent(product.name)}`;
                           }}
                         />
                       </div>

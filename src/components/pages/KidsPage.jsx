@@ -193,8 +193,7 @@ const KidsPage = () => {
 
       <div className="kids-page-content">
         <div className="kids-page-header">
-          <h1 className="kids-page-title">Kids' Collection</h1>
-          <p className="kids-page-subtitle">Fun, comfortable, and colorful clothing for children of all ages</p>
+          <h1 className="kids-page-title">Best Sellers</h1>
         </div>
 
         {/* Kids Featured Carousel */}
@@ -230,7 +229,7 @@ const KidsPage = () => {
                           alt={product.name} 
                           className="kids-carousel-image" 
                           onError={(e) => {
-                            e.target.src = `https://placehold.co/300x400/eee/aaa?text=${encodeURIComponent(product.name)}`;
+                            e.target.src = `https://placehold.co/500x500/eee/aaa?text=${encodeURIComponent(product.name)}`;
                           }}
                         />
                       </div>
