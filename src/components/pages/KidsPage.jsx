@@ -12,11 +12,6 @@ const KidsPage = () => {
   const [selectedSize, setSelectedSize] = useState({});
   const autoPlayRef = useRef(null);
 
-  // Function to generate a unique ID based on product name with counter
-  const generateId = (name, index) => {
-    return `${name.toLowerCase().replace(/\s+/g, '-')}-${index}`;
-  };
-
   // Kids clothing products with simplified format
   const kidsProducts = [
     {
