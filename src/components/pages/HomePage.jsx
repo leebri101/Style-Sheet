@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Heart, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import CategorySection from "./CategorySection";
 import ProductGrid from "../../components/products/ProductGrid";
-import NewsletterSignup from "./NewsletterSignup";
+import ComingSoonPage from "./ComingSoonPage";
 import { fetchProducts } from "../../store/productSlice";
 import { addToCart, openCart } from "../../store/cartSlice";
 import { addToWishlist, removeFromWishlist } from "../../store/wishlistSlice";
@@ -256,7 +256,7 @@ const HomePage = () => {
           </div>
         )}
         
-        <NewsletterSignup />
+        <ComingSoonPage />
       </main>
     </div>
   );
