@@ -253,7 +253,7 @@ const KidsPage = () => {
         </div>
         <div className="kids-hero-image">
           <img
-            src="src/assets/docs/images/product-images/kids-clothing/kids-group-photo.jpg"
+            src="src/assets/docs/images/product-images/kids-clothing/kids-playing.jpg"
             alt="Kids Fashion Collection"
             className="hero-image"
             onError={(e) => {
@@ -264,11 +264,6 @@ const KidsPage = () => {
       </div>
 
       <div className="kids-page-content">
-        <div className="kids-page-header">
-          <h1 className="kids-page-title">Kids' Collection</h1>
-          <p className="kids-page-subtitle">Fun, comfortable, and durable clothing for active kids</p>
-        </div>
-
         {/* Kids Featured Carousel */}
         <section className="kids-carousel">
           <div className="kids-carousel-container">
