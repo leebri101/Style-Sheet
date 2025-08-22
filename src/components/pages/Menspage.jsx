@@ -245,11 +245,11 @@ const MenPage = () => {
 
   return (
     <div className="men-page">
-      {/* Hero Section - Keeping the existing hero image */}
-      <div className="men-hero">
+      {/* Hero Section */}
+      <div>
         <div className="men-hero-content">
-          <h1 className="men-hero-title">Men's Collection</h1>
-          <p className="men-hero-subtitle">Discover our premium selection of clothing for every occasion</p>
+          <h1>Men's Collection</h1>
+          <p>Discover our premium selection of clothing for every occasion</p>
         </div>
         <div className="men-hero-image">
           <img
