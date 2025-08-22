@@ -50,7 +50,7 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: rgb(var(--color-seven));
+  color: rgb(var(--color-two));
 }
 
 body {
