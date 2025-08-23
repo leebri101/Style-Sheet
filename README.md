@@ -10,15 +10,13 @@ Front-End Plus Project 3(Final):- E-commerce site with (mimic of popular site Un
     * [**Site Objectives**](#site-objectives)
     * [**Wire-Frames**](#wire-frames)
     * [**Reused Code**](#reused-code)
-1. [**Current Features on all pages**](#current-features-on-all-pages)
+1. [**Current Features**](#current-features)
     * [**Home-Page:**](#home-page)
-        * [*Title*](#title)
-        * [*Call To Action Button*](#call-to-action-button)
-        * [*Start-Game-Section*](#start-game-section)
-    * [**Quiz-section:**](#quiz-section)
-        * [*Quiz-Tracker*](#quiz-tracker)
-        * [*Q&A-Section*](#question--answers)
-    * [**Results-Section**](#results-section)
+        * [*Logo*](#logo-icon)
+        * [*Landing-Page(Home-page)*](#landing-pagehome-page)
+        * [*Pages*](#pages)
+    * [**Shopping-Cart:**](#shopping-cart)
+    * [**Wishlist**](#wishlist-page)
     * [**Footer**](#footer)
     * [**Typesetting**](#typesetting)
 1. [**Potential-Features**](#future-enhancements)
@@ -63,21 +61,17 @@ Front-End Plus Project 3(Final):- E-commerce site with (mimic of popular site Un
 * [Registration-Page](docs/wireframes/registration-page.png)
 * [Womens-page](docs/wireframes/womens-page.png)
 
-There have been some considerable cosmetic changes to the site to improve the UX, however most of design was kept to original plan on the wire-frames. Some of these changes may include:-
-* 
-* 
-* 
+There have been some considerable cosmetic changes to the site to improve the UX, however most of design was kept to original plan on the wire-frames. Some of these changes may or may not include:-
+* Slight changes in the overall design for simplicity
+* To not include the filter option due to the scale and time frame of the project.
+* A payment system. 
 
 ### **Reused Code:**
 * Some of the code that has been used in this project have been re-used from the previous projects due to the simple and effective structure it has on the layout of the final design.
     * All links have the same hover-over effect at which it changes color and size upon hovering.
     * Once clicked it will change color. 
-        * Miscellaneous reused content:
-        
-        ![Generic-Reused code](doc/screenshots/reused-code.png)
-
         * Reused root structure code for simplicity of selecting the same colors.
-        ![Reused root code](doc/screenshots/reused-root-code.png)
+        ![Reused root code](docs/assets/screenshots/reused-code.png)
 ***
 ### **Current Features**
 ####  **Home-Page:**
@@ -85,109 +79,72 @@ There have been some considerable cosmetic changes to the site to improve the UX
 
 ### *Logo-Icon*
 * The Title will include some unique features:-
-    * The main title of the page includes a two tone text to keep within theme of a restaurant.
-    * Upon loading a animation with the title will appear and shifts the letters of the title.
-    * And small cookware icon within the title.
+    * The main logo on the site will act as an anchor to return back to the main home-page.
+![Logo](docs/assets/screenshots/logo.png)
 
-![Title](doc/screenshots/title.png)
+### *Landing-Page(Home-page)*
+* Hover-over cards at which users can interact with , which instantly grabs the users attention.
+![Home-page](docs/assets/screenshots/home-page.png) 
+    * One for each respected category for the site
+    * animation on the coming soon area/cards
+    * and an interactive Navigation bar which then takes the user into 3 separate pages of mens/womens/kids clothing.
 
-### **
-* A hover-over design to be able at which users can interact with , which instantly grabs the users attention.
-![Home-page](doc/screenshots/main-page.png) 
-    * 
-    *   
-    * 
-
-    
 * Mobile version of home page with title, icon, buttons and web-links.
-![Mobile-version of CTA](doc/screenshots/mobile-cta.png)
+* below is a short video to show case the home-page on a mobile version. <video controls src="docs/assets/mobile/mobile-home-page.mp4" title="Home-page"></video>
 
-### **Start-Game-section:**
-* Upon clicking into into the CTA button it will enter into teh start-game section with a autofocus placeholder text box which prompts users to enter a name, allowing for more accessibility to users, which is useful on mobile devices, as a text cursor is already highlighted within the text box which saves time for users to manually navigate.  
+### **Pages**
+* The initial structure will consist of 3 pages will consistent of these 3 things in that feature the page:
+    * The hero image for the page 
+    ![Mens-hero](docs/assets/screenshots/mens-hero.png)
+    * An interactive carousel with products.
+    ![Mens-carousel](docs/assets/screenshots/mens-carousel.png)
+    <video controls src="docs/assets/screenshots/mens-carousel.mp4" title="Mens-Carousel"></video>
+    * An extra product grid for more items.  
+    ![Mens-Product-grid](docs/assets/screenshots/mens-productgrid.png)
 
-    * An error handler will display as a red border within the text box if the user has not provided a name or text. 
+* All product can be saved onto a wishlist with the heart icon which you'll have to manually go to wishlist page, which you can view the items and remove. With the same functionality of the cart page at which you can add more items or reduce, with the inclusion of selecting sizes for the products.  
 
-* It also has two interactive buttons for input, one which is to Start Game which users must enter a name, manually click on the button to start the game/quiz, and teh quit button which it will take the user back onto the main screen where it will display the CTA button.
-    * An event listener is in place where the user has the option to press ENTER which wil have the same response as clicking the Start-Game button.
-![Start-Game-Section](doc/screenshots/start-game.png)
+ * Shopping cart demo <video controls src="docs/assets/mobile/mobile-shopping-cart-page.mp4" title="Title"></video> 
 
+ * Wishlist demo <video controls src="docs/assets/screenshots/wishlist-page-demo.mp4" title="Title"></video>
+    
 ***
-### **Quiz-Section:**
-Within the quiz section i will highlight/summarize each of the most notable features of the quiz section. 
+### **Shopping Cart:**
+ * Below is a short video which showcases the functionality of the cart page of being able to:
+    * Add more items which changes the amount for the total cart.
+    * Add and remove items in the page.
+    * To continue shopping which will redirect teh user to the home-page.
+        * Shopping Cart Demo:-
+        <video controls src="docs/assets/screenshots/cart-page-demo.mp4" title="Title"></video>
 
-#### *Quiz-Tracker:*
-Features used:
-* An indicator is displayed on the top of the question which tracks the current question the user is on.
-* A timer is also in place with an animation which shakes each time a second is lost within the alloted time length of 30 seconds.
-* A time bar is also there to track the alloted time left on the quiz, however each time a second is lost the bar is reduced in size which will go from green, to yellow and red and will restart.
-![Quiz-Tracker](doc/screenshots/quiz-timer.png)
-
-### **Question & Answers:**
-Features used:
-* Users will be given the option to select 4 options within the answer boxes. 
-* Users must select an answer before clicking next to proceed onto the next question.
-* Each question will have a hover-over effect which will change the color of the choices at which the user can select to answer the question, which also changes color upon clicking an answer. 
-* Question Shuffler which enables all 24 questions that have been created in the questions.js script to be shuffled using the [Fisher-Yates](https://bost.ocks.org/mike/shuffle/) method in a random given order out of ten so no question is used twice.
-
-![Q&A Section](doc/screenshots/q-and-a-hover-&-click.png)
-
-### **Point-Tracker**
-Below the quiz is a score-tracker which displays to the user the following things:
-* To show which question they are currently on
-* Whether they have answered the question correctly.
-* Answered incorrectly.
-* Skipped or did not answer a question.
-    * Which will be represented in these colors:
-        * Yellow = The current question
-        * Green = Correct Answer
-        * Red = Wrong answer
-        * Gray = Skipped or Unanswered
-
-![Point-Tracker](doc/screenshots/quiz-tracker.png)
-
-***
-### **Results-Section**
-The results page will have the following features:
-* A score rating out of 10.
-* A feedback message dependant on the score.
-* The function to allow users to play again.
-* An animated gif which is also dependant on the score of which the user has scored out of 10. 
-    * As a note most of the gifs used in this were all food/cooking related: 
-        * From Gordon Ramsey to his iconic "Idiot Sandwich Sketch".
-        * To great acting of Jeremy Allen White from the hit Series of "The Bear".
-        * To the iconic meme of Adam Driver saying "Good soup".
-
-Below i will show case the possible outcomes at which the user can get each message with the gifs in the outcomes of the score range:
-* Ranging from 0 to 3![Results-0/3](doc/screenshots/results-0-to-3.png)
-
-* Ranging from 3 to 6![Results-3/6](doc/screenshots/results-3-to-6.png)
-
-* Ranging from 6 to 9![Results-6/9](doc/screenshots/results-6-to-9.png)
-
-* Ranging from 9+ or = 10![Results-9+](doc/screenshots/results-9+.png)
-
+### **Wishlist-Page:**
+* The wishlist page is a similar concept of functionality with adding items to the page, removing them but adding them straight to the cart as well. a video demo will be shown to showcase the features:
+    * Wishlist Demo:-
+    <video controls src="docs/assets/screenshots/wishlist-page-demo.mp4" title="Title"></video>
+*** 
 ### **Footer:**
-The footer page has a wave animation at which it is only used for display purposes which blends in very well with the background. 
+The footer consists of a simple minimalistic look of social media links and generic information which you can find at the bottom of the page (please not that all of the links besides from the social media links are just for display purposes)
 * These are the features that have been used in the footer:
     * All the icons that were used in the project have been sourced by through Font Awesome. 
     * A personal copyright has been added in-case of plagiarism.
-    * A personal link to my GitHub page which users can track my coding journey.
-
-![Footer](doc/screenshots/footer.png)
+![Footer](docs/assets/screenshots/footer.png)
 
 ## **Typesetting**
  Throughout the Project Portfolio only two fonts was used throughout for consistency:
-  * Quattrocento:- For the classic french bistro typography look. 
+  * DM Sans:- For the minimalistic simple text font. 
 
-  * Cormorant Garamond:- Similar to Quattrocento but more of a softer look for the text. 
+  * Montserrat:- Similar to DM Sans but slightly sharper but clean. 
 
 * Please note that all fonts that have used in the project have been sourced from Google Fonts (quoted in the credits).
 
 ## **Potential-Features**
-*  Through some experimentation and testing throughout the quiz I have wanted to make a quiz that is more simple, effective and interactive as possible previous from the first quiz I made from my previous project with future things to add:
-    * Having an interchangeable leader-board which allows other users/players to see their rankings at the end of the results page. Which will change frequently upon the score of each individual.
-    * Simple sound bites for depending on results.
-    * A Quiz at which the user can select upon the difficulty at which that challenge. 
+* Potential features at that i would want to implement in the near future if the opportunity were to come if i were to enhance this project or to create an entire new one would be include:  
+    * Add in a voice ai chat functionality (would need to learn how to comfortably implement backend APIs)
+        * AI chat bot functionality  
+    * a full payment system with gift card and voucher options as payment methods
+    * Newsletter and subscription based letters
+    * Different languages for a broader audience
+
 ## **Testing-Phase**
 Full details of the testing phase can be found here: [TESTING.md](TESTING.md)
 
@@ -199,7 +156,7 @@ The project has been deployed with the following steps:-
 3. Under **Source** then, select the **Main** branch from the drop-down menu and click **Save**.
 4. A message will then pop up that the project has been successfully deployed with a live link.
 
-You can visit the live link via this URL or on the top the README file- [STYLE-SHEET](https://leebri101.github.io/Chef-de-Party/)
+You can visit the live link via this URL or on the top the README file- [STYLE-SHEET](https://leebri101.github.io/style-sheet/)
 
 
 ## **Credits**
@@ -216,9 +173,9 @@ But alas this is my final project which i am very satisfied to say for the end r
 
 
 ### **General reference:**
-* The project theme was based around an an idea to mimic a copy of a famous fashion brand of [Uniqlo](https://www.uniqlo.com/uk/en/) and [END](https://www.endclothing.com/gb), both are notorious for their fashion pieces, to then make an E-commerce site of my own to give off the minimalistic but effective look to the site, a majority of the design ideas was taken from the respected companies as i personally liked how responsive and clean both site functioned.
+* The project theme was based around an an idea to mimic a copy of a famous fashion brand of [Uniqlo](https://www.uniqlo.com/uk/en/) and [END](https://www.endclothing.com/gb), both are notorious for their fashion pieces, to then make an E-commerce site of my own to give off the minimalistic but effective look to the site, a majority of the design ideas was taken from the respected companies as i personally liked how responsive and clean both sites functioned.
 
-* I have used [Medium](https://murthy-suhas.medium.com/building-a-demo-e-commerce-application-using-react-js-a39494a10e9b) for most of the understanding and structure of the project itself and to understand how to implement the API calling and placement to visually understand how to construct the project. As well as understanding and enhancing parts of the project through different components such as the shopping cart functionality ([Cart pt-1](https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-1-3-fefde93e80c7) [Cart pt-2](https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-part-2-88117cf1c069)).
+* I have used [Medium](https://murthy-suhas.medium.com/building-a-demo-e-commerce-application-using-react-js-a39494a10e9b) for most of the understanding and structure of the project itself and to understand how to implement the API calling and placement to visually understand how to construct the project. As well as understanding and enhancing parts of the project through different components such as the shopping cart functionality ([Cart pt-1](https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-1-3-fefde93e80c7) [Cart pt-2](https://medium.com/@ayabellazreg/make-a-simple-shopping-cart-app-using-react-redux-part-2-88117cf1c069)). however most of the basic understanding of how project was looking at online tutorials and further enhancing the base code.
 
 * [Redux-toolkit](https://redux-toolkit.js.org/) for the basic reference guide on how to utilize redux functionality in the project. 
 
