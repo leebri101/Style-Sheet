@@ -26,7 +26,7 @@ const KidsPage = () => {
       price: 18.99,
       description: "Everyone's favorite cartoon mouse",
       category: "kids",
-      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/mickey-mouse-tee.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/mickey-mouse-tee-min.png",
       stockQuantity: 45,
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },

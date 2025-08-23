@@ -22,7 +22,7 @@ const WomenPage = () => {
   const womensProducts = [
     {
       id: generateId("Summer Set"),
-      name: " Summer",
+      name: " Summer Set",
       price: 45.99,
       description: "Light and breezy",
       category: "women's clothing",
