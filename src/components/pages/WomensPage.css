@@ -110,6 +110,7 @@
 
 .women-carousel-content {
   position: relative;
+  min-height: 400px;
   height: 400px;
 }
 
@@ -132,6 +133,7 @@
 .women-carousel-slide-content {
   display: flex;
   height: 100%;
+  min-height: 400px;
   background: linear-gradient(135deg, #f5f7fa 0%, #d8bfd8 100%);
   border-radius: 15px;
   overflow: hidden;
@@ -144,6 +146,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  min-height: 300px;
 }
 
 .women-carousel-image {
@@ -523,36 +526,77 @@
 
   .women-carousel-container {
     padding: 1rem;
+    margin: 0 0.5rem;
+  }
+
+  .women-carousel-content {
+    min-height: 600px;
+    height: 600px;
   }
 
   .women-carousel-slide-content {
     flex-direction: column;
-    height: auto;
+    min-height: 600px;
+    height: 600px;
   }
 
   .women-carousel-image-container {
-    height: 250px;
-  }
-
-  .women-carousel-details {
+    height: 200px;
+    min-height: 200px;
     padding: 1rem;
   }
 
+  .women-carousel-details {
+    padding: 1.5rem 1rem;
+  }
+
+  .women-carousel-product-title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .women-carousel-product-description {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .women-carousel-size-selector {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .women-carousel-price-container {
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .women-carousel-actions {
+    justify-content: center;
+  }
+
+  .women-carousel-add-to-cart {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
+
   .women-carousel-arrow {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
 
   .women-carousel-arrow-prev {
-    left: -20px;
+    left: 5px;
   }
 
   .women-carousel-arrow-next {
-    right: -20px;
+    right: 5px;
   }
 
   .women-products-grid {
     padding: 1rem;
+    margin: 0 0.5rem;
   }
 
   .women-product-grid {
@@ -575,16 +619,68 @@
     padding: 0 0.5rem;
   }
 
+  .women-carousel-container {
+    padding: 0.75rem;
+    margin: 0 0.25rem;
+    border-radius: 15px;
+  }
+
+  .women-carousel-content {
+    min-height: 550px;
+    height: 550px;
+  }
+
+  .women-carousel-slide-content {
+    min-height: 550px;
+    height: 550px;
+  }
+
   .women-carousel-title {
     font-size: 1.5rem;
   }
 
   .women-carousel-product-title {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .women-carousel-image-container {
+    height: 180px;
+    min-height: 180px;
+    padding: 0.5rem;
+  }
+
+  .women-carousel-details {
+    padding: 1rem 0.75rem;
+  }
+
+  .women-carousel-price {
+    font-size: 1.3rem;
+  }
+
+  .women-carousel-stock-info {
+    font-size: 0.8rem;
+  }
+
+  .women-carousel-size-selector {
+    gap: 0.5rem;
+  }
+
+  .women-carousel-size-selector select {
+    min-width: 80px;
   }
 
   .women-carousel-arrow {
     display: none;
+  }
+
+  .women-carousel-dots {
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .women-carousel-dot {
+    width: 14px;
+    height: 14px;
   }
 
   .women-product-grid {

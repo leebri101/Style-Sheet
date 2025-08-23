@@ -110,6 +110,7 @@
 
 .kids-carousel-content {
   position: relative;
+  min-height: 400px;
   height: 400px;
 }
 
@@ -132,6 +133,7 @@
 .kids-carousel-slide-content {
   display: flex;
   height: 100%;
+  min-height: 400px;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   border-radius: 15px;
   overflow: hidden;
@@ -144,6 +146,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  min-height: 300px;
 }
 
 .kids-carousel-image {
@@ -523,36 +526,77 @@
 
   .kids-carousel-container {
     padding: 1rem;
+    margin: 0 0.5rem;
+  }
+
+  .kids-carousel-content {
+    min-height: 600px;
+    height: 600px;
   }
 
   .kids-carousel-slide-content {
     flex-direction: column;
-    height: auto;
+    min-height: 600px;
+    height: 600px;
   }
 
   .kids-carousel-image-container {
-    height: 250px;
-  }
-
-  .kids-carousel-details {
+    height: 200px;
+    min-height: 200px;
     padding: 1rem;
   }
 
+  .kids-carousel-details {
+    padding: 1.5rem 1rem;
+  }
+
+  .kids-carousel-product-title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .kids-carousel-product-description {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .kids-carousel-size-selector {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .kids-carousel-price-container {
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .kids-carousel-actions {
+    justify-content: center;
+  }
+
+  .kids-carousel-add-to-cart {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
+
   .kids-carousel-arrow {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
 
   .kids-carousel-arrow-prev {
-    left: -20px;
+    left: 5px;
   }
 
   .kids-carousel-arrow-next {
-    right: -20px;
+    right: 5px;
   }
 
   .kids-products-grid {
     padding: 1rem;
+    margin: 0 0.5rem;
   }
 
   .kids-product-grid {
@@ -575,16 +619,68 @@
     padding: 0 0.5rem;
   }
 
+  .kids-carousel-container {
+    padding: 0.75rem;
+    margin: 0 0.25rem;
+    border-radius: 15px;
+  }
+
+  .kids-carousel-content {
+    min-height: 550px;
+    height: 550px;
+  }
+
+  .kids-carousel-slide-content {
+    min-height: 550px;
+    height: 550px;
+  }
+
   .kids-carousel-title {
     font-size: 1.5rem;
   }
 
   .kids-carousel-product-title {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .kids-carousel-image-container {
+    height: 180px;
+    min-height: 180px;
+    padding: 0.5rem;
+  }
+
+  .kids-carousel-details {
+    padding: 1rem 0.75rem;
+  }
+
+  .kids-carousel-price {
+    font-size: 1.3rem;
+  }
+
+  .kids-carousel-stock-info {
+    font-size: 0.8rem;
+  }
+
+  .kids-carousel-size-selector {
+    gap: 0.5rem;
+  }
+
+  .kids-carousel-size-selector select {
+    min-width: 80px;
   }
 
   .kids-carousel-arrow {
     display: none;
+  }
+
+  .kids-carousel-dots {
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .kids-carousel-dot {
+    width: 14px;
+    height: 14px;
   }
 
   .kids-product-grid {
