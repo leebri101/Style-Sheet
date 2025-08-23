@@ -1,4 +1,4 @@
-// Header.jsx
+// Header.jsx - Fixed Mobile Menu Implementation
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -38,6 +38,15 @@ const Header = () => {
 
   const handleCartToggle = () => {
     dispatch(toggleCart());
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleMobileMenuClose = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -117,92 +126,135 @@ const Header = () => {
         </div>
         
         {/* Mobile Menu Dialog */}
-        <Dialog open={isMobileMenuOpen} onClose={setIsMobileMenuOpen} className="relative z-50">
-          <div className="mobile-menu-backdrop">
-            <div className="mobile-menu-dialog">
-              <DialogPanel className="mobile-menu-panel">
-                <div className="mobile-menu-header">
-                  <Link to="/" className="header-logo" onClick={() => setIsMobileMenuOpen(false)}>
-                    STYLE-SHEET
-                  </Link>
-                  <button
-                    className="mobile-menu-close-button"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    aria-label="Close Menu"
+        <Dialog 
+          open={isMobileMenuOpen} 
+          onClose={handleMobileMenuClose} 
+          className="relative z-50"
+        >
+          <div className="mobile-menu-backdrop" aria-hidden="true" />
+          
+          <div className="mobile-menu-dialog">
+            <DialogPanel className="mobile-menu-panel">
+              <div className="mobile-menu-header">
+                <Link 
+                  to="/" 
+                  className="header-logo" 
+                  onClick={handleLinkClick}
+                >
+                  STYLE-SHEET
+                </Link>
+                <button
+                  className="mobile-menu-close-button"
+                  onClick={handleMobileMenuClose}
+                  aria-label="Close Menu"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              
+              <div className="mobile-menu-content">
+                <div className="mobile-menu-links">
+                  <Link 
+                    to="/men" 
+                    className="mobile-menu-link" 
+                    onClick={handleLinkClick}
                   >
-                    <X size={24} />
-                  </button>
+                    Mens
+                  </Link>
+                  <Link 
+                    to="/women" 
+                    className="mobile-menu-link" 
+                    onClick={handleLinkClick}
+                  >
+                    Womens
+                  </Link>
+                  <Link 
+                    to="/kids" 
+                    className="mobile-menu-link" 
+                    onClick={handleLinkClick}
+                  >
+                    Kids
+                  </Link>
+                  
+                  {/* Cart Link in Mobile Menu */}
+                  <Link 
+                    to="/cart" 
+                    className="mobile-menu-link" 
+                    onClick={handleLinkClick}
+                  >
+                    Cart ({cartQuantity})
+                  </Link>
+                  
+                  {/* Admin Product Management Link in Mobile Menu */}
+                  {isAuthenticated && user && user.role === "admin" && (
+                    <Link
+                      to="/admin/products"
+                      className="mobile-menu-link admin-link"
+                      onClick={handleLinkClick}
+                    >
+                      Manage Products
+                    </Link>
+                  )}
+                  
+                  <Link 
+                    to="/wishlist" 
+                    className="mobile-menu-link" 
+                    onClick={handleLinkClick}
+                  >
+                    Wishlist ({wishlistCount})
+                  </Link>
+                  
+                  {isAuthenticated ? (
+                    <>
+                      <Link 
+                        to="/profile" 
+                        className="mobile-menu-link" 
+                        onClick={handleLinkClick}
+                      >
+                        Profile
+                      </Link>
+                      <button 
+                        className="mobile-menu-link" 
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link 
+                        to="/login" 
+                        className="mobile-menu-link" 
+                        onClick={handleLinkClick}
+                      >
+                        Login
+                      </Link>
+                      <Link 
+                        to="/register" 
+                        className="mobile-menu-link" 
+                        onClick={handleLinkClick}
+                      >
+                        Register
+                      </Link>
+                    </>
+                  )}
                 </div>
                 
-                <div className="mobile-menu-content">
-                  <div className="mobile-menu-links">
-                    <Link to="/men" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      Mens
-                    </Link>
-                    <Link to="/women" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      Womens
-                    </Link>
-                    <Link to="/kids" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      Kids
-                    </Link>
-                    
-                    {/* Cart Link in Mobile Menu */}
-                    <Link to="/cart" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      Cart ({cartQuantity})
-                    </Link>
-                    
-                    {/* Admin Product Management Link in Mobile Menu */}
-                    {isAuthenticated && user && user.role === "admin" && (
-                      <Link
-                        to="/admin/products"
-                        className="mobile-menu-link admin-link"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Manage Products
-                      </Link>
-                    )}
-                    
-                    <Link to="/wishlist" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                      Wishlist ({wishlistCount})
-                    </Link>
-                    
-                    {isAuthenticated ? (
-                      <>
-                        <Link to="/profile" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                          Profile
-                        </Link>
-                        <button className="mobile-menu-link" onClick={handleLogout}>
-                          Logout
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <Link to="/login" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                          Login
-                        </Link>
-                        <Link to="/register" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>
-                          Register
-                        </Link>
-                      </>
-                    )}
-                  </div>
-                  
-                  {/* Mobile Search */}
-                  <form className="mobile-search" onSubmit={handleSearch}>
-                    <input
-                      type="text"
-                      placeholder="Search for your Style..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="mobile-search-input"
-                    />
-                    <button type="submit" className="mobile-search-button">
-                      <Search size={16} />
-                    </button>
-                  </form>
-                </div>
-              </DialogPanel>
-            </div>
+                {/* Mobile Search */}
+                <form className="mobile-search" onSubmit={handleSearch}>
+                  <input
+                    type="text"
+                    placeholder="Search for your Style..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="mobile-search-input"
+                  />
+                  <button type="submit" className="mobile-search-button">
+                    <Search size={16} />
+                  </button>
+                </form>
+              </div>
+            </DialogPanel>
           </div>
         </Dialog>
       </nav>
