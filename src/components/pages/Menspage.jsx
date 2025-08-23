@@ -26,7 +26,7 @@ const MenPage = () => {
       price: 15.99,
       description: "Comfortable and stylish",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/black-hip-hop-tee.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/black-hip-hop-tee.png",
       stockQuantity: 45,
       sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     },
@@ -36,7 +36,7 @@ const MenPage = () => {
       price: 110.00,
       description: "Crisp formal Suit perfect for business and special occasions",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/cream-dress-suit.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/cream-dress-suit.png",
       stockQuantity: 29,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
@@ -46,7 +46,7 @@ const MenPage = () => {
       price: 75.99,
       description: "Elegant and warm overcoat",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/brown-over-coat.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/brown-over-coat.png",
       stockQuantity: 67,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
@@ -56,7 +56,7 @@ const MenPage = () => {
       price: 25.99,
       description: "Comfortable button-down shirt with a relaxed fit for everyday style",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/plain-white-shirt.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/plain-white-shirt.png",
       stockQuantity: 34,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
@@ -66,7 +66,7 @@ const MenPage = () => {
       price: 39.99,
       description: "Perfect for workouts and casual wear",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/active-outdoor-jacket.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/active-outdoor-jacket.png",
       stockQuantity: 78,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
@@ -76,7 +76,7 @@ const MenPage = () => {
       price: 50.75,
       description: "Comfy and Lazy",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/graphic-gaming-hoodie.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/graphic-gaming-hoodie.png",
       stockQuantity: 29,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
@@ -86,7 +86,7 @@ const MenPage = () => {
       price: 15.25,
       description: "Ah a man of culture",
       category: "men's clothing",
-      image: "src/assets/docs/images/product-images/mens-clothing/anime-tshirt.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/anime-tshirt.png",
       stockQuantity: 29,
       sizes: ["S", "M", "L", "XL", "XXL"],
     },
@@ -201,8 +201,9 @@ const MenPage = () => {
         </div>
         <div className="men-hero-image">
           <img
-          src="/images/mens/mens-group-photo.png"
+          src="https://leebri101.github.io/style-sheet/images/product-images/mens-clothing/mens-group-photo.png"
           alt="Men's group"
+          className="hero-image"
           onError={(e) => {
             e.target.src = "https://placehold.co/800x400/eee/aaa?text=Image+Not+Found";
             console.error('Image failed to load:', e.target.src);
