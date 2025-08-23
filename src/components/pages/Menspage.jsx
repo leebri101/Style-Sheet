@@ -201,7 +201,7 @@ const MenPage = () => {
         </div>
         <div className="men-hero-image">
           <img
-            src="src/assets/docs/images/product-images/mens-clothing/mens-group-photo.png"
+            src="src/assets/docs/images/mens-clothing/mens-group-photo.png"
             alt="Men's Fashion Collection"
             className="hero-image"
             onError={(e) => {
