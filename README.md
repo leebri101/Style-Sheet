@@ -46,22 +46,27 @@ Front-End Plus Project 3(Final):- E-commerce site with (mimic of popular site Un
 * As the owner i want to be able to manually input products at ease.
 * As the owner i want to be able to maintain the site with a minimalistic look to it.
 
-
-### **Wire-Frames:**
+### **Wire-Frames/Planning:**
 * To prevent any digressions towards the project aims & objectives I have made a basic but extensive wire-frame via [Figma](https://www.figma.com/board/vHAspXeCOVMmQAK0wSd84j/StyleSheet?node-id=0-1&t=wVfkPLIDmJAOUdCn-1) to refer back to in case of any major changes to the project. 
+* [Wireframes](docs/wireframes) were all designed in Figma for a standard structure and guidelines for main design. 
+    * [Checkout-Page](docs/wireframes/checkout-popup.png)
+    * [Filter-Options](docs/wireframes/filter-options.png)
+    * [Home-Page](docs/wireframes/home-page.png)
+    * [Kids-Page](docs/wireframes/kids-page.png)
+    * [Login-Page](docs/wireframes/login-page_create-acc.png)
+    * [Mens-Page](docs/wireframes/mens-page.png)
+    * [Payment-Confirm](docs/wireframes/payment-confirm.png)
+    * [Registration-Page](docs/wireframes/registration-page.png)
+    * [Womens-page](docs/wireframes/womens-page.png)
 
-[Wireframes](docs/wireframes) were all designed in Figma for a standard structure and guidelines for main design. 
-* [Checkout-Page](docs/wireframes/checkout-popup.png)
-* [Filter-Options](docs/wireframes/filter-options.png)
-* [Home-Page](docs/wireframes/home-page.png)
-* [Kids-Page](docs/wireframes/kids-page.png)
-* [Login-Page](docs/wireframes/login-page_create-acc.png)
-* [Mens-Page](docs/wireframes/mens-page.png)
-* [Payment-Confirm](docs/wireframes/payment-confirm.png)
-* [Registration-Page](docs/wireframes/registration-page.png)
-* [Womens-page](docs/wireframes/womens-page.png)
 
-There have been some considerable cosmetic changes to the site to improve the UX, however most of design was kept to original plan on the wire-frames. Some of these changes may or may not include:-
+* A Git hub project board was also made in place of digression.
+
+[Project-Board](https://github.com/users/leebri101/projects/13/views/1)
+
+![Github-Board](docs/assets/screenshots/github-project-tracker.png)
+
+There have been some considerable cosmetic changes to the site to improve the UX, however most of design was kept to original plan on the wire-frames. Some of these changes may include some of these features will be explained in the [**Potential-Features**](#future-enhancements) section:-
 * Slight changes in the overall design for simplicity
 * To not include the filter option due to the scale and time frame of the project.
 * A payment system. 
