@@ -200,7 +200,7 @@ You can visit the live link via this URL or on the top the README file- [Chef-De
 It was a nice refresher for me to comeback and re-learn JavaScript and to see how much I can make the quiz a lot better compared to the first one that I have created from the previous course that I attended, but however it was refreshing to see how much I can improve and learn, thinking beyond from last year from learning it from scratch to continuously think. "How can I make this better? What can I do to make it standout more? Or I think this would look better". From this I can see from myself that i have more qualities of being a good Web Developer (but there is  always room for improvement), but i must credit the following people:
  * John Lamontagne my coding mentor who is amazing at giving me advice, tips & tricks for always improving my projects, not only on a curricular base level, but in a real life perspective too, and to always make me think on the perspective of both teh user/owner, always giving a thorough analysis to ensure that I always achieve my highest potential as an upcoming developer 
 
-* My older brother for always being available for being a personal guinea pig for my projects (and as a non-coding person) and (with many more to come) and giving me constant constructive critical feedback all the time.
+
 
 ### **General reference:**
 * The project theme was based around a similar concept of the previous project i have made in the past, but of a different theme I made but with more changes to make it more effective, functional and clean with little to no bugs as possible to ensure a higher accuracy of clean code as good practice for entering into the industry, but to also make a fun short quiz for users to play. 
@@ -215,12 +215,11 @@ It was a nice refresher for me to comeback and re-learn JavaScript and to see ho
 * Color picker site [Image Color Picker](https://imagecolorpicker.com/)
 * Image compressions: [TinyPNG](https://tinypng.com/) 
 * For the basic and simple wire-frame design as a professional and practical project planning platform [Figma](https://www.figma.com/?fuid=).
-* Alternative image converter [FreeConvert](https://www.freeconvert.com/).
-* Image compress/converter [Convertio](https://convertio.co/). 
-* Google fonts for restaurants [Medium](https://medium.com/bentobox-design/font-pairings-our-favorite-google-fonts-for-restaurants-d157e4c5e5fd).
+* Alternative image converter [JPG Converter](https://jpgconverter.com/jpg-to-png).
+* Image compressor [CompressPNG](https://compresspng.com/). 
+* Alternative image compressor [iloveimg](https://www.iloveimg.com/)
 * First color palette [Color Hex](https://www.color-hex.com/color-palette/10105)
 * Second color palette [Color Hex](https://www.color-hex.com/color-palette/67983)
 * Background 
-Image [Unsplash](https://unsplash.com/photos/stainless-steel-cooking-pots-on-stove-0EkWTSFXwCc)
-* GIFs used in results section [Giphy](https://giphy.com/)
-* https://www.rapidtables.com/convert/color/hex-to-rgb.html?hex=ff6b6b Hex to Rgb converter
+Images/ images used in project [Unsplash](https://unsplash.com/photos/stainless-steel-cooking-pots-on-stove-0EkWTSFXwCc)
+*
