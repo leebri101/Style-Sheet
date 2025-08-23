@@ -96,7 +96,7 @@ const KidsPage = () => {
       price: 19.99,
       description: "The little gentleman",
       category: "kids",
-      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/boys-quarter-button-jumper.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/boys-qurter-button-jumper.png",
       stockQuantity: 56,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
