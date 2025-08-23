@@ -213,9 +213,8 @@ It was a nice refresher for me to comeback and re-learn JavaScript and to see ho
 
 ### **Media:**
 * Color picker site [Image Color Picker](https://imagecolorpicker.com/)
-* Image compressions: [TinyPNG](https://tinypng.com/) 
 * For the basic and simple wire-frame design as a professional and practical project planning platform [Figma](https://www.figma.com/?fuid=).
-* Alternative image converter [JPG Converter](https://jpgconverter.com/jpg-to-png).
+* Quick mass image converter [JPG Converter](https://jpgconverter.com/jpg-to-png).
 * Image compressor [CompressPNG](https://compresspng.com/). 
 * Alternative image compressor [iloveimg](https://www.iloveimg.com/)
 * First color palette [Color Hex](https://www.color-hex.com/color-palette/10105)
