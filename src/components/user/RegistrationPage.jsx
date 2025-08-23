@@ -39,7 +39,7 @@ const RegistrationForm = () => {
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
-
+  // submission of specified fields
   const handleSubmit = (e) => {
     e.preventDefault()
     if (validateForm()) {

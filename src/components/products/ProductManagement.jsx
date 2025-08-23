@@ -12,6 +12,7 @@ const ProductManagement = () => {
   const [imageUploadMethod, setImageUploadMethod] = useState("url") // 'url' or 'file'
   const [customProducts, setCustomProducts] = useState([])
 
+  {/*basic form data set*/}
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -64,7 +65,7 @@ const ProductManagement = () => {
       setImagePreview(value)
     }
   }
-
+  /*image upload*/
   const handleImageUpload = (e) => {
     const file = e.target.files[0]
     if (file) {
@@ -128,6 +129,7 @@ const ProductManagement = () => {
     }
   }
 
+  /*Reset state for form*/
   const resetForm = () => {
     setFormData({
       name: "",
@@ -157,7 +159,7 @@ const ProductManagement = () => {
           Add New Product
         </button>
       </div>
-
+      {/*product grid format*/}
       <div className="products-grid">
         {customProducts && customProducts.length > 0 ? (
           customProducts.map((product) => (

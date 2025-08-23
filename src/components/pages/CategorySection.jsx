@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchCategories } from "../../store/productSlice.js";
 import "./CategorySection.css";
 
+{/*main category card section*/}
 const mainCategories = [
   {
     name: "Men's",
@@ -50,6 +51,7 @@ const CategorySection = () => {
     return <div className="category-section-loading">Loading categories...</div>;
   }
 
+  {/*main category section*/}
   const renderMainCategories = () => (
     <div className="category-grid">
       {mainCategories.map((category) => (
@@ -68,6 +70,7 @@ const CategorySection = () => {
     </div>
   );
 
+  {/*coming soon section*/}
   const renderComingSoonCategories = () => (
     <div className="coming-soon-section">
       <div className="coming-soon-grid">

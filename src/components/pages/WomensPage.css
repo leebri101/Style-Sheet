@@ -359,7 +359,7 @@
   margin-bottom: 0.5rem;
 }
 
-/* Women's Product Grid Styles - Separate from carousel */
+/* Women's Product Grid Styles*/
 .women-product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

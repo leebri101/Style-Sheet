@@ -19,7 +19,7 @@ const MockApiInitializer = ({ children }) => {
       setApiStatus("checking")
       console.log("🔍 Checking FakeStore API status...")
 
-      // Test FakeStore API connectivity
+      //FakeStore API connectivity
       const response = await fetch("https://fakestoreapi.com/products?limit=1")
 
       if (!response.ok) {

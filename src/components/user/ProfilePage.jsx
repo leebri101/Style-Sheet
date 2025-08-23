@@ -40,6 +40,7 @@ const ProfilePage = () => {
     return null
   }
 
+  /*generic structure for profile page*/
   return (
     <div className="profile-page">
       <div className="profile-container">

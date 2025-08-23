@@ -17,7 +17,6 @@ const ProductCard = ({ product }) => {
   const handleAddToCart = (e) => {
     e.stopPropagation();
 
-    // Don't add coming soon items to cart
     if (isComingSoon) {
       return;
     }
@@ -39,7 +38,6 @@ const ProductCard = ({ product }) => {
   const handleWishlistToggle = (e) => {
     e.stopPropagation();
 
-    // Don't add coming soon items to wishlist
     if (isComingSoon) {
       return;
     }
@@ -58,7 +56,6 @@ const ProductCard = ({ product }) => {
   };
 
   const handleCardClick = () => {
-    // Don't navigate to product page for coming soon items
     if (isComingSoon) {
       return;
     }
@@ -171,6 +168,7 @@ const ProductCard = ({ product }) => {
   );
 };
 
+/*Prop types*/
 ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

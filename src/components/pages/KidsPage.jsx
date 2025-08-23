@@ -18,7 +18,7 @@ const KidsPage = () => {
     return name.toLowerCase().replace(/\s+/g, '-');
   };
 
-  // Kids clothing products with simplified format
+  // Kids clothing static products with simplified format
   const kidsProducts = [
     {
       id: generateId("Mickey Mouse T-Shirt"),

@@ -57,7 +57,7 @@ const CartPage = () => {
       </div>
     );
   }
-
+  {/*main cart page*/}
   return (
     <div className="cart-page">
       <div className="cart-page-header">
@@ -76,7 +76,7 @@ const CartPage = () => {
               <div className="cart-item-image">
                 <img src={item.image} alt={item.name} />
               </div>
-              
+              {/*Cart details*/}
               <div className="cart-item-details">
                 <h3 className="cart-item-name">{item.name}</h3>
                 <div className="cart-item-variants">
@@ -114,7 +114,7 @@ const CartPage = () => {
             </div>
           ))}
         </div>
-        
+        {/*Cart summary*/}
         <div className="cart-summary">
           <div className="summary-card">
             <h3>Order Summary</h3>
@@ -144,7 +144,7 @@ const CartPage = () => {
             <button className="checkout-btn">
               Proceed to Checkout
             </button>
-            
+            {/*Link to go back to home-page*/}
             <Link to="/" className="continue-shopping-link">
               Continue Shopping
             </Link>

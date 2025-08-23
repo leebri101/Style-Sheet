@@ -18,7 +18,7 @@ const MenPage = () => {
     return name.toLowerCase().replace(/\s+/g, '-');
   };
 
-  // Men's clothing products with simplified format
+  // Men's clothing static products with simplified format
   const mensProducts = [
     {
       id: generateId("Premium Graphic T-Shirt"),

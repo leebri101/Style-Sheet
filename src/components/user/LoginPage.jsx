@@ -28,6 +28,7 @@ const LoginPage = () => {
     }
   }
 
+  {/*empty validation inputs that require the user to input something*/}
   const validateForm = () => {
     const newErrors = {}
 
@@ -68,6 +69,7 @@ const LoginPage = () => {
     }
   }
 
+  /*login page form*/
   return (
     <div className="login-page">
       <div className="login-container">

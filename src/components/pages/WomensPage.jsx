@@ -18,7 +18,7 @@ const WomenPage = () => {
     return name.toLowerCase().replace(/\s+/g, '-');
   };
 
-  // Women's clothing products
+  // Women's clothing static products
   const womensProducts = [
     {
       id: generateId("Summer Set"),
@@ -169,6 +169,7 @@ const WomenPage = () => {
     );
   };
 
+  {/*to add items in wishlist*/}
   const handleWishlistToggle = (product) => {
     const isInWishlist = wishlistItems.some((item) => item.id === product.id);
 

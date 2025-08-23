@@ -10,7 +10,7 @@ const LimitedOfferCarousel = ({ products = [] }) => {
   const [selectedSizes, setSelectedSizes] = useState({})
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
-
+  {/*limited offer items*/}
   const limitedOffers =
     products.length > 0
       ? products.slice(0, 5).map((product, index) => ({

@@ -11,6 +11,7 @@ const SearchResultsPage = () => {
     const searchQuery = new URLSearchParams(location.search).get("q")
     const { searchResults, status, error } = useSelector((state) => state.products);
 
+    {/*manual search query of products*/}
     useEffect(() => {
         if (searchQuery) {
           dispatch(searchProducts(searchQuery))

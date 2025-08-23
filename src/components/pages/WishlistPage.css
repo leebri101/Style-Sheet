@@ -105,6 +105,7 @@
     transform: scale(1.05);
 }
 
+/*Remove wishlist item styling*/
 .remove-wishlist-btn {
     position: absolute;
     top: 12px;

@@ -28,7 +28,7 @@ const ProductGrid = ({ products: propProducts, loading: propLoading }) => {
     e.preventDefault(); // Prevent navigation to product detail
     e.stopPropagation(); // Prevent event bubbling
 
-    // Don't add coming soon items to wishlist
+    // Does not add coming soon items to wishlist
     if (product.comingSoon || product.price === null) {
       return;
     }

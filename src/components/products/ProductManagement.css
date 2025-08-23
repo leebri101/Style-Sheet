@@ -1,3 +1,4 @@
+/*Product Management styling */
 .product-management {
   max-width: 1200px;
   margin: 0 auto;
@@ -42,6 +43,7 @@
   box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3);
 }
 
+/*product grid styling*/
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -125,6 +127,7 @@
   background: #f7fafc;
 }
 
+/*button styling*/
 .edit-btn,
 .delete-btn {
   flex: 1;
@@ -238,6 +241,7 @@
   background: #f7fafc;
 }
 
+/*form styling*/
 .product-form {
   padding: 1.5rem;
 }

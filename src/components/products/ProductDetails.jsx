@@ -22,6 +22,7 @@ const ProductDetails = ({ product }) => {
     );
   }
 
+  {/*Wishlist functionality*/}
   const isInWishlist = wishlistItems.some((item) => item.id === product.id);
   const isComingSoon = product.comingSoon || product.price === null;
 
@@ -65,6 +66,7 @@ const ProductDetails = ({ product }) => {
     }
   };
 
+  {/*product rating*/}
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);

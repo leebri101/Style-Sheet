@@ -1,3 +1,4 @@
+/*base page styling*/
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -39,6 +40,7 @@
   margin-bottom: 1.5rem;
 }
 
+/*login form styling*/
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;

@@ -16,10 +16,10 @@ const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const autoPlayRef = useRef(null);
 
-  // Safely get limited offer products with default empty array
+  // Limited offer products with default empty array
   const limitedOfferProducts = products?.length > 0 ? products.slice(0, Math.min(5, products.length)) : [];
   
-  // Safely get remaining products for the grid
+  // Remaining products for the grid
   const gridProducts = products?.length > 5 ? products.slice(5, 15) : [];
 
   useEffect(() => {
@@ -77,10 +77,10 @@ const HomePage = () => {
   // GBP pricing structure for products
   const getDiscountedPrice = (productId) => {
     const gbpPriceMap = {
-      1: 85.00, // Jewelry
+      1: 85.00, // Jewelry (not available)
       2: 45.99, // Men's Clothing
       3: 35.99, // Women's Clothing
-      4: 25.99, // Women's Clothing
+      4: 25.99, // Kids's Clothing
       5: 75.00, // Electronics
     };
 
@@ -160,6 +160,7 @@ const HomePage = () => {
                   </button>
                 )}
                 
+                {/*Carousel*/}
                 <div className="carousel-content">
                   {limitedOfferProducts.map((product, index) => {
                     const { originalPrice, discountedPrice, discountPercentage } = getDiscountedPrice(product.id);

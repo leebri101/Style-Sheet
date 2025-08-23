@@ -19,6 +19,7 @@
   text-align: center;
 }
 
+/*loading/error/empty styling */
 .search-results-loading,
 .search-results-error,
 .search-results-empty {

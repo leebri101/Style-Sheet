@@ -1,3 +1,4 @@
+/*limited offer carousel styling*/
 .limited-offer-carousel {
   max-width: 1280px;
   margin: 0 auto;
@@ -75,6 +76,7 @@
   transition: transform 0.5s ease-in-out;
 }
 
+/*product showcase styling*/
 .product-showcase-carousel {
   display: grid;
   grid-template-columns: 1fr;
@@ -126,6 +128,7 @@
   opacity: 0.9;
 }
 
+/*misc styling options*/
 .product-info-carousel {
   display: flex;
   flex-direction: column;
@@ -176,6 +179,7 @@
   line-height: 1.6;
 }
 
+/*filter and button*/
 .size-selector-carousel {
   margin-bottom: 2rem;
 }
@@ -246,6 +250,7 @@
   margin-right: 0.5rem;
 }
 
+/*wishlist styling*/
 .favorite-button-carousel {
   display: flex;
   align-items: center;
@@ -374,6 +379,7 @@
   color: #667eea;
 }
 
+/*repsonsive styling */
 @media (min-width: 1024px) {
   .product-showcase-carousel {
     grid-template-columns: 1fr 1fr;

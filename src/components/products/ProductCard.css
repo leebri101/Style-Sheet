@@ -1,7 +1,7 @@
 /* Product Card Styles - Updated for API Images and Smooth Functionality */
 
+/* Base card styling */
 .product-card {
-  /* Base card styling */
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
