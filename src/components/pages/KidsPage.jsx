@@ -26,7 +26,7 @@ const KidsPage = () => {
       price: 18.99,
       description: "Everyone's favorite cartoon mouse",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/mickey-mouse-tee.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/mickey-mouse-tee.png",
       stockQuantity: 45,
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
@@ -36,7 +36,7 @@ const KidsPage = () => {
       price: 32.99,
       description: "Simple and stylish",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/basic-grey-sweatshirt.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/basic-grey-sweatshirt.png",
       stockQuantity: 38,
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
@@ -46,7 +46,7 @@ const KidsPage = () => {
       price: 28.99,
       description: "Dress like a minion",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/teens-denim-overalls.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/teens-denim-overalls.png",
       stockQuantity: 52,
       sizes: ["2", "3", "4", "5", "6", "7", "8", "10", "12"],
     },
@@ -56,7 +56,7 @@ const KidsPage = () => {
       price: 39.99,
       description: "Summer, cheerful and cute",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/kids-yellow-sweatshirt.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/kids-yellow-sweatshirt.png",
       stockQuantity: 29,
       sizes: ["10", "11", "12", "13", "1", "2", "3", "4", "5"],
     },
@@ -66,7 +66,7 @@ const KidsPage = () => {
       price: 22.99,
       description: "Perfect for the colder weather",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/basic-green-hoodie.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/basic-green-hoodie.png",
       stockQuantity: 41,
       sizes: ["2", "3", "4", "5", "6", "7", "8"],
     },
@@ -76,7 +76,7 @@ const KidsPage = () => {
       price: 35.99,
       description: "For the great outdoors",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/fox-outdoor-coat.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/fox-outdoor-coat.png",
       stockQuantity: 33,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10"],
     },
@@ -86,7 +86,7 @@ const KidsPage = () => {
       price: 26.99,
       description: "Pink and pretty",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/pink-dress.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/pink-dress.png",
       stockQuantity: 47,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8"],
     },
@@ -96,7 +96,7 @@ const KidsPage = () => {
       price: 19.99,
       description: "The little gentleman",
       category: "kids",
-      image: "src/assets/docs/images/product-images/kids-clothing/boys-quarter-button-jumper.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/boys-quarter-button-jumper.png",
       stockQuantity: 56,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
@@ -106,7 +106,7 @@ const KidsPage = () => {
       price: 23,
       description: "Cute and playful",
       category: "kids",
-      image:"src/assets/docs/images/product-images/kids-clothing/polka-dot-dress.png",
+      image:"https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/polka-dot-dress.png",
       stockQuantity: 22,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
@@ -116,7 +116,7 @@ const KidsPage = () => {
       price: 21.99,
       description: "Warm, Soft and cute",
       category: "kids",
-      image:"src/assets/docs/images/product-images/kids-clothing/kids-snuggly-sweatshirt.png", 
+      image:"https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/kids-snuggly-sweatshirt.png", 
       stockQuantity: 56,
       sizes: ["2T", "3T", "4T", "5T", "6", "7", "8", "10", "12"],
     },
@@ -201,7 +201,7 @@ const KidsPage = () => {
         </div>
         <div className="kids-hero-image">
           <img
-            src="src/assets/docs/images/product-images/kids-clothing/kids-playing.png"
+            src="https://leebri101.github.io/style-sheet/images/product-images/kids-clothing/kids-playing.png"
             alt="Kids Fashion Collection"
             className="hero-image"
             onError={(e) => {

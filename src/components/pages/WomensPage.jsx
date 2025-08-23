@@ -26,7 +26,7 @@ const WomenPage = () => {
       price: 45.99,
       description: "Light and breezy",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/summer-set.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/summer-set.png",
       stockQuantity: 32,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
@@ -36,7 +36,7 @@ const WomenPage = () => {
       price: 35.55,
       description: "Elegant for office or casual wear",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/linen-dress.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/linen-dress.png",
       stockQuantity: 45,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
@@ -46,7 +46,7 @@ const WomenPage = () => {
       price: 65.99,
       description: "Classic jacket for all seasons",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/brown-overcoat.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/brown-overcoat.png",
       stockQuantity: 28,
       sizes: ["S", "M", "L", "XL"],
     },
@@ -56,7 +56,7 @@ const WomenPage = () => {
       price: 25.99,
       description: "Comfortable and stylish summer top",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/white-graphic-crop-top.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/white-graphic-crop-top.png",
       stockQuantity: 56,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
@@ -66,7 +66,7 @@ const WomenPage = () => {
       price: 89.99,
       description: "Great to break a sweat in",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/womens-fitness-wear.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/womens-fitness-wear.png",
       stockQuantity: 18,
       sizes: ["XS", "S", "M", "L"],
     },
@@ -76,7 +76,7 @@ const WomenPage = () => {
       price: 25.99,
       description: "Sharp & for any settings",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/relaxed-linen-stripe-shirt.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/relaxed-linen-stripe-shirt.png",
       stockQuantity: 22,
       sizes: ["S", "M", "L", "XL"],
     },
@@ -86,7 +86,7 @@ const WomenPage = () => {
       price: 42.99,
       description: "Cozy sweater for colder days",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/polyester-quarter-zip.png", 
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/polyester-quarter-zip.png", 
       stockQuantity: 38,
       sizes: ["XS", "S", "M", "L", "XL"],
     },
@@ -96,7 +96,7 @@ const WomenPage = () => {
       price: 38.50,
       description: "Flowy maxi skirt for a bohemian look",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/white-skirt.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/white-skirt.png",
       stockQuantity: 41,
       sizes: ["XS", "S", "M", "L"],
     },
@@ -106,7 +106,7 @@ const WomenPage = () => {
       price: 50.55,
       description: "Stylish, Versatile, Trendy",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/flared-denim-jeans.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/flared-denim-jeans.png",
       stockQuantity: 15,
       sizes: ["XS", "S", "M", "L"],
     },
@@ -116,7 +116,7 @@ const WomenPage = () => {
       price: 45.99,
       description: "Subtle & great for the cold weather",
       category: "women's clothing",
-      image: "src/assets/docs/images/product-images/womens-clothing/grey-turtle-neck.png",
+      image: "https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/grey-turtle-neck.png",
       stockQuantity: 25,
       sizes: ["XS", "S", "M", "L"],
     },
@@ -201,7 +201,7 @@ const WomenPage = () => {
         </div>
         <div className="women-hero-image">
           <img
-            src="src/assets/docs/images/product-images/womens-clothing/woman-shopping.png"
+            src="https://leebri101.github.io/style-sheet/images/product-images/womens-clothing/woman-shopping.png"
             alt="Women's Fashion Collection"
             className="hero-image"
             onError={(e) => {
