@@ -201,13 +201,13 @@ const MenPage = () => {
         </div>
         <div className="men-hero-image">
           <img
-            src="src/assets/docs/images/mens-clothing/mens-group-photo.png"
-            alt="Men's Fashion Collection"
-            className="hero-image"
-            onError={(e) => {
-              e.target.src = "https://placehold.co/800x400/eee/aaa?text=Men's+Collection";
+          src="/images/mens/mens-group-photo.png"
+          alt="Men's group"
+          onError={(e) => {
+            e.target.src = "https://placehold.co/800x400/eee/aaa?text=Image+Not+Found";
+            console.error('Image failed to load:', e.target.src);
             }}
-          />
+            />
         </div>
       </div>
 
