@@ -52,17 +52,21 @@ Front-End Plus Project 3(Final):- E-commerce site with (mimic of popular site Un
 ### **Wire-Frames:**
 * To prevent any digressions towards the project aims & objectives I have made a basic but extensive wire-frame via [Figma](https://www.figma.com/board/vHAspXeCOVMmQAK0wSd84j/StyleSheet?node-id=0-1&t=wVfkPLIDmJAOUdCn-1) to refer back to in case of any major changes to the project. 
 
-[Wireframes] (docs/wireframes) were all designed in Figma for a standard structure and guidelines for main design. 
-* [wireframes](src/assets/docs/wireframes)
-* [](doc/wireframes/placeholder-name.png)
-* [](doc/wireframes/q-and-a.png)
-* [](doc/wireframes/feedback.png)
+[Wireframes](docs/wireframes) were all designed in Figma for a standard structure and guidelines for main design. 
+* [Checkout-Page](docs/wireframes/checkout-popup.png)
+* [Filter-Options](docs/wireframes/filter-options.png)
+* [Home-Page](docs/wireframes/home-page.png)
+* [Kids-Page](docs/wireframes/kids-page.png)
+* [Login-Page](docs/wireframes/login-page_create-acc.png)
+* [Mens-Page](docs/wireframes/mens-page.png)
+* [Payment-Confirm](docs/wireframes/payment-confirm.png)
+* [Registration-Page](docs/wireframes/registration-page.png)
+* [Womens-page](docs/wireframes/womens-page.png)
 
-There have been some considerable cosmetic changes to the static site to improve the UX, however most of design was kept to original plan on the wire-frames. Some of these changes may include:-
-* An interactive CTA(Call-To-Action) button for the user to use.
-* A placeholder which prompts users to enter their name to start the quiz.
-* A mixture 10 of cooking/food related questions which are randomized, with 4 options at which the user is prompted to answer the question.
-* A Results/Feedback pop-up which displays the users score and a funny custom message (dependant on the range of the score) to the user as well as a animated image or GIF. 
+There have been some considerable cosmetic changes to the site to improve the UX, however most of design was kept to original plan on the wire-frames. Some of these changes may include:-
+* 
+* 
+* 
 
 ### **Reused Code:**
 * Some of the code that has been used in this project have been re-used from the previous projects due to the simple and effective structure it has on the layout of the final design.
